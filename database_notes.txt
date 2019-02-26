@@ -1,6 +1,6 @@
 #1 Cars table
 Status is an INTEGER, so:
-	0 = an a job;
+	0 = a;
 	1 = active;
 	2 = not active;
 Type is an INTEGER, so:
