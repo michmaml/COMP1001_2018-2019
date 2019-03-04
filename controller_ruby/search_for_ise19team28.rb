@@ -21,6 +21,6 @@ end
 get '/twitter_search' do
     search_string = "ise19team28"
     results = @client.search(search_string)
-    @tweets = results.take(20)
+    @tweets = results.take(200000)
   erb :twitter_search
 end
