@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+<body>
+<% unless @tweets.nil? %>
+    <% if @tweets.length == 0 %>
+        <p>No search results found!</p>
+    <% else %>
+        <br />
+        <table border="1">
+            <tr>
+              <th>ID</th>
+              <th>User who requested a taxi</th>
+              <th>Text including "ise19team28"</th>
+            </tr>
+            <% @tweets.each do |tweet| %>
+                <tr>
+                  <td>
+                    <a href="<%= tweet.uri %>">
+                      <%= tweet.id %>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="<%= tweet.user.uri %>">
+                      <%= tweet.user.screen_name %>
+                    </a>
+                  </td>
+                  <td>
+                    <%= tweet.text %>
+                  </td>
+            </tr>
+            <% end %>
+        </table>
+    <% end %>
+<% end %>
+</body>
+</html>
