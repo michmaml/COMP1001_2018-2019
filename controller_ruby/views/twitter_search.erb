@@ -9,17 +9,17 @@
         <br />
         <table border="1">
             <tr>
-              <th>ID</th>
+             <!-- <th>ID</th> -->
               <th>User who requested a taxi</th>
               <th>Text including "ise19team28"</th>
             </tr>
             <% @tweets.each do |tweet| %>
                 <tr>
-                  <td>
-                    <a href="<%= tweet.uri %>">
-                      <%= tweet.id %>
+                <!--   <td>
+                   <a href="<%= tweet.uri %>"> -->
+                  <!--    <%= tweet.id %> 
                     </a>
-                  </td>
+                  </td> -->
                   <td>
                     <a href="<%= tweet.user.uri %>">
                       <%= tweet.user.screen_name %>

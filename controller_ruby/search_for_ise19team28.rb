@@ -24,3 +24,10 @@ get '/twitter_search' do
     @tweets = results.take(200000)
   erb :twitter_search
 end
+
+get '/twitter_search_user' do 
+    search_string = "ise19team28"
+    results = @client.search(search_string)
+    @tweets = results.take(200000)
+  erb :twitter_search_user
+end
