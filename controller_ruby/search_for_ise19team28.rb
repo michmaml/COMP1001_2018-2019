@@ -18,6 +18,9 @@ before do
    # @db = SQLite3::Database.new './....'
 end
 
+#
+#searches through all of the tweets that include ise19team28 and displays them
+#
 get '/twitter_search' do
     search_string = "ise19team28"
     results = @client.search(search_string)
@@ -25,9 +28,19 @@ get '/twitter_search' do
   erb :twitter_search
 end
 
+
+
+
+#
+#searches through all of the tweets that include ise19team28 and displays them for specific users, 
+#needs to be connected to the db to do it automatically
+#
+
 get '/twitter_search_user' do 
-    search_string = "ise19team28"
-    results = @client.search(search_string)
-    @tweets = results.take(200000)
+    if tweet.user.screen_name === client.user("MichalSekulski") then
+        search_string = "ise19team28"
+        results = @client.search(search_string)
+        @tweets = results.take(200000)
+    end
   erb :twitter_search_user
 end
