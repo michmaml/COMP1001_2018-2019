@@ -4,7 +4,6 @@
     <%= erb :header %>
 </head>
 <body>
-    <% if session[:logged_in] != true %>
         <div >
             <form action="/login" method="post">
                 <p>Username: <input type="text" name="username"/></p>
@@ -14,13 +13,12 @@
             </form>
             <p><a href="">Forgotten Password?</a></p>
             <br>
-            <p><a href="">Register Now</a></p>
+            <p><a href="/register">Register Now</a></p>
 
             <% unless @error.nil?%>
                 <p><%= @error %></p>
             <%end%>
         </div>  
-    <% end %>
 </body>
 </html>
 

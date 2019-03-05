@@ -5,11 +5,9 @@ include ERB::Util
 set :bind, '0.0.0.0' # needed if you're running from codio
 
 enable :sessions
-
 set :session_secret, 'super secret'
 
 nametest = 'Bill Murray'
-
 
 get '/' do
     redirect 'login'
@@ -39,7 +37,7 @@ post '/login' do
         session[:logged_in] = true
         redirect '/profile'
     end
-    @error = "password incorrect"
+    @error = "password incorrect"#needs sorting
     erb :login
 end
 
@@ -50,4 +48,8 @@ end
 
 get '/profile' do
     erb :profile
+end
+
+get '/register' do
+    erb :register
 end
