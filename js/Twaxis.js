@@ -14,14 +14,15 @@ var Twaxis = {
 			request.setRequestHeader("Content-Type", "application/json");
 			data = JSON.stringify(data);
 		}
-		request.responseType = "text";
+		// Uncomment if we need to force the returned data type.
+		//request.responseType = "text";
 		request.addEventListener("load", callback);
 		request.send(data);
 		
 		return request;
 	},
 	
-	// Specific function for AJAX GET calls.
+	// Specific function for GET requests.
 	get: function (url, callback) {
 		return ajax("GET", url, null, callback);
 	},
