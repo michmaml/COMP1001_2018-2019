@@ -32,4 +32,4 @@ var Twaxis = {
 	post: function (url, data, callback) {
 		return ajax("POST", url, data, callback);
 	}
-}
+};
