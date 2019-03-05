@@ -1,10 +1,20 @@
 puts "This is a process #{Process.pid}"
 require 'sinatra'
+require 'erb'
+include ERB::Util
 set :bind, '0.0.0.0' # needed if you're running from codio
+
+enable :sessions
+
+set :session_secret, 'super secret'
 
 nametest = 'Bill Murray'
 
 get '/' do
+    redirect 'login'
+end
+
+get '/admin' do
     @name = 'Bill'
     @to_location = 'Away'
     @from_location = 'Home'
@@ -13,9 +23,22 @@ get '/' do
     erb :admin
 end
 
-get '/1' do
+get '/car_table' do
     @lists = ['1','2','3']
     @listed = ['3','1','2']
     erb :car_table
+end
+
+get '/login' do
+    erb :login
+end
+
+post '/login' do 
+    if params[:password] == 'test'
+        session[:logged_in] = true
+        redirect '/car_table'
+    end
+    @error = "password incorrect"
+    erb :login
 end
 

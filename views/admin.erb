@@ -1,13 +1,14 @@
 <!doctype html>
 <html>
 <head>
+    <%= erb :header %>
 </head>
 <body>
     <div>
-        <p><span><%= @name %></span> | <span><%= @full_name %></span></p>
-        <p>From: <%= @from_location %></p>
-        <p>To:<%= @to_location %></p>
-        <p><%= @tweet_text %></p>  
+        <p><span><%=h @name %></span> | <span><%=h @full_name %></span></p>
+        <p>From: <%=h @from_location %></p>
+        <p>To:<%=h @to_location %></p>
+        <p><%=h @tweet_text %></p>  
     </div>
 </body>
 </html>
