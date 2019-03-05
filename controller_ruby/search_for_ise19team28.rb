@@ -36,11 +36,8 @@ end
 #needs to be connected to the db to do it automatically
 #
 
-get '/twitter_search_user' do 
-    if tweet.user.screen_name === client.user("MichalSekulski") then
-        search_string = "ise19team28"
-        results = @client.search(search_string)
-        @tweets = results.take(200000)
-    end
-  erb :twitter_search_user
+get '/twitter_search_user' do    
+    @tweets = @client.user_timeline('MichalSekulski')
+    @keyword = '@ise19team28'
+    erb :twitter_search_user
 end

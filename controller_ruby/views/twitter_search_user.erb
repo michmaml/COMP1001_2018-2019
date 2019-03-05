@@ -9,26 +9,22 @@
         <br />
         <table border="1">
             <tr>
-             <!-- <th>ID</th> -->
-              <th>User's tweets</th>
-              <th>Text including "ise19team28"</th>
+                <th>User's tweets</th>
+                <th>Text including "ise19team28"</th>
             </tr>
             <% @tweets.each do |tweet| %>
-                <tr>
-                <!--   <td>
-                   <a href="<%= tweet.uri %>"> -->
-                  <!--    <%= tweet.id %> 
-                    </a>
-                  </td> -->
-                  <td>
-                    <a href="<%= tweet.user.uri %>">
-                      <%= tweet.user.screen_name %>
-                    </a>
-                  </td>
-                  <td>
-                    <%= tweet.text %>
-                  </td>
-            </tr>
+                <% if(tweet.text.include?(@keyword)) %>
+                    <tr>
+                        <td>
+                            <a href="<%= tweet.user.uri %>">
+                                <%= tweet.user.screen_name %>
+                            </a>
+                        </td>
+                        <td>
+                            <%= tweet.text %>
+                        </td>
+                    </tr>
+                <% end %>
             <% end %>
         </table>
     <% end %>
