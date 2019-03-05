@@ -25,11 +25,11 @@ var Twaxis = {
 	
 	// Specific function for GET requests.
 	get: function (url, callback) {
-		return ajax("GET", url, null, callback);
+		return this.ajax("GET", url, null, callback);
 	},
 	
 	// Specific function to POST data with AJAX... use this!
 	post: function (url, data, callback) {
-		return ajax("POST", url, data, callback);
+		return this.ajax("POST", url, data, callback);
 	}
 };
