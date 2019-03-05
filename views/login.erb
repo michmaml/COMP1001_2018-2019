@@ -12,10 +12,12 @@
                 <p>Password: <input type="password" name="password"/></p>
                 <input type="submit" name="Submit"/>
             </form>
+            <p><a href="">Forgotten Password?</a></p>
+            <br>
+            <p><a href="">Register Now</a></p>
 
             <% unless @error.nil?%>
                 <p><%= @error %></p>
-                <p><%= params[:password] %></p>
             <%end%>
         </div>  
     <% end %>
