@@ -4,19 +4,21 @@
     <%= erb :header %>
 </head>
 <body>
-    <div >
-        <form action="/login" method="post">
-            <p>Username: <input type="text" name="username"/></p>
-            <br>
-            <p>Password: <input type="password" name="password"/></p>
-            <input type="submit" name="Submit"/>
-        </form>
-        
-        <% unless @error.nil?%>
-            <p><%= @error %></p>
-            <p><%= params[:password] %></p>
-        <%end%>
-    </div>  
+    <% if session[:logged_in] != true %>
+        <div >
+            <form action="/login" method="post">
+                <p>Username: <input type="text" name="username"/></p>
+                <br>
+                <p>Password: <input type="password" name="password"/></p>
+                <input type="submit" name="Submit"/>
+            </form>
+
+            <% unless @error.nil?%>
+                <p><%= @error %></p>
+                <p><%= params[:password] %></p>
+            <%end%>
+        </div>  
+    <% end %>
 </body>
 </html>
 

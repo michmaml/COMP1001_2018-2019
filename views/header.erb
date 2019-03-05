@@ -6,7 +6,11 @@
     <h1>Twaxis</h1>
     <ul>
         <li><a href="/car_table">Car Table</a></li>
-        <li><a href="/login">Login</a></li>
+        <% if session[:logged_in] != true %>
+            <li><a href="/login">Login</a></li>
+        <% else %>
+            <li><a href="/logout">Logout</a></li>
+        <% end %>
         <li><a href="/admin">Admin</a></li>
     </ul>
 </body>

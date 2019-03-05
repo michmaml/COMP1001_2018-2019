@@ -42,3 +42,7 @@ post '/login' do
     erb :login
 end
 
+get '/logout' do
+    session.clear
+    redirect '/car_table'
+end
