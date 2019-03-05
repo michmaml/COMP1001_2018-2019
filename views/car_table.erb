@@ -14,7 +14,6 @@
         <br>
     </div>  
     <script>
-        
         function myFunction(){
         var i;
         var k = <%= @lists.length() %>;
@@ -27,6 +26,9 @@
             cell2.innerHTML = <%= @listed %>[i];
         }}
     </script> 
+    <div>
+        <button type="button" name="add" onclick="">Add</button>
+    </div>
 </body>
 </html>
 

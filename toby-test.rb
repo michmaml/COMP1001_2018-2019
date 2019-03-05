@@ -10,6 +10,7 @@ set :session_secret, 'super secret'
 
 nametest = 'Bill Murray'
 
+
 get '/' do
     redirect 'login'
 end
@@ -34,9 +35,9 @@ get '/login' do
 end
 
 post '/login' do 
-    if params[:password] == 'test'
+    if params[:password] == 'test' && params[:username] == 'test'
         session[:logged_in] = true
-        redirect '/car_table'
+        redirect '/profile'
     end
     @error = "password incorrect"
     erb :login
@@ -44,5 +45,9 @@ end
 
 get '/logout' do
     session.clear
-    redirect '/car_table'
+    redirect '/login'
+end
+
+get '/profile' do
+    erb :profile
 end
