@@ -9,14 +9,15 @@ var Twaxis = {
 	ajax: function (method, url, data, callback) {
 		
 		var request = new XMLHttpRequest;
+		
 		request.open(method, url);
 		if (typeof data == "object") {
 			request.setRequestHeader("Content-Type", "application/json");
 			data = JSON.stringify(data);
 		}
-		// Uncomment if we need to force the returned data type.
-		//request.responseType = "text";
-		request.addEventListener("load", callback);
+		if (callback) {
+			request.addEventListener("load", callback);
+		}
 		request.send(data);
 		
 		return request;
