@@ -37,6 +37,7 @@ var Twaxis = {
 			request.send(data);
 		}
 		
+		console.log(url +"\n"+ data);
 		return request;
 	},
 	
