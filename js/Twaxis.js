@@ -8,24 +8,41 @@ var Twaxis = {
 	// Generic method for AJAX calls; probably easier to use .get() or .post(), see below.
 	ajax: function (method, url, data, callback) {
 		
-		var request = new XMLHttpRequest;
+		var request = new XMLHttpRequest();
 		
 		request.open(method, url);
-		if (typeof data == "object") {
-			request.setRequestHeader("Content-Type", "application/json");
-			data = JSON.stringify(data);
-		}
-		if (callback) {
+		
+		if (typeof callback == "function") {
 			request.addEventListener("load", callback);
 		}
-		request.send(data);
+		
+		if (typeof data == "object") {
+			var serial = [];
+			for (var property in data) {
+				serial.push(property +"="+ data[property]);
+			}
+			data = serial.join("&");
+			
+			if (method.toUpperCase() == "POST") {
+				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				data = encodeURI(data).replace(/%20/g, "+");
+			}
+		}
+		
+		if (method.toUpperCase() == "GET") {
+			url += "?"+ encodeURI(data);
+			request.send();
+		}
+		else {
+			request.send(data);
+		}
 		
 		return request;
 	},
 	
 	// Specific function for GET requests.
-	get: function (url, callback) {
-		return this.ajax("GET", url, null, callback);
+	get: function (url, data, callback) {
+		return this.ajax("GET", url, data, callback);
 	},
 	
 	// Specific function to POST data with AJAX... use this!
