@@ -104,6 +104,15 @@ button.red, input[type="submit"].red {
 	color: white;
 }
 
+ul{
+    list-style-type:none; 
+    display:inline-block;
+}
+
+li{
+    display:inline;
+    padding: 0px 5px;
+}
 
 /*** Page classes ***/
 
@@ -197,6 +206,15 @@ button.red, input[type="submit"].red {
 .brand {
 	font-family: "Comfortaa", "Helvetica Neue", "Arial", sans-serif;
 	font-weight: bold;
+    display:inline-block;
+}
+
+.headerlinks{
+    color: rgb(255, 255, 255);
+}
+
+.headerlinks:hover{
+    text-decoration:none;
 }
 
 .blue {

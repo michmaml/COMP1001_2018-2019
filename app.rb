@@ -10,7 +10,7 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-require 'sinatra/reloader'	# Development use only
+#require 'sinatra/reloader'	# Development use only
 
 require 'twitter'
 
@@ -47,7 +47,7 @@ end
 
 # Home
 get '/' do
-	if session[:user_login]
+	if session[:user_login] or session[:admin_login] #check for admin(Toby)
 		@view = :welcome
 	else
 		@view = :home
@@ -76,6 +76,11 @@ get '/account' do
 		require_relative 'controllers/fetch_users.rb'
 	
 		@view = :account
+        
+    elsif session[:admin_login] # check for admin (Toby)
+        
+        @view = :admin
+        
 	else
 		@view = :log_in
 	end
