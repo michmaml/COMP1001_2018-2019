@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<body onload="myFunction()">
+    <div >
+        <table id="test" >
+            <tr>
+                <th>A</th>
+                <th>B</th>
+            </tr>
+        </table>     
+        <br>
+    </div>  
+    <script>
+        function myFunction(){
+        var i;
+        var k = <%= @lists.length() %>;
+        var table = document.getElementById("test");
+        for (i = 0; i <k;i++){
+            var row = table.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = <%= @lists %>[i];
+            cell2.innerHTML = <%= @listed %>[i];
+        }}
+    </script> 
+    <div>
+        <button type="button" name="add" onclick="Twaxis.post(url, data);">Add</button>
+    </div>
+</body>
+</html>
+

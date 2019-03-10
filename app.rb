@@ -34,7 +34,7 @@ before do
 	@db = SQLite3::Database.new('models/Twaxis.sqlite')
 	
 	# FOR DEVELOPMENT ONLY!!!
-	session[:admin_login] = true
+	session[:admin_login] = false
 	session[:user_login] = false
 	#session[:first_name] = 'customer'
 end
