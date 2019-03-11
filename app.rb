@@ -10,7 +10,7 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-require 'sinatra/reloader'	# Development use only
+#require 'sinatra/reloader'	# Development use only
 
 require 'twitter'
 
@@ -108,8 +108,12 @@ end
 
 # Users
 get '/users' do
-	if session[:admin_login]
-		
+	if session[:admin_login] 
+            user_id = "abc"
+            query = %{SELECT pickup_location, date, time 
+                      From Orders
+                      WHERE UserID = '%#{user_id}%'}
+            @results = @db.execute query
 		# Fetch filtered list of users / specific details of user
 		require_relative 'controllers/fetch_users.rb'
 	
