@@ -4,3 +4,9 @@
 # <name here>
 
 
+get '/find_tweets' do
+    search_string = "ise19team28"
+    results = @client.search(search_string)
+    @tweets = results.take(200000)
+    erb: orders
+end
