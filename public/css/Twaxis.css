@@ -1,0 +1,208 @@
+/* Twaxis.css
+ * CSS stylesheet for Twaxis web application
+ * COM1001 Spring Semester Assignment 2019
+ * Jamie Huddlestone
+ */
+
+ 
+/*** Font imports ***/
+
+@import url("https://fonts.googleapis.com/css?family=Comfortaa:700");
+
+
+/*** General tag styles ***/
+
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-color: rgb(29, 161, 242);	/* Twitter blue */
+	font-family: "Helvetica Neue", "Arial", sans-serif;
+}
+
+header {
+	position: sticky;
+	top: 0;
+	padding: 1em;
+	box-shadow: 0 0 0.5em rgb(29, 161, 242);
+	background-color: inherit;
+	color: white;
+}
+
+header>* {
+	margin: 0;	
+}
+
+article {
+	margin: 1em;
+	border-radius: 1em;
+	padding: 1em;
+	overflow: auto;
+	box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25);
+	background-color: white;
+}
+
+footer {
+	padding: 1em;
+	text-align: center;
+	color: white;
+}
+
+hr {
+	border: 1px solid rgb(29, 161, 242);	/* Twitter blue */
+}
+
+a {
+	outline: none;
+	text-decoration: none;
+	font-weight: bold;
+	color: rgb(29, 161, 242);				/* Twitter blue */
+}
+
+a:hover {
+	text-decoration: underline;	
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+	display: block;
+	width: calc(100% - 1em);
+	margin: 0.5em 0;
+	border: 1px solid silver;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+}
+
+button, input[type="submit"] {
+	display: inline-block;
+	margin: 0.25em 0;
+	border: none;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	background-color: silver;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: bold;
+	color: white;
+	cursor: pointer;
+}
+
+button.blue, input[type="submit"].blue {
+	background-color: rgb(29, 161, 242);	/* Twitter blue */
+	color: white;
+}
+
+button.red, input[type="submit"].red {
+	background-color: crimson;
+	color: white;
+}
+
+
+/*** Page classes ***/
+
+.welcome body, .home body {
+	height: 100%;
+	background-image: url("../images/background.jpg");
+	/* https://pixnio.com/miscellaneous/person-woman-mobile-phone-car-standing-airport-waiting-taxi */
+}
+
+.welcome main, .home main {
+	padding: 1em;
+	text-align: center;
+	color: white;
+}
+
+.welcome main h1, .home main h1 {
+	margin: 1em 0;
+	text-shadow: 0 0 0.1em rgba(0, 0, 0, 0.5);
+	font-size: 10vmin;
+}
+
+.orders article table {
+	table-layout: fixed;
+	width: 25em;
+}
+
+.orders article th {
+	text-align: left;
+	font-weight: normal;
+	font-size: 0.75em;
+	color: gray;
+}
+
+.orders article td {
+	font-weight: bold;
+}
+
+.orders article input[type="text"] {
+	width: calc(100% - 5em);
+	border: none;
+	padding: 0.5em 0;
+}
+
+
+/*** Twitter data classes ***/
+
+.tweet-user-name {
+	font-weight: bold;
+}
+
+.tweet-user-screen_name {
+	color: rgb(29, 161, 242);				/* Twitter blue */
+}
+
+.tweet-created_at {
+	font-size: 0.75em;
+	color: gray;
+}
+
+
+/*** General classes ***/
+
+.hidden {
+	display: none;
+}
+
+.float-right {
+	float: right;
+}
+
+.center {
+	text-align: center;
+}
+
+.huge, .double {
+	font-size: 2em;
+}
+
+.large, .big {
+	font-size: 1.5em;
+}
+
+.small, .little {
+	font-size: 0.75em;
+}
+
+.tiny, .half {
+	font-size: 0.5em;
+}
+
+.brand {
+	font-family: "Comfortaa", "Helvetica Neue", "Arial", sans-serif;
+	font-weight: bold;
+}
+
+.blue {
+	color: rgb(29, 161, 242);				/* Twitter blue */
+}
+
+.red {
+	color: crimson;
+}
