@@ -10,7 +10,7 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-require 'sinatra/reloader'	# Development use only
+#require 'sinatra/reloader'	# Development use only
 
 require 'twitter'
 
@@ -31,8 +31,8 @@ before do
 		:access_token => '1092451400397795328-W9G9A4nhLfCcRFc9Ks3TGjzlkSwqPS',
 		:access_token_secret => 'thqiEEgwQqjRdSvwmxgyQk1hNbFqG3f5bNztHlIhGNymF'
 	})
-	@db = SQLite3::Database.new('models/Twaxis.sqlite')
 	
+	@db = SQLite3::Database.new('models/Twaxis.sqlite')
 	# FOR DEVELOPMENT ONLY!!!
 	session[:admin_login] = true
 	session[:user_login] = false
@@ -60,12 +60,19 @@ get '/join' do
 	@view = :join
 	erb :template
 end
-post '/join' do
-	
-	# Create user based on details from params[].
-	require_relative 'controllers/create_user.rb'
-	
-	redirect '/'
+
+
+#Join POST
+require_relative 'controllers/create_user.rb'
+    
+#log_in
+get '/log_in' do
+    if session[:user_login]
+        @view = :account
+    else
+        @view = :log_in                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    end
+    erb:template
 end
 
 # Account
@@ -146,7 +153,7 @@ get '/orders' do
 			id: "1234567890",
 			screen_name: screen_name,
 
-			tweets: @twitter.user_timeline(screen_name).take(5)
+			tweets: @twitter.user_timeline(screen_name).take(100)
 		})
 		# -------------------------------------------------------
 
