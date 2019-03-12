@@ -10,7 +10,7 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-require 'sinatra/reloader'	# Development use only
+# require 'sinatra/reloader'	# Development use only
 
 require 'twitter'
 
@@ -180,6 +180,10 @@ post '/tweet' do
 	redirect '/orders'
 end
 
+get '/cars' do
+    @view = :cars
+	erb :template
+end	
 # Not found
 not_found do
 	@view = :not_found
