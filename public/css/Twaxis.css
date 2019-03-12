@@ -68,6 +68,16 @@ a:hover {
 	text-decoration: underline;	
 }
 
+header a, header a:hover {
+    color: white;
+    display: inline-block;
+    text-align: center;
+}
+
+header a:hover {
+    text-decoration: none;
+}
+
 input[type="text"], input[type="email"], input[type="password"] {
 	display: block;
 	width: calc(100% - 1em);
@@ -107,11 +117,6 @@ button.red, input[type="submit"].red {
 ul{
     list-style-type:none; 
     display:inline-block;
-}
-
-li{
-    display:inline;
-    padding: 0px 5px;
 }
 
 /*** Page classes ***/
@@ -175,6 +180,16 @@ li{
 
 /*** General classes ***/
 
+.loginlinks{
+    float: right;  
+    display: block;
+}
+
+.navbar li{
+    display:inline;
+    padding: 0px 5px;
+}
+
 .hidden {
 	display: none;
 }
@@ -207,14 +222,6 @@ li{
 	font-family: "Comfortaa", "Helvetica Neue", "Arial", sans-serif;
 	font-weight: bold;
     display:inline-block;
-}
-
-.headerlinks{
-    color: rgb(255, 255, 255);
-}
-
-.headerlinks:hover{
-    text-decoration:none;
 }
 
 .blue {

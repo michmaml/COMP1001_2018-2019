@@ -1,2 +1,6 @@
 <h1>Welcome<%= (first_name = session[:first_name]) ? ", "+ first_name : "!" %></h1>
+<% if session[:user_login] %>
 <button class="huge blue" onclick="location.assign('/account')">My account</button>
+<% elsif session[:admin_login] %>
+<button class="huge blue" onclick="location.assign('/admin')">Admin</button>
+<% end %>
