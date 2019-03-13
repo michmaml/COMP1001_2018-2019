@@ -1,5 +1,11 @@
 <% @orders.each do |order| %>
 <article>
+	<button class="float-right red"
+			onclick="alert('This rejects a tweet.')">
+			Reject</button>
+	<button class="float-right blue"
+			onclick="alert('This accepts a thing.')">
+			Accept</button>
 	<button class="float-right"
 			onclick="Twaxis.expand('.tweets', this.parentNode, this.parentNode.querySelector('.reply'))">
 			Expand</button>
