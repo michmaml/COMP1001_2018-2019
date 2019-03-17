@@ -1,0 +1,66 @@
+cars stuff
+
+require 'erb'
+require 'sinatra'
+require 'sqlite3'
+include ERB::Util
+before do
+  @db = SQLite3::Database.open './database.sqlite'
+end
+
+get '/search' do
+  unless params[:search].nil?
+    query = {% Select Status
+      FROM Cars
+      Where Status Like '%' || ? || '%'}
+    @results = db.execute query, params[:search]
+    
+    
+    sub into that one for CarID, one for type, one for seats
+    
+    
+    
+    
+SELECT COUNT(*) FROM Cars WHERE Status = 0   might not be 0              count available cars
+
+
+
+Add
+
+get '/add' do
+  @submitted = false
+  erb :add
+end
+
+post '/add' do
+  @submitted = true
+  
+  @Status = params[:Status].strip
+  @Type = params[:Type].strip
+  @Seats = params[:Seats].strip
+  
+  validation bit skippedish
+  all not null
+  check status is 0-2
+  check type is right (enum?)
+  check seats is 1-7?
+  
+  @allok = @status_check && @type_check && @seats_check
+  
+  
+  if @allok
+    CarID = @db.get_first_value 'SELECT MAX(id)+1 FROM Cars';
+    
+    @db.execute(
+      'INSERT INTO Cars VALUES (?, ?, ?, ?)',
+      [CarID, @Status, @Type, @Seats])
+  end
+  
+  erb :add
+end
+  
+DELETE      then change status one
+  
+
+
+

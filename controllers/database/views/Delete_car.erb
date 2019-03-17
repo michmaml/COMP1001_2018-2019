@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Delete Car</h1>
+    <form method="post" action="/Deleted_car">
+      Search:
+      <input type ="text" name="search"
+             value="<%=h params[:search] %>"/>
+      <input type = "submit" value="Submit">
+    </form>
+      <% unless @results.nil? %>
+      <% if @results.length == 0 %>
+        <p>No ID entered</p>
+        <% else %>
+        <p>Deleted I hope</p>
+      <% end %>
+    <% end %>
+  </body>
+</html>
