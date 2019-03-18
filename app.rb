@@ -60,10 +60,10 @@ get '/join' do
 	@view = :join
 	erb :template
 end
-
-
-#Join POST
-require_relative 'controllers/create_user.rb'
+post '/join' do
+	require_relative 'controllers/create_user.rb'
+	redirect '/'
+end
     
 #log_in
 get '/log_in' do
