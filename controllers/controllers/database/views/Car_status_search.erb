@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form method ="get">
+      Search:
+      <input type ="text" name="search"
+             value="<%=h params[:search] %>"/>
+      <input type = "submit" value="Submit">
+    </form>
+      <% unless @results.nil? %>
+      <% if @results.length == 0 %>
+        <p>No results</p>
+        <% else %>
+        <br />
+        <table border="1">
+            <tr>
+              <th>CarID</th>
+            </tr>
+            <% @results.each do |record| %>
+            <tr>
+              <td> <%=h record[0] %></td>
+            </tr>
+            <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  </body>
+</html>

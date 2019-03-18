@@ -10,7 +10,7 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-# require 'sinatra/reloader'	# Development use only
+#require 'sinatra/reloader'	# Development use only
 
 require 'twitter'
 
@@ -180,8 +180,19 @@ post '/tweet' do
 	redirect '/orders'
 end
 
+get '/Add_car' do
+  @submitted = false
+  erb :Add_cars
+end
+#post_cars
+require_relative 'controllers/controllers/database/Add_car.rb'
+
 get '/cars' do
     @view = :cars
+    @all = @db.execute("select * from Cars")
+    @regularcars = @db.execute( "select * from Cars WHERE type=?",[1] )
+    @largecars = @db.execute( "select * from Cars WHERE type=?",[2] )
+    @execcars = @db.execute( "select * from Cars WHERE type=?",[3] )
 	erb :template
 end	
 # Not found

@@ -1,46 +1,41 @@
 
-
-
-<!-- <table border="cars">
-<tr>
-<th>Reguler</th>
-<td  background="images/car S.jpg">row 1, cell 1</td>
-
-      <th>Large </th>  
-
-
-<td  background="images/car M.jpg">row 2, cell 1</td>
-
-     <th>Exec</th>
-<td  background="images/car L.jpg">row 2, cell 1</td>
-    </tr>
-</table> -->
-
 <article>
     <h1> The type of cars</h1>
 <form method="post"  bgcolor="white">
 
 		
-		<a href="#">
+
 		<img src="images/car S.jpg" img border="0"  width="500" height="265">	
-		</a>
-		 <button class="huge blue" onclick="Twaxis.expand('.tweets', this.parentNode, 
-                                               this.parentNode.querySelector('.reply'))">Reguler</button>
+		
+		 <button id="button1" class="huge blue">Reguler</button>
         </form>
 		<form method="post"  bgcolor="white">
-			<a href="#">
+			
 			<img src="images/car L.jpg" img border="0"   width="500" height="265">	
-			</a>
-		<button class="huge blue" onclick="Twaxis.expand('.tweets', this.parentNode, 
-                                               this.parentNode.querySelector('.reply'))">Large</button>
+			
+		<button id="button1" class="huge blue" >Large</button>
    
 		</form>
     <form method="post"  bgcolor="white">
-			<a href="#">
 			<img src="images/car M.jpg" img border="0"   width="500" height="265">	
-			</a>
-    <button class="huge blue" onclick="Twaxis.expand('.tweets', this.parentNode, 
-                                               this.parentNode.querySelector('.reply'))">Exec</button>
+			
+    <button id="button1" class="huge blue" >Exec</button>
     </form>
+        <form action="/Added_car">
+    <button id="button1" class="huge blue" >xxx</button>
+    </form>
+
+    <p>Regular</p>
+    <% @regularcars.each do |car| %>
+        <p><%=car%></p>
+    <% end %>
+    <p>Large</p>
+    <% @largecars.each do |car| %>
+        <p><%=car%></p>
+    <% end %>
+    <p>Exec</p>
+    <% @execcars.each do |car| %>
+        <p><%=car%></p>
+    <% end %>
 </article>
-            
+
