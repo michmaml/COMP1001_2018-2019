@@ -39,10 +39,6 @@ before do
 	})
 	@db = SQLite3::Database.new('models/Twaxis.sqlite')
 	@db.results_as_hash = true
-	
-	# FOR DEVELOPMENT ONLY!!!
-	
-	#session[:first_name] = 'customer'
 end
 
 
