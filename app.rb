@@ -34,8 +34,8 @@ before do
 	
 	@db = SQLite3::Database.new('models/Twaxis.sqlite')
 	# FOR DEVELOPMENT ONLY!!!
-	session[:admin_login] = true
-	session[:user_login] = false
+	session[:admin_login] = false
+	session[:user_login] = true
 	#session[:first_name] = 'customer'
 end
 
@@ -47,7 +47,7 @@ end
 
 # Home
 get '/' do
-	if session[:user_login]
+	if session[:user_login] || session[:admin_login] #check for admin(Toby)
 		@view = :welcome
 	else
 		@view = :home
@@ -83,6 +83,11 @@ get '/account' do
 		require_relative 'controllers/fetch_users.rb'
 	
 		@view = :account
+        
+    elsif session[:admin_login] # check for admin (Toby)
+        
+        @view = :admin
+        
 	else
 		@view = :log_in
 	end
@@ -100,17 +105,26 @@ end
 get '/admin' do
 	if session[:admin_login]
 		@view = :admin
+    elsif session[:user_login]
+        @view = :not_authorised
 	else
 		@view = :log_in
 	end
 	erb :template
 end
+
+#TEMP
+get '/log_in' do
+	@view = :log_in
+	erb :template
+end
+
 post '/admin' do
 	
 	# Authenticate and create login session
 	require_relative 'controllers/log_in.rb'
-	
-	redirect '/admin'
+    
+	redirect '/'
 end
 
 # Users
