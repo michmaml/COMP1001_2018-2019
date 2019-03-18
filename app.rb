@@ -17,6 +17,7 @@ require 'twitter'
 require 'sqlite3'
 
 require_relative 'controllers/constants_INCLUDE_FIRST.rb'
+require_relative 'controllers/login_functions.rb'
 require_relative 'controllers/create_functions.rb'
 require_relative 'controllers/fetch_functions.rb'
 require_relative 'controllers/update_functions.rb'
