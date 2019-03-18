@@ -2,30 +2,13 @@
 <html class="<%= @view %>">
 	<head>
 		<meta charset="utf-8">
-        <title>Twaxis | <%= @view.to_s.capitalize.gsub("_", " ") %></title>
+		<title>Twaxis | <%= @view.to_s.capitalize.gsub("_", " ") %></title>
 		<link rel="stylesheet" href="css/Twaxis.css">
 		<script src="js/Twaxis.js"></script>
 	</head>
 	<body>
 		<header>
-            <h1 class="brand"><a href="/">Twaxis</a></h1>
-            <ul class="navbar">
-                <li><a href="">Car Table</a></li>
-                <% if session[:user_login] %>
-                <li><a href="">Rewards</a></li>
-                <% end %>
-                <% if session[:admin_login] %>
-                <li><a href="/admin">Admin</a></li>
-                <% end %>
-            </ul>
-            <ul class="loginlinks">
-                                <% if session[:admin_login] or session[:user_login] %>
-                <li><a href="/account">Account</a></li>
-                <% end %>
-                <% if session[:admin_login] ||  session[:user_login] %>
-                <li><a href="">Logout</a></li>
-                <% end %>
-            </ul>
+			<h1 class="brand">Twaxis</h1>
 		</header>
 		<main>
 

@@ -22,4 +22,4 @@ if @all_ok
 	@db.execute('INSERT INTO Userdetails VALUES (?,?,?,?,?,?,?,?,?,?)', 
 		[id, @name, @name, @email, @name, @password,0,0,0,0])
 
-else redirect '/error'
+else redirect error

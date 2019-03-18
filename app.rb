@@ -10,7 +10,7 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-#require 'sinatra/reloader'	# Development use only
+require 'sinatra/reloader'	# Development use only
 
 require 'twitter'
 
@@ -31,11 +31,11 @@ before do
 		:access_token => '1092451400397795328-W9G9A4nhLfCcRFc9Ks3TGjzlkSwqPS',
 		:access_token_secret => 'thqiEEgwQqjRdSvwmxgyQk1hNbFqG3f5bNztHlIhGNymF'
 	})
-	
 	@db = SQLite3::Database.new('models/Twaxis.sqlite')
+	
 	# FOR DEVELOPMENT ONLY!!!
-	session[:admin_login] = false
-	session[:user_login] = true
+	session[:admin_login] = true
+	session[:user_login] = false
 	#session[:first_name] = 'customer'
 end
 
@@ -47,7 +47,7 @@ end
 
 # Home
 get '/' do
-	if session[:user_login] || session[:admin_login] #check for admin(Toby)
+	if session[:user_login]
 		@view = :welcome
 	else
 		@view = :home
@@ -61,18 +61,11 @@ get '/join' do
 	erb :template
 end
 post '/join' do
+	
+	# Create user based on details from params[].
 	require_relative 'controllers/create_user.rb'
+	
 	redirect '/'
-end
-    
-#log_in
-get '/log_in' do
-    if session[:user_login]
-        @view = :account
-    else
-        @view = :log_in                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-    end
-    erb:template
 end
 
 # Account
@@ -83,11 +76,6 @@ get '/account' do
 		require_relative 'controllers/fetch_users.rb'
 	
 		@view = :account
-        
-    elsif session[:admin_login] # check for admin (Toby)
-        
-        @view = :admin
-        
 	else
 		@view = :log_in
 	end
@@ -105,26 +93,17 @@ end
 get '/admin' do
 	if session[:admin_login]
 		@view = :admin
-    elsif session[:user_login]
-        @view = :not_authorised
 	else
 		@view = :log_in
 	end
 	erb :template
 end
-
-#TEMP
-get '/log_in' do
-	@view = :log_in
-	erb :template
-end
-
 post '/admin' do
 	
 	# Authenticate and create login session
 	require_relative 'controllers/log_in.rb'
-    
-	redirect '/'
+	
+	redirect '/admin'
 end
 
 # Users
@@ -167,7 +146,7 @@ get '/orders' do
 			id: "1234567890",
 			screen_name: screen_name,
 
-			tweets: @twitter.user_timeline(screen_name).take(100)
+			tweets: @twitter.user_timeline(screen_name).take(5)
 		})
 		# -------------------------------------------------------
 
