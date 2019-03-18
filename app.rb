@@ -10,11 +10,17 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-require 'sinatra/reloader'	# Development use only
+#require 'sinatra/reloader'	# Development use only
 
 require 'twitter'
 
 require 'sqlite3'
+
+require_relative 'controllers/constants_INCLUDE_FIRST.rb'
+require_relative 'controllers/create_functions.rb'
+require_relative 'controllers/fetch_functions.rb'
+require_relative 'controllers/update_functions.rb'
+require_relative 'controllers/delete_functions.rb'
 
 
 ### Initialisation ###
@@ -32,10 +38,10 @@ before do
 		:access_token_secret => 'thqiEEgwQqjRdSvwmxgyQk1hNbFqG3f5bNztHlIhGNymF'
 	})
 	@db = SQLite3::Database.new('models/Twaxis.sqlite')
+	@db.results_as_hash = true
 	
 	# FOR DEVELOPMENT ONLY!!!
-	session[:admin_login] = true
-	session[:user_login] = false
+	
 	#session[:first_name] = 'customer'
 end
 
@@ -62,8 +68,8 @@ get '/join' do
 end
 post '/join' do
 	
-	# Create user based on details from params[].
-	require_relative 'controllers/create_user.rb'
+	# Create user
+	create_user
 	
 	redirect '/'
 end
@@ -73,7 +79,7 @@ get '/account' do
 	if session[:user_login]
 	
 		# Fetch details of current user
-		require_relative 'controllers/fetch_users.rb'
+		fetch_users
 	
 		@view = :account
 	else
@@ -83,8 +89,8 @@ get '/account' do
 end
 post '/account' do
 	
-	# Update user based on details from params[].
-	require_relative 'controllers/update_user.rb'
+	# Update user
+	update_user
 	
 	redirect '/account'
 end
@@ -101,7 +107,7 @@ end
 post '/admin' do
 	
 	# Authenticate and create login session
-	require_relative 'controllers/log_in.rb'
+	log_in
 	
 	redirect '/admin'
 end
@@ -111,7 +117,7 @@ get '/users' do
 	if session[:admin_login]
 		
 		# Fetch filtered list of users / specific details of user
-		require_relative 'controllers/fetch_users.rb'
+		fetch_users
 	
 		@view = :users
 	else
@@ -121,8 +127,8 @@ get '/users' do
 end
 post '/users' do
 	
-	# Update user based on details from params[].
-	require_relative 'controllers/update_user.rb'
+	# Update user
+	update_user
 	
 	redirect '/admin'
 end
@@ -130,31 +136,9 @@ end
 # Orders
 get '/orders' do
 	if session[:admin_login]
-	
-		# By way of example... ----------------------------------
-		screen_name = "realDonaldTrump"
-
-		# Imagine this array is full of rows from the database...
-		@orders = []
-		@orders.push({
-
-			date: Time.now.strftime("%F"),
-			time: Time.now.strftime("%T"),
-			from: "S3 7HB",
-			to: "S10 2GJ",
-
-			id: "1234567890",
-			screen_name: screen_name,
-
-			tweets: @twitter.user_timeline(screen_name).take(5)
-		})
-		# -------------------------------------------------------
 
 		# Fetch current active orders
-		require_relative 'controllers/fetch_orders.rb'
-
-		# Fetch tweet timelines based on those orders
-		require_relative 'controllers/fetch_tweets.rb'
+		fetch_orders
 
 		@view = :orders
 	else
@@ -165,17 +149,17 @@ end
 post '/orders' do
 	
 	# Confirm taxi order
-	require_relative 'controllers/create_order.rb'
+	create_order
 	
 	# Update taxi order
-	require_relative 'controllers/update_order.rb'
+	update_order
 	
 	redirect '/orders'
 end
 post '/tweet' do
 		
-	# Reply to tweet using posted params
-	require_relative 'controllers/create_tweet.rb'
+	# Reply to tweet
+	create_tweet
 	
 	redirect '/orders'
 end
