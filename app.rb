@@ -145,11 +145,13 @@ get '/orders' do
 end
 post '/orders' do
 	
+	# TODO: branch between these two actions...
+	
 	# Confirm taxi order
-	create_order
+	#create_order
 	
 	# Update taxi order
-	update_order
+	#update_order
 	
 	redirect '/orders'
 end
