@@ -87,12 +87,6 @@ article td {
 	font-weight: bold;
 }
 
-input[type="text"].reply {
-	width: calc(100% - 5em);
-	border: none;
-	padding: 0.5em 0;
-}
-
 input[type="text"], input[type="email"], input[type="password"] {
 	display: block;
 	width: calc(100% - 1em);
@@ -154,6 +148,12 @@ footer {
 	margin: 1em 0;
 	text-shadow: 0 0 0.1em rgba(0, 0, 0, 0.5);
 	font-size: 10vmin;
+}
+
+.tweets input[type="text"] {
+	width: calc(100% - 5em);
+	border: none;
+	padding: 0.5em 0;
 }
 
 

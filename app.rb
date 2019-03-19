@@ -182,6 +182,31 @@ end
 
 #-------------------------------------------------------------------------------
 
+# Tweets
+get '/tweets' do
+	if session[:admin_login]
+
+		# Fetch current active orders
+		fetch_tweets
+
+		@view = :tweets
+	else
+		@view = :not_authorised
+	end
+	erb :template
+end
+post '/tweets' do
+	if session[:admin_login]
+		
+		# Create order from tweet
+		create_order
+		
+	end
+	redirect '/tweets'
+end
+
+#-------------------------------------------------------------------------------
+
 # Orders
 get '/orders' do
 	if session[:admin_login]
@@ -197,25 +222,9 @@ get '/orders' do
 end
 post '/orders' do
 	if session[:admin_login]
-		
-		# TODO: branch between these two actions...
-
-		# Confirm taxi order
-		#create_order
 
 		# Update taxi order
 		#update_order
-		
-	end
-	redirect '/orders'
-end
-
-# Tweet
-post '/tweet' do
-	if session[:admin_login]
-		
-		# Reply to tweet
-		create_tweet
 		
 	end
 	redirect '/orders'

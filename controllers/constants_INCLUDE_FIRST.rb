@@ -2,7 +2,8 @@
 # CONSTANTS - important, include these first!
 #-------------------------------------------------------------------------------
 
-SEARCH_STRING = "ise19team28"
+# Just for example...
+SEARCH_STRING = "realDonaldTrump"
 
 VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 VALID_TWITTER_HANDLE = /\A@\w{1,15}\z/

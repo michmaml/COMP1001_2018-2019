@@ -4,11 +4,11 @@
 			onclick="Twaxis.expand('.tweets', this.parentNode, this.parentNode.querySelector('.reply'))">
 			Expand</button>
 	<button class="float-right blue"
-			onclick="alert('This accepts an order.')">
-			Accept</button>
+			onclick="alert('This dispatches an order.')">
+			Dispatch</button>
 	<button class="float-right red"
-			onclick="alert('This rejects an order.')">
-			Reject</button>
+			onclick="alert('This cancel an order.')">
+			Cancel</button>
 	<table>
 		<tr>
 			<th>Date</th>
@@ -33,7 +33,7 @@
 		<% end %>
 		<hr>
 		<form method="post" action="/orders">
-			<input type="submit" class="blue float-right" value="Reply">
+			<input type="submit" class="float-right blue" value="Reply">
 			<input type="hidden" name="in_reply_to_status_id" value="<%= order[:id] %>">
 			<input type="text" class="reply" name="status" value="@<%= order[:screen_name] %> "
 				pattern=".*@<%= order[:screen_name] %>.*"
