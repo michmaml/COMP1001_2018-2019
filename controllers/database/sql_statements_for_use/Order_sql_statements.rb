@@ -42,3 +42,23 @@ def search_order_by_userid(userID)             #gets all information on all orde
       puts "invalid data types"
   end
 end
+
+def search_order_by_ongoing()               #gets all information on all orders by a certain car           #works
+    query = %{ SELECT OrderID, CarID, UserID, Pickup_location, Date, time, Status
+        FROM Orders 
+        WHERE Status = 0}
+    @results = @db.execute query
+end
+
+def change_order_status(order_id,new_status)         #Changes an orders status (0 ==> 1 or 2)    #works
+  if order_id.is_a?(Integer) && new_status.is_a?(Integer)
+    @order_id = order_id
+    @new_status = new_status
+    query = %{ UPDATE Orders
+        SET Status = @New_status
+        WHERE OrdersID = @order_id}
+    @results = @db.execute query, @order_id, @new_status
+  else
+    puts "invalid data types"
+  end
+end
