@@ -10,7 +10,7 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-#require 'sinatra/reloader'	# Development use only
+#require 'sinatra/reloader'	# FOR DEVELOPMENT USE ONLY
 
 require 'twitter'
 
@@ -32,6 +32,12 @@ enable :sessions
 set :session_secret, 'e30c0ca0f0c5a22f534f99a278313195'	# MD5 hash of 'ise19team28'
 
 before do
+	
+	#--FOR DEVELOPMENT USE ONLY--#
+	#session[:user_login] = false
+	#session[:admin_login] = false
+	#----------------------------#
+	
 	@twitter = Twitter::REST::Client.new({
 		:consumer_key => 'W9U8E3u06f8l71HKy1ee0Cj9R',
 		:consumer_secret => 'f3j6CRS8vnUgJC74Qxfrq3lLqvl20guPrOl44K4suTFeJF7FRr',
@@ -48,15 +54,23 @@ end
 # Rather than use header and footer files, include body content in template.erb
 # by setting @view to the symbol that corresponds to the .erb file for it...
 
+#-------------------------------------------------------------------------------
+# PUBLIC views
+#-------------------------------------------------------------------------------
+
 # Home
 get '/' do
-	if session[:user_login]
+	if session[:admin_login]
+		redirect '/admin'	
+	elsif session[:user_login]
 		@view = :welcome
 	else
 		@view = :home
 	end
 	erb :template
 end
+
+#-------------------------------------------------------------------------------
 
 # Join
 get '/join' do
@@ -71,6 +85,36 @@ post '/join' do
 	redirect '/'
 end
 
+#-------------------------------------------------------------------------------
+# LOGIN views
+#-------------------------------------------------------------------------------
+
+# Log in
+get '/login' do
+	@view = :log_in
+	erb :template
+end
+post '/login' do
+	
+	# Log in
+	log_in
+	
+	redirect '/'
+end
+
+# Log out
+get '/logout' do
+	
+	# Log out
+	log_out
+	
+	redirect '/'
+end
+
+#-------------------------------------------------------------------------------
+# USER views
+#-------------------------------------------------------------------------------
+
 # Account
 get '/account' do
 	if session[:user_login]
@@ -80,42 +124,46 @@ get '/account' do
 	
 		@view = :account
 	else
-		@view = :log_in
+		redirect '/login'
 	end
 	erb :template
 end
 post '/account' do
+	if session[:user_login]
 	
-	# Update user
-	update_user
+		# Update user
+		update_user
 	
+	end
 	redirect '/account'
 end
+
+#-------------------------------------------------------------------------------
+# ADMIN views
+#-------------------------------------------------------------------------------
 
 # Admin
 get '/admin' do
 	if session[:admin_login]
 		@view = :admin
 	else
-		@view = :log_in
+		redirect '/login'
 	end
 	erb :template
 end
 post '/admin' do
 	
-	# Authenticate and create login session
-	log_in
-	
-	redirect '/admin'
 end
+
+#-------------------------------------------------------------------------------
 
 # Users
 get '/users' do
 	if session[:admin_login]
-		
+
 		# Fetch filtered list of users / specific details of user
 		fetch_users
-	
+
 		@view = :users
 	else
 		@view = :not_authorised
@@ -123,12 +171,16 @@ get '/users' do
 	erb :template
 end
 post '/users' do
-	
-	# Update user
-	update_user
-	
-	redirect '/admin'
+	if session[:admin_login]
+		
+		# Update user
+		update_user
+		
+	end
+	redirect '/users'
 end
+
+#-------------------------------------------------------------------------------
 
 # Orders
 get '/orders' do
@@ -144,24 +196,34 @@ get '/orders' do
 	erb :template
 end
 post '/orders' do
-	
-	# TODO: branch between these two actions...
-	
-	# Confirm taxi order
-	#create_order
-	
-	# Update taxi order
-	#update_order
-	
-	redirect '/orders'
-end
-post '/tweet' do
+	if session[:admin_login]
 		
-	# Reply to tweet
-	create_tweet
-	
+		# TODO: branch between these two actions...
+
+		# Confirm taxi order
+		#create_order
+
+		# Update taxi order
+		#update_order
+		
+	end
 	redirect '/orders'
 end
+
+# Tweet
+post '/tweet' do
+	if session[:admin_login]
+		
+		# Reply to tweet
+		create_tweet
+		
+	end
+	redirect '/orders'
+end
+
+#-------------------------------------------------------------------------------
+# ERROR views
+#-------------------------------------------------------------------------------
 
 # Not found
 not_found do

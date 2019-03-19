@@ -1,2 +1,2 @@
 <h1>Welcome<%= (first_name = session[:first_name]) ? ", "+ first_name : "!" %></h1>
-<button class="huge blue" onclick="location.assign('/account')">My account</button>
+<a href="/account"><button class="huge blue">My account</button></a>

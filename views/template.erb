@@ -8,7 +8,19 @@
 	</head>
 	<body>
 		<header>
-			<h1 class="brand">Twaxis</h1>
+			<% if session[:user_login] || session[:admin_login] %>
+			<a href="/logout"><button class="float-right red">Log out</button></a>
+			<a href="/account"><button class="float-right blue">My account</button></a>
+			<% else %>
+			<a href="/login"><button class="float-right red">Log in</button></a>
+			<a href="/join"><button class="float-right blue">Sign up</button></a>
+			<% end %>
+			<a href="/">
+				<h1 class="brand">Twaxis</h1>
+				<% if session[:admin_login] %>
+				<h2>&nbsp;Admin system</h2>
+				<% end %>
+			</a>
 		</header>
 		<main>
 

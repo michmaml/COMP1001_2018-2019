@@ -4,12 +4,17 @@
 
 def log_in
 	
+	# NEEDS VALIDATION!
+	session[:admin_login] = true
+	session[:user_login] = true
+	
 end
 
 #-------------------------------------------------------------------------------
 
 def log_out
-	
+	session[:admin_login] = false
+	session[:user_login] = false
 end
 
 #-------------------------------------------------------------------------------
