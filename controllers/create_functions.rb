@@ -2,8 +2,26 @@
 # CREATE functions
 #-------------------------------------------------------------------------------
 
-def create_order
-	
+def create_order # Toby(Adapted) params[:userID].is_a?(Integer) && 
+    params[:userID] = @db.execute('SELECT UserID FROM Userdetails WHERE Twitter_handle = (?)', [params[:Twitter_handle].to_s])
+    if (params[:CarID].to_i).is_a?(Integer) && params[:From].is_a?(String) && params[:Date].is_a?(String) && params[:Time].is_a?(String)
+        carID = params[:CarID].strip.to_i
+        @Pickup_location = params[:From].strip.to_s.upcase
+        @Date = params[:Date].strip.to_i
+        @Time = params[:Time].strip.to_i
+        @UserID = params[:userID][0].to_i
+        orderID = @db.get_first_value ('SELECT MAX(OrderID)+1 FROM Orders');
+        puts @Pickup_location,@Date,@Time,@UserID
+        query = @db.execute(
+            'INSERT INTO Orders
+            VALUES (?, ?, ?, ?, ?, ?)',
+            [orderID.to_i, carID, @UserID, @Pickup_location, @Date, @Time])
+        puts query
+        return query
+    else
+        puts params[:CarID], params[:From],params[:Date],params[:Time]
+        puts "invalid data types"
+  end
 end
 
 #-------------------------------------------------------------------------------

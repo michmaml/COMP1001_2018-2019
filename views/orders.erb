@@ -11,12 +11,14 @@
 			Cancel</button>
 	<table>
 		<tr>
+            <th>Order ID</th>
 			<th>Date</th>
 			<th>Time</th>
 			<th>From</th>
 			<th>To</th>
 		</tr>
 		<tr>
+            <td><%= order[:orderID] %></td>
 			<td><%= order[:date] %></td>
 			<td><%= order[:time] %></td>
 			<td><%= order[:from] %></td>
