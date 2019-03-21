@@ -1,4 +1,9 @@
 #ORDERS
+require 'sinatra'
+set :bind, '0.0.0.0'
+require 'sqlite3'
+@db = SQLite3::Database.new('../../../models/Twaxis.sqlite')
+@db.results_as_hash = true
 
 
 def create_order(userID,carID,pickup_location,date,time)                #creates an order, status is set to 0, which means it is ongoing  #works

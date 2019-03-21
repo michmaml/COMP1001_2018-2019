@@ -76,8 +76,8 @@ def create_user # Kacper
 		success = @db.execute(
 			'INSERT INTO Userdetails
 			(UserID, Twitter_handle, Firstname, Surname, Email, Password)
-			VALUES (?,?,?,?,?,?);',
-			[id, display_name, first_name, surname, email, password])
+			VALUES (?,?,?,?,?,?,?,?,?,?,?);',
+			[id, display_name, first_name, surname, email, password, 0, 0, 0, 0, 0])
 	else
 		redirect '/form_error'
 	end

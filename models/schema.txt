@@ -32,6 +32,7 @@ PRIMARY KEY (CarID)
  Account_deactivated INTEGER,
  Total_orders INTEGER,
  Total_cancellations INTEGER,
+ Access_level INTEGER,
  PRIMARY KEY(UserID)
 );
 
@@ -40,8 +41,8 @@ OrderID INTEGER NOT NULL,
 CarID INTEGER NOT NULL REFERENCES Cars(CarID),
 UserID INTEGER NOT NULL REFERENCES UserDetails(UserID),
 Pickup_location TEXT NOT NULL,
-DATE TEXT NOT NULL,         
-TIME TEXT NOT NULL,  
+Date TEXT NOT NULL,         
+Time TEXT NOT NULL,  
 STATUS INTEGER NOT NULL, 
 PRIMARY KEY(OrderID)  
 );

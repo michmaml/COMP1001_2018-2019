@@ -1,4 +1,9 @@
 #CARS
+require 'sinatra'
+set :bind, '0.0.0.0'
+require 'sqlite3'
+@db = SQLite3::Database.new('../../../models/Twaxis.sqlite')
+@db.results_as_hash = true
 
 
 
