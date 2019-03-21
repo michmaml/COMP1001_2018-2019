@@ -2,7 +2,8 @@
 # UPDATE functions
 #-------------------------------------------------------------------------------
 
-def update_order
+def update_order #basically it means archive order xd
+    
 	
 end
 
