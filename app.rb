@@ -93,12 +93,9 @@ end
 get '/login' do
 	@view = :log_in
 	erb :template
-    
 end
 post '/login' do
-	if session[:user_login] || session[:admin_login]
-		redirect '/account'
-    end
+	
 	# Log in
 	log_in
 	
@@ -169,7 +166,7 @@ get '/users' do
 
 		@view = :users
 	else
-		@view = :not_authorised
+		redirect '/not_authorised'
 	end
 	erb :template
 end
@@ -185,6 +182,31 @@ end
 
 #-------------------------------------------------------------------------------
 
+# Tweets
+get '/tweets' do
+	if session[:admin_login]
+
+		# Fetch current active orders
+		fetch_tweets
+
+		@view = :tweets
+	else
+		redirect '/not_authorised'
+	end
+	erb :template
+end
+post '/tweets' do
+	if session[:admin_login]
+		
+		# Create order from tweet
+		create_order
+		
+	end
+	redirect '/tweets'
+end
+
+#-------------------------------------------------------------------------------
+
 # Orders
 get '/orders' do
 	if session[:admin_login]
@@ -194,32 +216,29 @@ get '/orders' do
 
 		@view = :orders
 	else
-		@view = :not_authorised
+		redirect '/not_authorised'
 	end
 	erb :template
 end
-post '/orders' do
+post '/orders/*' do
 	if session[:admin_login]
-		
-		# TODO: branch between these two actions...
-
-		# Confirm taxi order
-		#create_order
-
-		# Update taxi order
-		#update_order
-		
-	end
-	redirect '/orders'
-end
-
-# Tweet
-post '/tweet' do
-	if session[:admin_login]
-		
-		# Reply to tweet
-		create_tweet
-		
+		case params[:splat][0]
+			when "update"
+			
+				# Update taxi order
+				update_order
+			
+			when "delete"
+			
+				# Cancel taxi order
+				delete_order
+			
+			when "archive"
+			
+				# Archive taxi order
+				#archive_order
+				
+		end
 	end
 	redirect '/orders'
 end
@@ -227,6 +246,18 @@ end
 #-------------------------------------------------------------------------------
 # ERROR views
 #-------------------------------------------------------------------------------
+
+# Form error
+get '/form_error' do
+	@view = :form_error
+	erb :template
+end
+
+# Not authorised
+get '/not_authorised' do
+	@view = :not_authorised
+	erb :template
+end
 
 # Not found
 not_found do

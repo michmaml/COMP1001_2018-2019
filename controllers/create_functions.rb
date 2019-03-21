@@ -9,7 +9,9 @@ end
 #-------------------------------------------------------------------------------
 
 def create_tweet
-	client.update('I am just testing, not a big deal...', :in_reply_to_status_id => 1100434547886473217)
+    tweet_id = params[:in_reply_to_status_id].strip
+    tweet_text = params[:reply].strip
+	@twitter.update("#{tweet_text}", :in_reply_to_status_id => tweet_id)
 end
 
 #-------------------------------------------------------------------------------

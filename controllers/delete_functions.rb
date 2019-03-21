@@ -4,6 +4,11 @@
 
 def delete_order
 	
+	orderID = params[:orderID].strip
+	
+		@db.get_first_value('DELETE FROM CUSTOMERS
+        WHERE OrderID = ?;',[orderID])
+   	
 end
 
 #-------------------------------------------------------------------------------
