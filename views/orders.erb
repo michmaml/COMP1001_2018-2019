@@ -35,6 +35,7 @@
 		<form method="post" action="/orders">
 			<input type="submit" class="float-right blue" value="Reply">
 			<input type="hidden" name="in_reply_to_status_id" value="<%= order[:id] %>">
+			<input type="hidden" name="screen_name" value="<%= order[:screen_name] %>">
 			<input type="text" name="reply" value="@<%= order[:screen_name] %> "
 				pattern=".*@<%= order[:screen_name] %>.*"
 				minlength="1" maxlength="140"
