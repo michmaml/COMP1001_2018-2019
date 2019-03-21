@@ -54,6 +54,9 @@ end
 #-------------------------------------------------------------------------------
 
 def create_user # Kacper
+	
+    require 'digest'
+    sha256 = Digest::SHA256.new
 
 	#sanitize values
 	display_name = params[:display_name].strip
@@ -61,6 +64,7 @@ def create_user # Kacper
 	surname = params[:surname].strip
 	email = params[:email].strip
 	password = params[:password].strip
+    coded_password = Digest::SHA256.hexdigest password
 
 	#perform validation
 	display_name_ok = !display_name.nil? && display_name =~ VALID_TWITTER_HANDLE
@@ -77,9 +81,7 @@ def create_user # Kacper
 			'INSERT INTO Userdetails
 			(UserID, Twitter_handle, Firstname, Surname, Email, Password)
 			VALUES (?,?,?,?,?,?);',
-			[id, display_name, first_name, surname, email, password])
-	else
-		redirect '/form_error'
+			[id, display_name, first_name, surname, email, coded_password])
 	end
 
 	if success
@@ -88,9 +90,8 @@ def create_user # Kacper
 		session[:surname] = surname
 		session[:email] = email
 		session[:user_login] = true
-
 	else 
-		redirect '/error'
+        redirect '/error'
 	end
 	
 end

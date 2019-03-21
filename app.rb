@@ -166,7 +166,7 @@ get '/users' do
 
 		@view = :users
 	else
-		@view = :not_authorised
+		redirect '/not_authorised'
 	end
 	erb :template
 end
@@ -191,7 +191,7 @@ get '/tweets' do
 
 		@view = :tweets
 	else
-		@view = :not_authorised
+		redirect '/not_authorised'
 	end
 	erb :template
 end
@@ -216,7 +216,7 @@ get '/orders' do
 
 		@view = :orders
 	else
-		@view = :not_authorised
+		redirect '/not_authorised'
 	end
 	erb :template
 end
@@ -237,6 +237,12 @@ end
 # Form error
 get '/form_error' do
 	@view = :form_error
+	erb :template
+end
+
+# Not authorised
+get '/not_authorised' do
+	@view = :not_authorised
 	erb :template
 end
 
