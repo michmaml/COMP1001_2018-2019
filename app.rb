@@ -93,9 +93,12 @@ end
 get '/login' do
 	@view = :log_in
 	erb :template
+    
 end
 post '/login' do
-	
+	if session[:user_login] || session[:admin_login]
+		redirect '/account'
+    end
 	# Log in
 	log_in
 	

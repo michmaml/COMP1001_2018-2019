@@ -9,12 +9,14 @@ end
 #-------------------------------------------------------------------------------
 
 def create_tweet
-	
+	client.update('I am just testing, not a big deal...', :in_reply_to_status_id => 1100434547886473217)
 end
 
 #-------------------------------------------------------------------------------
 
 def create_user # Kacper
+    require 'digest'
+    sha256 = Digest::SHA256.new
 
 	#sanitize values
 	display_name = params[:display_name].strip
@@ -22,6 +24,7 @@ def create_user # Kacper
 	surname = params[:surname].strip
 	email = params[:email].strip
 	password = params[:password].strip
+    coded_password = Digest::SHA256.hexdigest password
 
 	#perform validation
 	display_name_ok = !display_name.nil? && display_name =~ VALID_TWITTER_HANDLE
@@ -38,7 +41,7 @@ def create_user # Kacper
 			'INSERT INTO Userdetails
 			(UserID, Twitter_handle, Firstname, Surname, Email, Password)
 			VALUES (?,?,?,?,?,?);',
-			[id, display_name, first_name, surname, email, password])
+			[id, display_name, first_name, surname, email, coded_password])
 	end
 
 	if success
@@ -48,7 +51,8 @@ def create_user # Kacper
 		session[:email] = email
 		session[:user_login] = true
 
-	else redirect error
+	else 
+        redirect '/error'
 	end
 	
 end
