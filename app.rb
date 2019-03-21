@@ -220,12 +220,25 @@ get '/orders' do
 	end
 	erb :template
 end
-post '/orders' do
+post '/orders/*' do
 	if session[:admin_login]
-
-		# Update taxi order
-		#update_order
-		
+		case params[:splat]
+			when "update"
+			
+				# Update taxi order
+				update_order
+			
+			when "delete"
+			
+				# Cancel taxi order
+				delete_order
+			
+			when "archive"
+			
+				# Archive taxi order
+				#archive_order
+				
+		end
 	end
 	redirect '/orders'
 end
