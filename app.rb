@@ -236,7 +236,7 @@ post '/orders/*' do
 			when "archive"
 			
 				# Archive taxi order
-				archive_order
+				#archive_order
 				
 		end
 	end

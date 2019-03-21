@@ -1,32 +1,3 @@
-CREATE TABLE Cars (
-CarID INTEGER,
-Status INTEGER,
-Type INTEGER,
-Seats INTEGER,
-PRIMARY KEY(CarID)
-);
-CREATE TABLE Orders (
-OrderID INTEGER,
-CarID INTEGER,
-UserID INTEGER,
-Pickup_location TEXT,
-Date INTEGER,
-Time INTEGER,
-PRIMARY KEY(OrderID, CarID, UserID)
-);
-CREATE TABLE Userdetails (
-UserID INTEGER NOT NULL,
-Firstname TEXT NOT NULL,
-Surname TEXT NOT NULL,
-Twitter_handle TEXT NOT NULL UNIQUE,
-Email TEXT NOT NULL UNIQUE,
-Password TEXT NOT NULL,
-Reward_points INTEGER,
-Account_deactivated INTEGER,
-Total_orders INTEGER,
-Total_cancellations INTEGER,
-PRIMARY KEY(UserID)
-);
 CREATE TABLE User_addresses (
 UserID INTEGER NOT NULL REFERENCES Userdetails(UserID),
 Address TEXT NOT NULL,
@@ -37,4 +8,49 @@ CREATE TABLE User_phone_number (
 UserID INTEGER NOT NULL REFERENCES Userdetails(UserID),
 Phone_number INTEGER NOT NULL,
 PRIMARY KEY(UserID, Phone_number)
+);
+CREATE TABLE Cars(
+CarID INTEGER NOT NULL,
+Status INTEGER NOT NULL,
+Type INTEGER NOT NULL,
+Seats INTEGER NOT NULL,
+PRIMARY KEY (CarID)
+);
+CREATE TABLE Orders (
+OrderID INTEGER NOT NULL,
+CarID INTEGER NOT NULL REFERENCES Cars(CarID),
+UserID INTEGER NOT NULL REFERENCES User_details(UserID),
+Pickup_location TEXT NOT NULL,
+Date TEXT NOT NULL,
+Time TEXT NOT NULL,
+Status INTEGER NOT NULL,
+PRIMARY KEY(OrderID)
+);
+CREATE TABLE User_details (
+UserID INTEGER NOT NULL,
+Firstname TEXT NOT NULL,
+Surname TEXT NOT NULL,
+Twitter_handle TEXT NOT NULL UNIQUE,
+Password TEXT NOT NULL,
+Email TEXT NOT NULL UNIQUE,
+Reward_points INTEGER,
+Account_deactivated INTEGER,
+Total_orders INTEGER,
+Total_cancellations INTEGER,
+PRIMARY KEY(UserID)
+);
+CREATE TABLE Car_status (
+Status INTEGER NOT NULL REFERENCES Cars(Status),
+Description TEXT NOT NULL UNIQUE,
+PRIMARY KEY(Status)
+);
+CREATE TABLE Car_types (
+Type INTEGER NOT NULL REFERENCES Cars(Type),
+Description TEXT NOT NULL UNIQUE,
+PRIMARY KEY(Type)
+);
+CREATE TABLE Order_status (
+Status INTEGER NOT NULL REFERENCES Orders(Status),
+Description TEXT NOT NULL UNIQUE,
+PRIMARY KEY(Status)
 );
