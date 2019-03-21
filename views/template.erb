@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html class="<%= @view %>">
+	<head>
+		<meta charset="utf-8">
+		<title>Twaxis | <%= @view.to_s.capitalize.gsub("_", " ") %></title>
+		<link rel="stylesheet" href="css/Twaxis.css">
+		<script src="js/Twaxis.js"></script>
+	</head>
+	<body>
+		<header>
+			<% if session[:user_login] || session[:admin_login] %>
+			<a href="/logout"><button class="float-right red">Log out</button></a>
+			<a href="/account"><button class="float-right blue">My account</button></a>
+			<% else %>
+			<a href="/login"><button class="float-right red">Log in</button></a>
+			<a href="/join"><button class="float-right blue">Sign up</button></a>
+			<% end %>
+			<a href="/">
+				<h1 class="brand">Twaxis</h1>
+				<% if session[:admin_login] %>
+				<h2>&nbsp;Admin system</h2>
+				<% end %>
+			</a>
+		</header>
+		<main>
+
+<%= erb @view %>
+
+		</main>
+		<footer>
+			<p>&copy; 2019<%= (year = Time.now.year) > 2019 ? -year : "" %> Twaxis</p>
+		</footer>
+	</body>
+</html>
