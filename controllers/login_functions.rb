@@ -21,6 +21,7 @@ def log_in
     else
             session[:admin_login] = false
             session[:user_login] = false
+            session[:email] = email
             redirect '/not_authorised'
     end
 	
