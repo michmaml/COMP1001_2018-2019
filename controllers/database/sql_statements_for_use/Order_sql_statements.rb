@@ -1,10 +1,5 @@
 #ORDERS
-require 'sinatra'
-set :bind, '0.0.0.0'
-require 'sqlite3'
-#these two should be global somewhere
-@db = SQLite3::Database
-@db = SQLite3::Database.open './database1.sqlite'
+
 
 def create_order(userID,carID,pickup_location,date,time)                #creates an order, status is set to 0, which means it is ongoing  #works
   if userID.is_a?(Integer) && carID.is_a?(Integer) && pickup_location.is_a?(String) && date.is_a?(String) && time.is_a?(String)

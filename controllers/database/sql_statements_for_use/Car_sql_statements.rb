@@ -1,10 +1,6 @@
 #CARS
-require 'sinatra'
-set :bind, '0.0.0.0'
-require 'sqlite3'
-#these two should be global somewhere
-@db = SQLite3::Database
-@db = SQLite3::Database.open './database1.sqlite'
+
+
 
 
 
