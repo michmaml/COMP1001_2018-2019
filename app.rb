@@ -222,7 +222,7 @@ get '/orders' do
 end
 post '/orders/*' do
 	if session[:admin_login]
-		case params[:splat]
+		case params[:splat][0]
 			when "update"
 			
 				# Update taxi order
