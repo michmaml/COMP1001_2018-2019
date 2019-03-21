@@ -6,30 +6,35 @@ def fetch_orders # Michal
 	
 	@orders = []
 
-	query = "SELECT * FROM Orders LIMIT 20;"
-	@results = @db.execute query
+	query = "SELECT * FROM Orders WHERE Status = #{ORDER_STATUS_ACTIVE} LIMIT 20;"
+	results = @db.execute query
 
-	if @results
+	if results
 
-		@results.each do |order|
+		results.each do |order|
+=begin
+			screen_name = @db.get_first_value(
+				"SELECT Twitter_handle FROM User_details WHERE UserID = ?",
+				[order["UserID"]])git
+=end
 			@orders.push({
 
 				date: order["Date"].to_s,
 				time: order["Time"].to_s,
 				from: order["Pickup_location"].to_s,
-				to: "unknown",
+				to: nil,
 
 				id: order["OrderID"].to_s,
-				screen_name: "test",
+				screen_name: order["UserID"],
 
 # TODO: connect the following property to tweeted orders stored in the database!
-				tweets: @twitter.user_timeline(SEARCH_STRING).take(10)
+				tweets: @twitter.search("from:#{order["UserID"]} to:#{TEAM_NAME}").take(10)
 
 			})
 		end
 
 	else
-		redirect error
+		redirect '/error'
 	end
 
 end
@@ -38,7 +43,7 @@ end
 
 def fetch_tweets # Michal
 	
-	results = @twitter.search(SEARCH_STRING)
+	results = @twitter.search(TEAM_NAME)
 	@tweets = results.take(10)
 
 end
@@ -48,10 +53,9 @@ end
 def fetch_users # Huiqiang
 	
     user_id = params[:screen_name]
-    query = %{SELECT pickup_location, date, time 
-              From Orders
-              WHERE UserID = '%#{user_id}%'}
-    @results = @db.execute query, params[:search]
+    @results = @db.execute(
+		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
+		[user_id])
 
 end
 
