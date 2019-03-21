@@ -234,6 +234,12 @@ end
 # ERROR views
 #-------------------------------------------------------------------------------
 
+# Form error
+get '/form_error' do
+	@view = :form_error
+	erb :template
+end
+
 # Not found
 not_found do
 	@view = :not_found
