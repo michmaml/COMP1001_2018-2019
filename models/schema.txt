@@ -1,11 +1,11 @@
 CREATE TABLE User_addresses (
-UserID INTEGER NOT NULL REFERENCES Userdetails(UserID),
+UserID INTEGER NOT NULL REFERENCES User_details(UserID),
 Address TEXT NOT NULL,
 Keyword TEXT NOT NULL,
 PRIMARY KEY(UserID, Address)
 );
 CREATE TABLE User_phone_number (
-UserID INTEGER NOT NULL REFERENCES Userdetails(UserID),
+UserID INTEGER NOT NULL REFERENCES User_details(UserID),
 Phone_number INTEGER NOT NULL,
 PRIMARY KEY(UserID, Phone_number)
 );
@@ -20,6 +20,7 @@ CREATE TABLE Orders (
 OrderID INTEGER NOT NULL,
 CarID INTEGER NOT NULL REFERENCES Cars(CarID),
 UserID INTEGER NOT NULL REFERENCES User_details(UserID),
+Twitter_handle TEXT NOT NULL,
 Pickup_location TEXT NOT NULL,
 Date TEXT NOT NULL,
 Time TEXT NOT NULL,

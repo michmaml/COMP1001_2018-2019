@@ -12,11 +12,7 @@ def fetch_orders # Michal
 	if results
 
 		results.each do |order|
-=begin
-			screen_name = @db.get_first_value(
-				"SELECT Twitter_handle FROM User_details WHERE UserID = ?",
-				[order["UserID"]])git
-=end
+
 			@orders.push({
 
 				date: order["Date"].to_s,
@@ -25,10 +21,11 @@ def fetch_orders # Michal
 				to: nil,
 
 				id: order["OrderID"].to_s,
-				screen_name: order["UserID"],
+				user_id: order["UserID"].to_s,
+				screen_name: order["Twitter_handle"],
 
 # TODO: connect the following property to tweeted orders stored in the database!
-				tweets: @twitter.search("from:#{order["UserID"]} to:#{TEAM_NAME}").take(10)
+				tweets: @twitter.search("from:#{order["Twitter_handle"]} to:#{TEAM_NAME}").take(100)
 
 			})
 		end
