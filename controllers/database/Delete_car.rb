@@ -18,8 +18,9 @@ post '/Deleted_car' do
     unless params[:search].nil?
         @Carid = params[:search].strip
     @db.execute(
-        'DELETE FROM Cars WHERE CARID = ?',
+        'DELETE FROM Cars WHERE CarID = ?',
         [@Carid])
     end
     erb:Delete_car
 end
+

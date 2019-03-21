@@ -16,10 +16,10 @@ end
 
 post '/Added_Order' do
   @submitted = true
-  @Status = params[:Status].strip
-  @Type = params[:Type].strip
-  @Seats = params[:Seats].strip
-  CarID = @db.get_first_value 'SELECT MAX(OrderID)+1 FROM Orders';
+  @UserID = params[:UserID].strip
+  @Pickup_location = params[:Pickup_location].strip
+  @CarID = params[:CarID].strip
+  OrderID = @db.get_first_value 'SELECT MAX(OrderID)+1 FROM Orders';
   @db.execute(
       'INSERT INTO Orders VALUES (?, ?, ?, ?, ?)',
       [OrderID, @UserID, @Pickup_location, @CarID, 0])

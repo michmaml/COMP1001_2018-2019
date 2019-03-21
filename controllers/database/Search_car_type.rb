@@ -21,3 +21,6 @@ get '/Car_type_search' do
     end
     erb:Car_type_search
 end
+
+
+

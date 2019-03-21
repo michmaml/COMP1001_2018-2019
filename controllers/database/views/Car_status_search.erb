@@ -15,10 +15,12 @@
         <table border="1">
             <tr>
               <th>CarID</th>
+              <th>Status</th>
             </tr>
             <% @results.each do |record| %>
             <tr>
               <td> <%=h record[0] %></td>
+              <td> <%=h record[1] %></td>
             </tr>
             <% end %>
         </table>

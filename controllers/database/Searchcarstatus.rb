@@ -14,13 +14,10 @@ end
 
 get '/Car_status_search' do
     unless params[:search].nil?
-        query = %{ SELECT CarID, Status
+        query = %{ SELECT CarID, Status, Type
             FROM Cars 
             WHERE Status Like '%' || ? || '%'}
     @results = @db.execute query, params[:search]
     end
     erb:Car_status_search
-    query1 = 'SELECT COUNT(*) FROM Cars WHERE Status = 200';
-    Total = @db.execute query1 
-    puts (Total)
 end
