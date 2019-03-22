@@ -201,7 +201,7 @@ post '/tweets/*' do
 			when "reject"
 
 				# Create tweet with status rejected
-				create_tweet
+				# TODO: create_tweet
 
 			when "accept"
 			
