@@ -2,7 +2,7 @@
 # FETCH functions
 #-------------------------------------------------------------------------------
 
-def fetch_orders # Michal
+def fetch_orders # Jamie
 	
 	@orders = []
 
@@ -31,6 +31,7 @@ def fetch_orders # Michal
 				time: order["Time"],
 				from: order["Pickup_location"],
 				to: nil,
+				car_id: order["CarID"],
 
 				id: order["OrderID"],
 				user_id: order["UserID"],
@@ -64,8 +65,8 @@ end
 
 def fetch_users # Huiqiang
 	
-    user_id = params[:screen_name]
-    @results = @db.execute(
+    user_id = params[:user_id]
+    results = @db.execute(
 		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
 		[user_id])
 
