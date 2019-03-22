@@ -16,7 +16,7 @@
 
 
 # Order status 
-0 = Ongoing
+0 = 
 1 = Complete
 2 = Incomplete
 

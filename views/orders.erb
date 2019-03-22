@@ -7,6 +7,7 @@
 		<input type="submit" class="float-right blue" value="Archive">
 	</form>
 	<form method="post" action="/orders/delete">
+        <input type="hidden" name="in_reply_to_status_id" value="<%= order[:id] %>">
 		<input type="submit" class="float-right red" value="Delete">
 	</form>
 	<table>
@@ -14,11 +15,13 @@
 			<th>Date</th>
 			<th>Time</th>
 			<th>Pickup location</th>
+            
 		</tr>
 		<tr>
 			<td><%= order[:date] %></td>
 			<td><%= order[:time] %></td>
 			<td><%= order[:from] %></td>
+           
 		</tr>
 	</table>
 	<section class="hidden tweets">

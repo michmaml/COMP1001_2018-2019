@@ -3,7 +3,10 @@
 #-------------------------------------------------------------------------------
 
 def delete_order
-	
+	orderID = params[:in_reply_to_status_id].strip.to_i
+    @db.execute(
+			'DELETE FROM Orders WHERE OrderID = ?;',
+			[orderID])
 end
 
 #-------------------------------------------------------------------------------
