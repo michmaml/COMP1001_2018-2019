@@ -6,7 +6,7 @@ def create_order # Toby
 
 	orderID = params[:orderID].strip.to_i
 	userName = params[:userName].strip
-	userScreenName = params[:userScreenName].strip
+	twitterHandle = params[:userScreenName].strip
 	createdAt = params[:createdAt].strip
 	text = params[:text].strip
 	
@@ -16,7 +16,7 @@ def create_order # Toby
 	carID = params[:carID].strip.to_i
 	
 	valid = true
-	[orderID,userName,userScreenName,createdAt,text,date,time,pickup_location,carID].each do |field|
+	[orderID,userName,twitterHandle,createdAt,text,date,time,pickup_location,carID].each do |field|
 		if field.nil? or field.to_s == "" then valid = false end
 	end
 	
@@ -27,13 +27,13 @@ def create_order # Toby
 
 		userID = @db.get_first_value(
 			'SELECT UserID FROM User_details WHERE Twitter_handle = (?)',
-			[userScreenName]).to_i
+			[twitterHandle]).to_i
 
 		success = @db.execute(
 			'INSERT INTO Orders
-			(OrderID, CarID, UserID, Pickup_location, Date, Time, Status)
-			VALUES (?, ?, ?, ?, ?, ?, ?)',
-			[orderID, carID, userID, pickup_location, date, time, ORDER_STATUS_ACTIVE])
+			(OrderID, CarID, UserID, Twitter_handle, Pickup_location, Date, Time, Status)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+			[orderID, carID, userID, twitterHandle, pickup_location, date, time, ORDER_STATUS_ACTIVE])
 
 		# puts UserID,Date,Time,Pickup_location
 		
