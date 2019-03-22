@@ -10,11 +10,18 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-#require 'sinatra/reloader'	# Development use only
+#require 'sinatra/reloader'	# FOR DEVELOPMENT USE ONLY
 
 require 'twitter'
 
 require 'sqlite3'
+
+require_relative 'controllers/constants_INCLUDE_FIRST.rb'
+require_relative 'controllers/login_functions.rb'
+require_relative 'controllers/create_functions.rb'
+require_relative 'controllers/fetch_functions.rb'
+require_relative 'controllers/update_functions.rb'
+require_relative 'controllers/delete_functions.rb'
 
 
 ### Initialisation ###
@@ -25,6 +32,12 @@ enable :sessions
 set :session_secret, 'e30c0ca0f0c5a22f534f99a278313195'	# MD5 hash of 'ise19team28'
 
 before do
+	
+	#--FOR DEVELOPMENT USE ONLY--#
+	#session[:user_login] = false
+	#session[:admin_login] = false
+	#----------------------------#
+	
 	@twitter = Twitter::REST::Client.new({
 		:consumer_key => 'W9U8E3u06f8l71HKy1ee0Cj9R',
 		:consumer_secret => 'f3j6CRS8vnUgJC74Qxfrq3lLqvl20guPrOl44K4suTFeJF7FRr',
@@ -32,11 +45,7 @@ before do
 		:access_token_secret => 'thqiEEgwQqjRdSvwmxgyQk1hNbFqG3f5bNztHlIhGNymF'
 	})
 	@db = SQLite3::Database.new('models/Twaxis.sqlite')
-	
-	# FOR DEVELOPMENT ONLY!!!
-	session[:admin_login] = true
-	session[:user_login] = false
-	#session[:first_name] = 'customer'
+	@db.results_as_hash = true
 end
 
 
@@ -45,15 +54,23 @@ end
 # Rather than use header and footer files, include body content in template.erb
 # by setting @view to the symbol that corresponds to the .erb file for it...
 
+#-------------------------------------------------------------------------------
+# PUBLIC views
+#-------------------------------------------------------------------------------
+
 # Home
 get '/' do
-	if session[:user_login]
+	if session[:admin_login]
+		redirect '/admin'	
+	elsif session[:user_login]
 		@view = :welcome
 	else
 		@view = :home
 	end
 	erb :template
 end
+
+#-------------------------------------------------------------------------------
 
 # Join
 get '/join' do
@@ -62,139 +79,214 @@ get '/join' do
 end
 post '/join' do
 	
-	# Create user based on details from params[].
-	require_relative 'controllers/create_user.rb'
+	# Create user
+	create_user
 	
 	redirect '/'
 end
+
+#-------------------------------------------------------------------------------
+# LOGIN views
+#-------------------------------------------------------------------------------
+
+# Log in
+get '/login' do
+	@view = :log_in
+	erb :template
+end
+post '/login' do
+	
+	# Log in
+	log_in
+	
+	redirect '/'
+end
+
+# Log out
+get '/logout' do
+	
+	# Log out
+	log_out
+	
+	redirect '/'
+end
+
+#-------------------------------------------------------------------------------
+# USER views
+#-------------------------------------------------------------------------------
 
 # Account
 get '/account' do
 	if session[:user_login]
 	
 		# Fetch details of current user
-		require_relative 'controllers/fetch_users.rb'
+		fetch_users
 	
 		@view = :account
 	else
-		@view = :log_in
+		redirect '/login'
 	end
 	erb :template
 end
 post '/account' do
+	if session[:user_login]
 	
-	# Update user based on details from params[].
-	require_relative 'controllers/update_user.rb'
+		# Update user
+		update_user
 	
+	end
 	redirect '/account'
 end
+
+#-------------------------------------------------------------------------------
+# ADMIN views
+#-------------------------------------------------------------------------------
 
 # Admin
 get '/admin' do
 	if session[:admin_login]
 		@view = :admin
 	else
-		@view = :log_in
+		redirect '/login'
 	end
 	erb :template
 end
 post '/admin' do
 	
-	# Authenticate and create login session
-	require_relative 'controllers/log_in.rb'
-	
-	redirect '/admin'
 end
+
+#-------------------------------------------------------------------------------
 
 # Users
 get '/users' do
 	if session[:admin_login]
-		
+
 		# Fetch filtered list of users / specific details of user
-		require_relative 'controllers/fetch_users.rb'
-	
+		fetch_users
+
 		@view = :users
 	else
-		@view = :not_authorised
+		redirect '/not_authorised'
 	end
 	erb :template
 end
 post '/users' do
-	
-	# Update user based on details from params[].
-	require_relative 'controllers/update_user.rb'
-	
-	redirect '/admin'
+	if session[:admin_login]
+		
+		# Update user
+		update_user
+		
+	end
+	redirect '/users'
 end
+
+#-------------------------------------------------------------------------------
+
+# Tweets
+get '/tweets' do
+	if session[:admin_login]
+
+		# Fetch current active orders
+		fetch_tweets
+
+		@view = :tweets
+	else
+		redirect '/not_authorised'
+	end
+	erb :template
+end
+post '/tweets' do
+	if session[:admin_login]
+		
+		# Create order from tweet
+		create_order
+		
+	end
+	redirect '/tweets'
+end
+
+#-------------------------------------------------------------------------------
 
 # Orders
 get '/orders' do
 	if session[:admin_login]
-	
-		# By way of example... ----------------------------------
-		screen_name = "realDonaldTrump"
-
-		# Imagine this array is full of rows from the database...
-		@orders = []
-		@orders.push({
-
-			date: Time.now.strftime("%F"),
-			time: Time.now.strftime("%T"),
-			from: "S3 7HB",
-			to: "S10 2GJ",
-
-			id: "1234567890",
-			screen_name: screen_name,
-
-			tweets: @twitter.user_timeline(screen_name).take(5)
-		})
-		# -------------------------------------------------------
 
 		# Fetch current active orders
-		require_relative 'controllers/fetch_orders.rb'
-
-		# Fetch tweet timelines based on those orders
-		require_relative 'controllers/fetch_tweets.rb'
+		fetch_orders
 
 		@view = :orders
 	else
-		@view = :not_authorised
+		redirect '/not_authorised'
 	end
 	erb :template
 end
 post '/orders' do
-	
-	# Confirm taxi order
-	require_relative 'controllers/create_order.rb'
-	
-	# Update taxi order
-	require_relative 'controllers/update_order.rb'
-	
-	redirect '/orders'
-end
-post '/tweet' do
+	if session[:admin_login]
+
+		# Update taxi order
+		#update_order
 		
-	# Reply to tweet using posted params
-	require_relative 'controllers/create_tweet.rb'
-	
+	end
 	redirect '/orders'
 end
 
-get '/Add_car' do
-  @submitted = false
-  erb :Add_cars
-end
-#post_cars
-require_relative 'controllers/controllers/database/Add_car.rb'
-
+#-------------------------------------------------------------------------------
+# Cars
 get '/cars' do
+    
     @view = :cars
-    @all = @db.execute("select * from Cars")
-    @regularcars = @db.execute( "select * from Cars WHERE type=?",[1] )
-    @largecars = @db.execute( "select * from Cars WHERE type=?",[2] )
-    @execcars = @db.execute( "select * from Cars WHERE type=?",[3] )
+ 	erb :template
+    
+end
+post '/cars' do
+    
+    $cars = fetch_cars
+     @view = :cars
+ 	erb :template
+end
+#-------------------------------------------------------------------------------
+get '/Add_car' do
+    if session[:admin_login]
+  @submitted = false
+   @view = :Add_car
+  erb :template
+        else
+		redirect '/not_authorised'
+	end
+end
+
+post '/Add_car' do
+    if session[:admin_login]
+  @submitted = true
+  @Status = params[:Status].strip
+  @Type = params[:Type].strip
+  @Seats = params[:Seats].strip
+  CarID = @db.get_first_value 'SELECT MAX(CarID)+1 FROM Cars';
+  @db.execute(
+      'INSERT INTO Cars VALUES (?, ?, ?, ?)',
+      [CarID, @Status, @Type, @Seats])
+    
+  @view = :Add_car
+  erb :template
+        end
+	redirect '/Add_car'
+end
+#-------------------------------------------------------------------------------
+# ERROR views
+#-------------------------------------------------------------------------------
+
+# Form error
+get '/form_error' do
+	@view = :form_error
 	erb :template
-end	
+end
+
+# Not authorised
+get '/not_authorised' do
+	@view = :not_authorised
+	erb :template
+end
+
 # Not found
 not_found do
 	@view = :not_found
