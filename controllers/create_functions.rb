@@ -47,8 +47,12 @@ end
 
 #-------------------------------------------------------------------------------
 
-def create_tweet
+def create_tweet # Kacper
 	
+	tweet_id = params[:in_reply_to_status_id].strip
+    tweet_text = params[:reply].strip
+	@twitter.update("#{tweet_text}", :in_reply_to_status_id => tweet_id)
+
 end
 
 #-------------------------------------------------------------------------------
