@@ -15,6 +15,7 @@ require 'sinatra'
 require 'twitter'
 
 require 'sqlite3'
+require 'yaml'
 
 require_relative 'controllers/constants_INCLUDE_FIRST.rb'
 require_relative 'controllers/login_functions.rb'
@@ -195,12 +196,20 @@ get '/tweets' do
 	end
 	erb :template
 end
-post '/tweets' do
+post '/tweets/*' do
 	if session[:admin_login]
-		
-		# Create order from tweet
-		create_order
-		
+		case params[:splat][0]
+			when "reject"
+
+				# Create tweet with status rejected
+				create_tweet
+
+			when "accept"
+			
+				# Create taxi order (which also creates tweet)
+				create_order
+				
+		end
 	end
 	redirect '/tweets'
 end
@@ -223,6 +232,11 @@ end
 post '/orders/*' do
 	if session[:admin_login]
 		case params[:splat][0]
+			when "reply"
+			
+				# Reply to tweets
+				create_tweet
+			
 			when "update"
 			
 				# Update taxi order
@@ -236,7 +250,7 @@ post '/orders/*' do
 			when "archive"
 			
 				# Archive taxi order
-				#archive_order
+				archive_order
 				
 		end
 	end

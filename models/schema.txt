@@ -1,13 +1,8 @@
 CREATE TABLE User_addresses (
 UserID INTEGER NOT NULL REFERENCES User_details(UserID),
-Address TEXT NOT NULL,
 Keyword TEXT NOT NULL,
-PRIMARY KEY(UserID, Address)
-);
-CREATE TABLE User_phone_number (
-UserID INTEGER NOT NULL REFERENCES User_details(UserID),
-Phone_number INTEGER NOT NULL,
-PRIMARY KEY(UserID, Phone_number)
+Address TEXT NOT NULL,
+PRIMARY KEY(UserID, Keyword)
 );
 CREATE TABLE Cars(
 CarID INTEGER NOT NULL,
@@ -27,6 +22,13 @@ Time TEXT NOT NULL,
 Status INTEGER NOT NULL,
 PRIMARY KEY(OrderID)
 );
+CREATE TABLE Tweets (
+TweetID INTEGER NOT NULL,
+OrderID INTEGER NOT NULL REFERENCES Orders(OrderID),
+Status INTEGER NOT NULL,
+Reply TEXT,
+PRIMARY KEY(TweetID)
+);
 CREATE TABLE User_details (
 UserID INTEGER NOT NULL,
 Firstname TEXT NOT NULL,
@@ -34,10 +36,11 @@ Surname TEXT NOT NULL,
 Twitter_handle TEXT NOT NULL UNIQUE,
 Password TEXT NOT NULL,
 Email TEXT NOT NULL UNIQUE,
+Phone_number INTEGER,
 Reward_points INTEGER,
-Account_deactivated INTEGER,
 Total_orders INTEGER,
 Total_cancellations INTEGER,
+Status INTEGER NOT NULL,
 PRIMARY KEY(UserID)
 );
 CREATE TABLE Car_status (

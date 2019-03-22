@@ -1,5 +1,5 @@
 <% @orders.each do |order| %>
-<article>
+<article class="order">
 	<button class="float-right"
 			onclick="Twaxis.expand('.tweets', this.parentNode, this.parentNode.querySelector('.reply'))">
 			Expand</button>
@@ -16,9 +16,9 @@
 			<th>Pickup location</th>
 		</tr>
 		<tr>
-			<td><%= order[:date] %></td>
-			<td><%= order[:time] %></td>
-			<td><%= order[:from] %></td>
+			<td><input type="text" name="date" value="<%= order[:date] %>"></td>
+			<td><input type="text" name="time" value="<%= order[:time] %>"></td>
+			<td><input type="text" name="pickup_location" value="<%= order[:from] %>"></td>
 		</tr>
 	</table>
 	<section class="hidden tweets">
@@ -30,9 +30,10 @@
 		<div class="tweet-text"><%= tweet.text %></div>
 		<% end %>
 		<hr>
-		<form method="post" action="/orders/update">
+		<form method="post" action="/orders/reply">
 			<input type="submit" class="float-right blue" value="Reply">
-			<input type="hidden" name="in_reply_to_status_id" value="<%= order[:id] %>">
+			<input type="hidden" name="order_id" value="<%= order[:id] %>">
+			<input type="hidden" name="status" value="1">
 			<input type="hidden" name="screen_name" value="<%= order[:screen_name] %>">
 			<input type="text" name="reply" value="@<%= order[:screen_name] %> "
 				pattern=".*@<%= order[:screen_name] %>.*"
