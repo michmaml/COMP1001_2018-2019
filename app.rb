@@ -15,7 +15,6 @@ require 'sinatra'
 require 'twitter'
 
 require 'sqlite3'
-require 'yaml'
 
 require_relative 'controllers/constants_INCLUDE_FIRST.rb'
 require_relative 'controllers/login_functions.rb'
