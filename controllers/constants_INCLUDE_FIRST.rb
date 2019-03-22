@@ -2,7 +2,6 @@
 # CONSTANTS - important, include these first!
 #-------------------------------------------------------------------------------
 
-# Just for example...
 TEAM_NAME = "ise19team28"
 
 ORDER_STATUS_ACTIVE = 0
