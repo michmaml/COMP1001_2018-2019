@@ -1,0 +1,32 @@
+<!-- <article>
+	<h1>Work in progress</h1>
+	<p>You'll eventually be able to see users' previous orders here,<br>
+	as well as specify favourite locations and personal details.</p>
+	<a href="javascript:history.back()"><button class="blue">Back</button></a>
+</article> -->
+
+<article>
+	<table>
+	<% unless @results.nil? %>
+
+           <br />
+            <table border="1">
+               <tr>
+                 <th>Location</th>
+                 <th>Date</th>
+                 <th>time</th>
+               </tr>
+               <% @results.each do |record| %>
+               <tr>
+                   <td><%=h record[0] %></td>
+                   <td><%=h record[1] %> %></td>
+                   <td><%=h record[2] %></td>
+               </tr>
+               <% end %>
+             <% end %>
+            <div style="width:200px;height:100px;position:relative;">
+            <button style="position:absolute;bottom:0;" class="blue" onclick="history.back()">Back</button>
+            </div>
+           </table>
+    </table>
+</article>
