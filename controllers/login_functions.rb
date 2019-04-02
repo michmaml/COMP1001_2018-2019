@@ -22,10 +22,11 @@ def log_in # Kacper
 	
 	if status >= USER_STATUS_ACTIVE
 		session[:user_login] = true
+        session[:id] = @db.get_first_value('SELECT UserID FROM User_details WHERE Email = ?;',[email])
+        
     else
 		session[:admin_login] = false
 		session[:user_login] = false
-		session[:email] = email
 		redirect '/not_authorised'
     end
 	

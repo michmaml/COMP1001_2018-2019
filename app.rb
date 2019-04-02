@@ -120,7 +120,7 @@ get '/account' do
 	if session[:user_login]
 	
 		# Fetch details of current user
-		fetch_users
+		fetch_user_orders
 	
 		@view = :account
 	else
@@ -132,7 +132,7 @@ post '/account' do
 	if session[:user_login]
 	
 		# Update user
-		update_user
+		#update_user
 	
 	end
 	redirect '/account'
@@ -158,6 +158,18 @@ end
 #-------------------------------------------------------------------------------
 
 # Users
+
+get '/users/*' do
+    if session[:admin_login]
+       
+		search_by_userid(params[:splat][0])
+      
+      @view = :users
+	else
+		redirect '/not_authorised'
+	end
+	erb :template
+end
 get '/users' do
 	if session[:admin_login]
 
@@ -170,14 +182,12 @@ get '/users' do
 	end
 	erb :template
 end
-post '/users' do
+post '/users/submit' do
 	if session[:admin_login]
-		
-		# Update user
-		update_user
-		
-	end
-	redirect '/users'
+        puts params[:search]
+        redirect "/users/#{params[:search]}"
+    end
+	redirect '/not_authorised'
 end
 
 #-------------------------------------------------------------------------------

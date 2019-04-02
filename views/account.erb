@@ -1,6 +1,26 @@
-<article>
+<!-- <article>
 	<h1>Work in progress</h1>
-	<p>You'll eventually be able to see your previous orders here,<br>
-	as well as specify favourite locations and your personal details.</p>
+	<p>You'll eventually be able to see users' previous orders here,<br>
+	as well as specify favourite locations and personal details.</p>
 	<a href="javascript:history.back()"><button class="blue">Back</button></a>
+</article> -->
+<% @orders.each do |order| %>
+<article>
+    <form method="get">
+     <table>
+			<tr>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Car ID</th>
+				<th>Pickup location</th>
+			</tr>
+			<tr>
+				<td><input type="text" name="date" value="<%= order[:date] %>"></td>
+				<td><input type="text" name="time" value="<%= order[:time] %>"></td>
+				<td><input type="text" name="car_id" value="<%= order[:car_id] %>"></td>
+				<td><input type="text" name="pickup_location" value="<%= order[:from] %>"></td>
+			</tr>
+		</table>
+	</form>
 </article>
+<% end %>

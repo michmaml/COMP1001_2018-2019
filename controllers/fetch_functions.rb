@@ -63,13 +63,99 @@ end
 
 #-------------------------------------------------------------------------------
 
-def fetch_users # Huiqiang
-	
-    user_id = params[:user_id]
-    results = @db.execute(
-		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
-		[user_id])
+def fetch_users # Lee
+	@users = []
+    
+    query = "SELECT UserID, Firstname, Surname, Twitter_handle, Email, Reward_points, Status, Total_orders, Total_cancellations FROM User_details;"
+    results = @db.execute query
+
+	if results
+		results.each do |user|
+            
+            @users.push({
+                
+                userid: user["UserID"],
+                firstname: user["Firstname"],
+                surname: user["Surname"],
+                twitter_handle: user["Twitter_handle"],
+                email: user["Email"],
+                reward_points: user["Reward_points"],
+                status: user["Status"],
+                total_orders: user["Total_orders"],
+                total_cancellations: user["Total_cancellations"],
+			})
+			
+		end
+
+	else
+		redirect '/error'
+	end
 
 end
+
+def fetch_user_orders # Lee
+	
+	@orders = []
+
+	query = "SELECT * FROM Orders WHERE UserID = #{session[:id]} LIMIT 20;"
+	results = @db.execute query
+
+	if results
+		results.each do |order|
+			
+
+			@orders.push({
+
+				date: order["Date"],
+				time: order["Time"],
+				from: order["Pickup_location"],
+				to: nil,
+				car_id: order["CarID"],
+
+				id: order["OrderID"],
+				user_id: order["UserID"],
+				screen_name: order["Twitter_handle"],
+
+			})
+			
+		end
+
+	else
+		redirect '/error'
+	end
+
+end
+
+def search_by_userid(user_id)         #Searches for a user id and displays information on that user   #works
+  @users = []
+    query = %{ SELECT UserID, Firstname, Surname, Twitter_handle, Email, Reward_points, Status, Total_orders, Total_cancellations
+        FROM User_details 
+        WHERE UserID Like '%' || ? || '%'}
+    results = @db.execute query, user_id
+      if results
+		results.each do |user|
+			
+
+			@users.push({
+                
+                userid: user["UserID"],
+                firstname: user["Firstname"],
+                surname: user["Surname"],
+                twitter_handle: user["Twitter_handle"],
+                email: user["Email"],
+                reward_points: user["Reward_points"],
+                status: user["Status"],
+                total_orders: user["Total_orders"],
+                total_cancellations: user["Total_cancellations"],
+			})
+
+			
+			
+		end
+      end
+end
+
+
+
 
 #-------------------------------------------------------------------------------
