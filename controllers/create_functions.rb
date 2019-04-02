@@ -106,3 +106,17 @@ def create_user # Kacper
 end
 
 #-------------------------------------------------------------------------------
+
+def add_cars(type,seats)  #Adds a new car to system status is automatically set to 0                #works 
+  if type.is_a?(Integer) && seats.is_a?(Integer)
+    carID = @db.get_first_value('SELECT MAX(CarID)+1 FROM Cars');
+      #puts carID[0]
+    #puts carID, type ,seats
+    query = @db.execute(
+      'INSERT INTO Cars VALUES (?, ?, ?, ?)',
+      [carID, 0, type, seats])
+    return query
+  else
+      puts "invalid data types"
+  end
+end

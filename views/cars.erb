@@ -1,39 +1,159 @@
-<article>
-    <h1> The type of cars</h1>
-<form method="post"  bgcolor="white">
-
-		
-
-		<img src="images/car S.jpg" img border="0"  width="500" height="265">	
-		
-		 <button id="button1" class="huge blue">Reguler</button>
-        </form>
-		<form method="post"  bgcolor="white">
-			
-			<img src="images/car L.jpg" img border="0"   width="500" height="265">	
-			
-		<button id="button1" class="huge blue" >Large</button>
-   
-		</form>
-    <form method="post"  bgcolor="white">
-			<img src="images/car M.jpg" img border="0"   width="500" height="265">	
-			
-    <button id="button1" class="huge blue" >Exec</button>
-    </form>
-        <form action="/Added_car">
-    <button id="button1" class="huge blue" >xxx</button>
-    </form>
-
-    <p>Regular</p>
-    <% @regularcars.each do |car| %>
-        <p><%=car%></p>
-    <% end %>
-    <p>Large</p>
-    <% @largecars.each do |car| %>
-        <p><%=car%></p>
-    <% end %>
-    <p>Exec</p>
-    <% @execcars.each do |car| %>
-        <p><%=car%></p>
-    <% end %>
+<article class="filter">
+    <h2>Seats</h2>
+    <ul class="seatsFilter">
+    <li><input type="checkbox" name="3" value="3"> 3</li><br>
+    <li><input type="checkbox" name="4" value="4"> 4</li><br>
+    <li><input type="checkbox" name="5" value="5"> 5</li><br>
+    <li><input type="checkbox" name="6" value="6"> 6</li><br>
+    <li><input type="checkbox" name="7" value="7"> 7</li><br>       
+    </ul>
+    <h2>Type</h2>
+    <ul class="typeFilter">
+    <li><input type="checkbox" name="3" value="8"> Suv</li><br>
+    <li><input type="checkbox" name="4" value="9"> Sport</li><br>
+    <li><input type="checkbox" name="5" value="10"> Limo</li><br>
+    <li><input type="checkbox" name="6" value="11"> Compact</li><br>
+    <li><input type="checkbox" name="7" value="12"> Convertible</li><br> 
+    <li><input type="checkbox" name="7" value="13"> Mini-bus</li><br>
+    <li><input type="checkbox" name="7" value="14"> Sedan</li><br> 
+    <li><input type="checkbox" name="7" value="15"> Other</li><br> 
+    </ul>
 </article>
+
+<article class="Table">
+    <% if params[:admin_login] %>
+        <table>
+            <tr>
+                 <th>Car types</th>
+                </tr>
+             <tr>
+                    <th>Suv: 0</th>
+                    <th>Sport: 1</th>
+                    <th>Limo: 2</th>
+                    <th>Compact: 3</th>
+               </tr>
+             <tr>
+                    <th>Convertible: 4</th>
+                    <th>Mini-bus: 5</th>
+                    <th>Sedan: 6</th>
+                    <th>Other: 7</th>
+            </tr>
+    </table>
+    <% end %>
+    <h1>Active Cars</h1>
+        <br />
+    <table>
+		<tr>
+			<th>Car ID</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Seats</th>
+			
+		</tr> 
+    </table>      
+    <table class="carTable">
+          <% unless @Carlist.nil? %>
+        <% puts @Carlist %>
+
+       <% @Carlist.each do |car| %>
+        <% puts car[:Status] %>
+		<tr>
+		<td> <%= car[:CarID] %></td>
+           	 <% if car[:Status] == "0" %>
+                <td> Available</td>
+            <% elsif car[:Status] == "1" %>
+                <td> Unavailable</td>
+            <% elsif car[:Status] == "2"%>
+                <td> Busy</td>
+            <% end %>
+             <% if car[:Type] == "0" %>
+                <td> Suv</td>
+            <% elsif car[:Type] == "1" %>
+                <td> Sport</td>
+            <% elsif car[:Type] == "2" %>
+                <td>Limo</td>
+            <% elsif car[:Type] == "3" %>
+                <td> Compact</td>
+            <% elsif car[:Type] == "4" %>
+                <td> Convertible</td>
+            <% elsif car[:Type] == "5" %>
+                <td> Mini-bus</td>
+            <% elsif car[:Type] == "6" %>
+                <td> Sedan</td>
+            <% elsif car[:Type] == "7" %>
+                <td> Other</td>
+            
+            <% end %>
+            <td> <%= car[:Seats] %></td>
+			
+		</tr>
+        
+
+        <% end %>
+	</table>
+    </article>  
+ <% end %>
+
+<script>
+var itemsToFilter = document.querySelectorAll(".carTable tr")
+var checkBoxes = document.querySelectorAll(".seatsFilter li input")
+
+var options = [3,4,5,6,7,8,9,10,11,12,13,14,15];
+var fulllist = options.length;
+    
+for (var i =0; i < checkBoxes.length; i++)
+    checkBoxes[i].addEventListener("click", filterItems, false);
+
+    
+function filterItems(e){
+    var clickedItem = e.target;
+    //console.log(options,parseInt(clickedItem.value));
+    //console.log([parseInt(clickedItem.value)])
+    if (clickedItem.checked == true){
+        options = options.filter(item => item !== parseInt(clickedItem.value));
+        hideOrShowItems();}
+    else if (clickedItem.checked == false){
+        options.push(parseInt(clickedItem.value))
+        hideOrShowItems();
+    }
+    //console.log(options);
+}
+    
+function hideOrShowItems(){
+    for (var i = 0; i < itemsToFilter.length; i++){
+        //console.log(itemsToFilter.length);
+        var currentItem = itemsToFilter[i];
+        var value = currentItem.cells[3].firstChild.nodeValue;
+        //console.log(currentItem.cells[3].firstChild.nodeValue)
+        //console.log(value + " " + itemType)
+        //console.log(options.includes((parseInt(value))))
+        if (!options.includes((parseInt(value))) || options.length == fulllist){
+            removeClass(currentItem, "hideItem");
+            console.log(currentItem.className);
+        }else{            
+            currentItem.className = "hideItem";
+            //removeClass(currentItem, "hideItem");
+        }
+    }  
+}
+    
+function removeClass(element, classToRemove) {
+    var currentClassValue = element.className;
+ 
+    if (currentClassValue == classToRemove) {
+        element.className = "";
+        return;
+    }
+ 
+    var classValues = currentClassValue.split(" ");
+    var filteredList = [];
+ 
+    for (var i = 0 ; i < classValues.length; i++) {
+        if (classToRemove != classValues[i]) {
+            filteredList.push(classValues[i]);
+        }
+    }
+ 
+    element.className = filteredList.join(" ");
+}   
+</script>

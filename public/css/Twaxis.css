@@ -159,7 +159,31 @@ footer {
 	width: calc(100% - 5em);
 }
 
+.filter{
+    float: left;
+    width: 12%;
+    display:inline-table
+}
 
+.seatsFilter, .typeFilter{
+    list-style-type:none;
+    font-size:15px;
+    padding: 0px;
+}
+
+.seatsFilter li, .typeFilter li{
+    padding:0px 5px;
+}
+
+.Table{
+    display:inline-table;
+    width:74%;
+    overflow:auto;
+}
+
+.hideItem {
+    display: none;
+}
 /*** Twitter data classes ***/
 
 .tweet-user-name {

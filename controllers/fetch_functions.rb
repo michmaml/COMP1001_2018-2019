@@ -73,3 +73,31 @@ def fetch_users # Huiqiang
 end
 
 #-------------------------------------------------------------------------------
+def fetch_cars 
+	@Car = []
+ 
+    query = "SELECT * FROM Cars;"
+        
+    @cars = @db.execute query
+    #puts @cars.length
+
+    if @cars
+        @cars.each do |car|
+			@Car.push({
+
+				CarID: car["CarID"].to_s,
+				Status: car["Status"].to_s,
+				Type: car["Type"].to_s,
+				Seats: car["Seats"].to_s,
+
+			})
+		end
+        return @Car
+
+	else
+		redirect error
+    end
+end
+
+
+#-------------------------------------------------------------------------------

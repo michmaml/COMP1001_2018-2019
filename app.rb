@@ -255,7 +255,25 @@ post '/orders/*' do
 	end
 	redirect '/orders'
 end
+#-------------------------------------------------------------------------------
 
+#Cars
+get '/cars' do
+    @Carlist = fetch_cars
+    puts @Carlist
+    @view = :cars
+    erb :template
+end
+
+get '/AddCar' do #TEMPORARY
+    @view = :Add_cars
+    erb :template
+end
+
+post '/Added_car' do
+   add_cars(params[:Type][0].to_i,params[:Seats][0].to_i)
+   redirect '/cars'
+end  
 #-------------------------------------------------------------------------------
 # ERROR views
 #-------------------------------------------------------------------------------
