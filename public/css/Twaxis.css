@@ -181,7 +181,7 @@ footer {
     overflow:auto;
 }
 
-.hideItem {
+.hideItemSeats, .hideItemType {
     display: none;
 }
 /*** Twitter data classes ***/

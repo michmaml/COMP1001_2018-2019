@@ -9,14 +9,14 @@
     </ul>
     <h2>Type</h2>
     <ul class="typeFilter">
-    <li><input type="checkbox" name="3" value="8"> Suv</li><br>
-    <li><input type="checkbox" name="4" value="9"> Sport</li><br>
-    <li><input type="checkbox" name="5" value="10"> Limo</li><br>
-    <li><input type="checkbox" name="6" value="11"> Compact</li><br>
-    <li><input type="checkbox" name="7" value="12"> Convertible</li><br> 
-    <li><input type="checkbox" name="7" value="13"> Mini-bus</li><br>
-    <li><input type="checkbox" name="7" value="14"> Sedan</li><br> 
-    <li><input type="checkbox" name="7" value="15"> Other</li><br> 
+    <li><input type="checkbox" name="Suv" value="Suv"> Suv</li><br>
+    <li><input type="checkbox" name="Sport" value="Sport"> Sport</li><br>
+    <li><input type="checkbox" name="Limo" value="Limo"> Limo</li><br>
+    <li><input type="checkbox" name="Compact" value="Compact"> Compact</li><br>
+    <li><input type="checkbox" name="Convertible" value="Convertible"> Convertible</li><br> 
+    <li><input type="checkbox" name="Mini-bus" value="Mini-bus"> Mini-bus</li><br>
+    <li><input type="checkbox" name="Sedan" value="Sedan"> Sedan</li><br> 
+    <li><input type="checkbox" name="Other" value="Other"> Other</li><br> 
     </ul>
 </article>
 
@@ -96,64 +96,68 @@
 
 <script>
 var itemsToFilter = document.querySelectorAll(".carTable tr")
-var checkBoxes = document.querySelectorAll(".seatsFilter li input")
+var checkBoxes1 = document.querySelectorAll(".seatsFilter li input")
+var checkBoxes2 = document.querySelectorAll(".typeFilter li input")
 
-var options = [3,4,5,6,7,8,9,10,11,12,13,14,15];
-var fulllist = options.length;
+var allCar = [3,4,5,6,7]
+var optionsCar = [3,4,5,6,7];
+var optionsType = ["Suv","Sport","Limo","Compact","Convertible","Mini-bus","Sedan","Other"]
+var fulllist = [optionsCar.length,optionsType.length];    
     
-for (var i =0; i < checkBoxes.length; i++)
-    checkBoxes[i].addEventListener("click", filterItems, false);
+for (var i =0; i < checkBoxes1.length; i++)
+    checkBoxes1[i].addEventListener("click", filterItems, false);
 
+for (var i =0; i < checkBoxes2.length; i++)
+    checkBoxes2[i].addEventListener("click", filterItems, false);
     
 function filterItems(e){
     var clickedItem = e.target;
-    //console.log(options,parseInt(clickedItem.value));
-    //console.log([parseInt(clickedItem.value)])
     if (clickedItem.checked == true){
-        options = options.filter(item => item !== parseInt(clickedItem.value));
-        hideOrShowItems();}
-    else if (clickedItem.checked == false){
-        options.push(parseInt(clickedItem.value))
-        hideOrShowItems();
+        if (optionsCar.includes(parseInt(clickedItem.value))){
+            optionsCar = optionsCar.filter(item => item !== parseInt(clickedItem.value));
+            hideOrShowItemsSeats();}
+        else{
+            optionsType = optionsType.filter(item => item !== clickedItem.value.toString());
+            hideOrShowItemsType();
+        }
+    
+    }else if (clickedItem.checked == false){
+        if (allCar.includes(parseInt(clickedItem.value))){
+            optionsCar.push(parseInt(clickedItem.value))
+            hideOrShowItemsSeats();}
+        else{
+            optionsType.push(clickedItem.value.toString());
+            hideOrShowItemsType();
+        }
+
     }
-    //console.log(options);
 }
     
-function hideOrShowItems(){
+function hideOrShowItemsSeats(){
     for (var i = 0; i < itemsToFilter.length; i++){
-        //console.log(itemsToFilter.length);
         var currentItem = itemsToFilter[i];
-        var value = currentItem.cells[3].firstChild.nodeValue;
-        //console.log(currentItem.cells[3].firstChild.nodeValue)
-        //console.log(value + " " + itemType)
-        //console.log(options.includes((parseInt(value))))
-        if (!options.includes((parseInt(value))) || options.length == fulllist){
-            removeClass(currentItem, "hideItem");
-            console.log(currentItem.className);
-        }else{            
-            currentItem.className = "hideItem";
-            //removeClass(currentItem, "hideItem");
+            var value = currentItem.cells[3].firstChild.nodeValue;
+            if (!optionsCar.includes((parseInt(value))) && !(currentItem.className.toString()).includes("hideItemType")){
+                currentItem.className = "";}
+            else if (optionsCar.length == fulllist[0]){
+                currentItem.className = (currentItem.className).toString().replace("hideItemSeats" , "");
+            }else if (!(currentItem.className.toString()).includes("hideItemSeats")){            
+                currentItem.className = (currentItem.className).toString() + " " + "hideItemSeats";
+            }
+    }  
+}
+
+function hideOrShowItemsType(){
+    for (var i = 0; i < itemsToFilter.length; i++){
+        var currentItem = itemsToFilter[i];
+            var value = String(currentItem.cells[2].firstChild.nodeValue).replace(" ", "");
+            if (!optionsType.includes((value.toString())) && !(currentItem.className.toString()).includes("hideItemSeats")){
+                currentItem.className = "";}
+            else if (optionsType.length == fulllist[1] ){
+                currentItem.className = (currentItem.className).toString().replace("hideItemType", "");
+            }else if (!(currentItem.className.toString()).includes("hideItemType")){            
+                currentItem.className = (currentItem.className).toString() + " " + "hideItemType";
         }
     }  
 }
-    
-function removeClass(element, classToRemove) {
-    var currentClassValue = element.className;
- 
-    if (currentClassValue == classToRemove) {
-        element.className = "";
-        return;
-    }
- 
-    var classValues = currentClassValue.split(" ");
-    var filteredList = [];
- 
-    for (var i = 0 ; i < classValues.length; i++) {
-        if (classToRemove != classValues[i]) {
-            filteredList.push(classValues[i]);
-        }
-    }
- 
-    element.className = filteredList.join(" ");
-}   
 </script>
