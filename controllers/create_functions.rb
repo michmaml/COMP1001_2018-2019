@@ -4,19 +4,16 @@
 
 def create_order # Toby
 
-	orderID = params[:orderID].strip.to_i
-	userName = params[:userName].strip
-	userScreenName = params[:userScreenName].strip
-	createdAt = params[:createdAt].strip
-	text = params[:text].strip
-	
+	orderID = params[:order_id].strip.to_i
+	twitterHandle = params[:screen_name].strip
+
 	date = params[:date].strip.to_i
 	time = params[:time].strip.to_i
-	pickup_location = params[:pickup_location].strip.upcase
-	carID = params[:carID].strip.to_i
+	pickupLocation = params[:pickup_location].strip.upcase
+	carID = params[:car_id].strip.to_i
 	
 	valid = true
-	[orderID,userName,userScreenName,createdAt,text,date,time,pickup_location,carID].each do |field|
+	[orderID,twitterHandle,date,time,pickupLocation,carID].each do |field|
 		if field.nil? or field.to_s == "" then valid = false end
 	end
 	
@@ -25,19 +22,20 @@ def create_order # Toby
 		# Not needed if we just use the tweet ID! Saves a call to db.
 		#OrderID = @db.get_first_value('SELECT MAX(OrderID)+1 FROM Orders').to_i;
 
+		# This can safely return zero for an unregistered customer...
 		userID = @db.get_first_value(
 			'SELECT UserID FROM User_details WHERE Twitter_handle = (?)',
-			[userScreenName]).to_i
+			[twitterHandle]).to_i
 
 		success = @db.execute(
 			'INSERT INTO Orders
-			(OrderID, CarID, UserID, Pickup_location, Date, Time, Status)
-			VALUES (?, ?, ?, ?, ?, ?, ?)',
-			[orderID, carID, userID, pickup_location, date, time, ORDER_STATUS_ACTIVE])
-
-		# puts UserID,Date,Time,Pickup_location
+			(OrderID, CarID, UserID, Twitter_handle, Pickup_location, Date, Time, Status)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+			[orderID, carID, userID, twitterHandle, pickupLocation, date, time, ORDER_STATUS_ACTIVE])
 		
 		if not success then redirect '/error' end
+			
+		create_tweet
 		
 	else
 		redirect '/form_error'
@@ -47,8 +45,20 @@ end
 
 #-------------------------------------------------------------------------------
 
-def create_tweet
+def create_tweet # Jamie
 	
+	tweet_id = @db.get_first_value 'SELECT MAX(TweetID)+1 FROM Tweets;'
+	order_id = params[:order_id].strip.to_i
+    reply = params[:reply].strip
+	status = params[:status].strip.to_i
+
+	@db.execute(
+		"INSERT INTO Tweets (TweetID, OrderID, Status, Reply)
+		VALUES (?, ?, ?, ?);",
+		[tweet_id, order_id, status, reply])
+	
+	@twitter.update("#{reply}", :in_reply_to_status_id => order_id)
+
 end
 
 #-------------------------------------------------------------------------------
@@ -75,12 +85,12 @@ def create_user # Kacper
 	all_ok = display_name_ok && first_name_ok && surname_ok && email_ok
 
 	if all_ok
-		id = @db.get_first_value 'SELECT MAX(UserID)+1 FROM User_details;';
+		id = @db.get_first_value 'SELECT MAX(UserID)+1 FROM User_details;'
 		success = @db.execute(
 			'INSERT INTO User_details
-			(UserID, Twitter_handle, Firstname, Surname, Email, Password)
-			VALUES (?,?,?,?,?,?);',
-			[id, display_name, first_name, surname, email, coded_password])
+			(UserID, Twitter_handle, Firstname, Surname, Email, Password, Status)
+			VALUES (?,?,?,?,?,?,?);',
+			[id, display_name, first_name, surname, email, coded_password, USER_STATUS_ACTIVE])
 	end
 
 	if success

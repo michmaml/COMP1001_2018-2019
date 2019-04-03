@@ -2,7 +2,7 @@
 # FETCH functions
 #-------------------------------------------------------------------------------
 
-def fetch_orders # Michal
+def fetch_orders # Jamie
 	
 	@orders = []
 
@@ -12,25 +12,37 @@ def fetch_orders # Michal
 	if results
 
 		results.each do |order|
+			
 =begin
-			screen_name = @db.get_first_value(
-				"SELECT Twitter_handle FROM User_details WHERE UserID = ?",
-				[order["UserID"]])git
+			# Ideally we would fetch all the tweets that have replied to the original...
+			
+			tweet_list = @db.execute(
+					"SELECT TweetID, Reply FROM Tweets
+					WHERE OrderID = ? AND Status = ?;",
+					[order["OrderID"], TWEET_STATUS_ACCEPTED])
+			tweets = []
+			tweet_list.each do |tweet|
+				tweets.push(@twitter.status(tweet["OrderID"]))
+			end
 =end
 			@orders.push({
 
-				date: order["Date"].to_s,
-				time: order["Time"].to_s,
-				from: order["Pickup_location"].to_s,
+				date: order["Date"],
+				time: order["Time"],
+				from: order["Pickup_location"],
 				to: nil,
+				car_id: order["CarID"],
 
-				id: order["OrderID"].to_s,
-				screen_name: order["UserID"],
+				id: order["OrderID"],
+				user_id: order["UserID"],
+				screen_name: order["Twitter_handle"],
 
-# TODO: connect the following property to tweeted orders stored in the database!
-				tweets: @twitter.search("from:#{order["UserID"]} to:#{TEAM_NAME}").take(10)
-
+				tweets: @twitter.search("from:#{order["Twitter_handle"]} @#{TEAM_NAME}")
+				
+				# Obsolete...
+				#@twitter.search("from:#{order["Twitter_handle"]} @#{TEAM_NAME}")
 			})
+			
 		end
 
 	else
@@ -42,9 +54,10 @@ end
 #-------------------------------------------------------------------------------
 
 def fetch_tweets # Michal
-	
-	results = @twitter.search(TEAM_NAME)
-	@tweets = results.take(10)
+
+# TODO: filter the following Twittter API search by the status of tweet IDs stored in the database!
+	results = @twitter.mentions_timeline()
+	@tweets = results.take(20)
 
 end
 
@@ -52,8 +65,8 @@ end
 
 def fetch_users # Huiqiang
 	
-    user_id = params[:screen_name]
-    @results = @db.execute(
+    user_id = params[:user_id]
+    results = @db.execute(
 		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
 		[user_id])
 

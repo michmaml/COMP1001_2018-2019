@@ -2,7 +2,7 @@
 # LOGIN functions
 #-------------------------------------------------------------------------------
 
-def log_in
+def log_in # Kacper
 	
 	require 'digest'
     sha256 = Digest::SHA256.new
@@ -14,24 +14,29 @@ def log_in
     coded_password = Digest::SHA256.hexdigest password
 
 	#perform validation
-    number_one = @db.get_first_value('SELECT COUNT(*) FROM User_details WHERE Email = ? AND Password = ?;',[email, coded_password])
-	if number_one == 1
+    status = @db.get_first_value('SELECT Status FROM User_details WHERE Email = ? AND Password = ?;',[email, coded_password])
+	
+	if status >= USER_STATUS_ADMIN
 		session[:admin_login] = true
-		session[:user_login] = true 
+	end
+	
+	if status >= USER_STATUS_ACTIVE
+		session[:user_login] = true
     else
-            session[:admin_login] = false
-            session[:user_login] = false
-            session[:email] = email
-            redirect '/not_authorised'
+		session[:admin_login] = false
+		session[:user_login] = false
+		session[:email] = email
+		redirect '/not_authorised'
     end
 	
 end
 
 #-------------------------------------------------------------------------------
 
-def log_out
-	session[:admin_login] = false
-	session[:user_login] = false
+def log_out # Jamie
+	
+	session.clear
+	
 end
 
 #-------------------------------------------------------------------------------

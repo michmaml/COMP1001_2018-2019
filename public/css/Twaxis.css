@@ -150,10 +150,13 @@ footer {
 	font-size: 10vmin;
 }
 
+.order input[type="text"] {
+	border: none;
+	padding: 0;
+}
+
 .tweets input[type="text"] {
 	width: calc(100% - 5em);
-	border: none;
-	padding: 0.5em 0;
 }
 
 
