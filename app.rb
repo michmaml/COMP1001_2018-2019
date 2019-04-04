@@ -200,6 +200,7 @@ end
 
 # Tweets
 get '/tweets' do
+<<<<<<< HEAD
 	if session[:admin_login]
 
 		# Fetch current active orders
@@ -241,9 +242,9 @@ get '/orders' do
 	if session[:admin_login]
 
 		# Fetch current active orders
-		fetch_orders
+		fetch_tweets
 
-		@view = :orders
+		@view = :tweets
 	else
 		redirect '/not_authorised'
 	end
@@ -274,7 +275,7 @@ post '/orders/*' do
 				
 		end
 	end
-	redirect '/orders'
+	erb :template
 end
 
 #-------------------------------------------------------------------------------
@@ -333,7 +334,7 @@ get '/not_authorised' do
 	@view = :not_authorised
 	erb :template
 end
-   
+
 # Not found
 not_found do
 	@view = :not_found

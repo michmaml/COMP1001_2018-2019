@@ -26,7 +26,7 @@ def fetch_orders # Jamie
 			end
 =end
 			@orders.push({
-
+				
 				date: order["Date"],
 				time: order["Time"],
 				from: order["Pickup_location"],
@@ -36,7 +36,7 @@ def fetch_orders # Jamie
 				id: order["OrderID"],
 				user_id: order["UserID"],
 				screen_name: order["Twitter_handle"],
-
+				
 				tweets: @twitter.search("from:#{order["Twitter_handle"]} @#{TEAM_NAME}")
 				
 				# Obsolete...
@@ -70,6 +70,7 @@ def fetch_users # Huiqiang
 		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
 		[user_id])
 
+<<<<<<< HEAD
 end
 
 #-------------------------------------------------------------------------------
@@ -99,6 +100,8 @@ def fetch_cars # Ziting
 	else
 		redirect '/error'
     end
+=======
+>>>>>>> Kacper
 end
 
 #-------------------------------------------------------------------------------
