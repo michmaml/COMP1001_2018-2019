@@ -200,7 +200,6 @@ end
 
 # Tweets
 get '/tweets' do
-<<<<<<< HEAD
 	if session[:admin_login]
 
 		# Fetch current active orders

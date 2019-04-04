@@ -70,7 +70,6 @@ def fetch_users # Huiqiang
 		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
 		[user_id])
 
-<<<<<<< HEAD
 end
 
 #-------------------------------------------------------------------------------
@@ -100,8 +99,6 @@ def fetch_cars # Ziting
 	else
 		redirect '/error'
     end
-=======
->>>>>>> Kacper
 end
 
 #-------------------------------------------------------------------------------
