@@ -16,6 +16,8 @@ require 'twitter'
 
 require 'sqlite3'
 
+require 'mail'
+
 require_relative 'controllers/constants_INCLUDE_FIRST.rb'
 require_relative 'controllers/login_functions.rb'
 require_relative 'controllers/create_functions.rb'
@@ -272,6 +274,17 @@ get '/not_authorised' do
 	erb :template
 end
 
+get '/contact' do
+    @view = :contact
+    erb :template
+end
+
+post '/contact' do
+    contact_submitted
+    @view = :contact
+    erb :template
+end
+   
 # Not found
 not_found do
 	@view = :not_found
