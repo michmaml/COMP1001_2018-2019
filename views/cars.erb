@@ -1,4 +1,85 @@
 <article>
+
+<form method ="post">
+      How type of cars do you want:
+      <input type ="text" name="Type" placeholder="Input the number of type please"
+             value="<%=h params[:search] %>"/>
+      <input type="submit" value="Search">
+    </form>
+    </article>
+
+<article>
+	
+        <table>
+            <tr>
+                 <th>Car types</th>
+                </tr>
+             <tr>
+                    <th>Suv: 0</th>
+                    <th>Sport: 1</th>
+                    <th>Limo: 2</th>
+                    <th>Compact: 3</th>
+               </tr>
+             <tr>
+                    <th>Convertible: 4</th>
+                    <th>Mini-bus: 5</th>
+                    <th>Sedan: 6</th>
+                    <th>Other: 7</th>
+            </tr>
+    </table>
+        <br />
+    <table>
+		<tr>
+			<th>CarID</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Seats</th>
+			
+		</tr>      
+
+          <% unless $cars.nil? %>
+
+       <% $cars.each do |car| %>
+		<tr>
+		<td> <%= car["CarID"] %></td>
+           	 <% if car["Status"].eql?(0) %>
+                <td> Available</td>
+            <% elsif car["Status"].eql?(1) %>
+                <td> Unavailable</td>
+            <% elsif car["Status"].eql?(2)%>
+                <td> Busy</td>
+            <% end %>
+             <% if car["Type"].eql?(0) %>
+                <td> Suv</td>
+            <% elsif car["Type"].eql?(1) %>
+                <td> Sport</td>
+            <% elsif car["Type"].eql?(2) %>
+                <td> Limo</td>
+            <% elsif car["Type"].eql?(3) %>
+                <td> Compact</td>
+            <% elsif car["Type"].eql?(4) %>
+                <td> Convertible</td>
+            <% elsif car["Type"].eql?(5) %>
+                <td> Mini-bus</td>
+            <% elsif car["Type"].eql?(6) %>
+                <td> Sedan</td>
+            <% elsif car["Type"].eql?(7) %>
+                <td> Other</td>
+            
+            <% end %>
+            <td> <%= car["Seats"] %></td>
+<!--             <td> xxxxxx</td> -->
+			
+		</tr>
+        
+
+        <% end %>
+	</table>
+    </article>  
+ <% end %>
+
+
+<article>
     <h1> The type of cars</h1>
 <form method="post"  bgcolor="white">
 

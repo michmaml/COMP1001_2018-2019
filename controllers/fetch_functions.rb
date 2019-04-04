@@ -26,7 +26,7 @@ def fetch_orders # Jamie
 			end
 =end
 			@orders.push({
-
+				
 				date: order["Date"],
 				time: order["Time"],
 				from: order["Pickup_location"],
@@ -36,7 +36,7 @@ def fetch_orders # Jamie
 				id: order["OrderID"],
 				user_id: order["UserID"],
 				screen_name: order["Twitter_handle"],
-
+				
 				tweets: @twitter.search("from:#{order["Twitter_handle"]} @#{TEAM_NAME}")
 				
 				# Obsolete...
@@ -70,6 +70,35 @@ def fetch_users # Huiqiang
 		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
 		[user_id])
 
+end
+
+#-------------------------------------------------------------------------------
+
+def fetch_cars # Ziting
+# 	(%{SELECT * FROM Cars WHERE Seats = ?})
+	@Car = []
+ 
+      query = "SELECT * FROM Cars WHERE Type = ?;"
+        
+       @cars = @db.execute query,params[:Type].to_i
+#                 puts @cars.length
+#                 puts params[:search].to_i
+    if @cars
+        @cars.each do |car|
+			@Car.push({
+
+				CarID: car["CarID"].to_s,
+				Status: car["Status"].to_s,
+				Type: car["Type"].to_s,
+				Seats: car["Seats"].to_s,
+
+			})
+		end
+        return @cars
+
+	else
+		redirect '/error'
+    end
 end
 
 #-------------------------------------------------------------------------------
