@@ -88,6 +88,20 @@ post '/join' do
 end
 
 #-------------------------------------------------------------------------------
+
+# Contact
+get '/contact' do
+    @view = :contact
+    erb :template
+end
+
+post '/contact' do
+    contact_submitted
+    @view = :contact
+    erb :template
+end
+
+#-------------------------------------------------------------------------------
 # LOGIN views
 #-------------------------------------------------------------------------------
 
@@ -264,6 +278,47 @@ post '/orders/*' do
 end
 
 #-------------------------------------------------------------------------------
+
+# Cars
+get '/cars' do
+    
+    @view = :cars
+ 	erb :template
+    
+end
+post '/cars' do
+    
+    $cars = fetch_cars
+     @view = :cars
+ 	erb :template
+end
+
+#-------------------------------------------------------------------------------
+
+# Add cars
+get '/Add_car' do
+    if session[:admin_login]
+  @submitted = false
+   @view = :Add_car
+  erb :template
+        else
+		redirect '/not_authorised'
+	end
+end
+
+post '/Add_car' do
+    if session[:admin_login]
+     @submitted = true
+        
+        create_car
+        $all = create_cartable
+  @view = :Add_car
+  erb :template
+        end
+	redirect '/Add_car'
+end
+
+#-------------------------------------------------------------------------------
 # ERROR views
 #-------------------------------------------------------------------------------
 
@@ -277,17 +332,6 @@ end
 get '/not_authorised' do
 	@view = :not_authorised
 	erb :template
-end
-
-get '/contact' do
-    @view = :contact
-    erb :template
-end
-
-post '/contact' do
-    contact_submitted
-    @view = :contact
-    erb :template
 end
    
 # Not found

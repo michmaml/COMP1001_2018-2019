@@ -73,3 +73,32 @@ def fetch_users # Huiqiang
 end
 
 #-------------------------------------------------------------------------------
+
+def fetch_cars # Ziting
+# 	(%{SELECT * FROM Cars WHERE Seats = ?})
+	@Car = []
+ 
+      query = "SELECT * FROM Cars WHERE Type = ?;"
+        
+       @cars = @db.execute query,params[:Type].to_i
+#                 puts @cars.length
+#                 puts params[:search].to_i
+    if @cars
+        @cars.each do |car|
+			@Car.push({
+
+				CarID: car["CarID"].to_s,
+				Status: car["Status"].to_s,
+				Type: car["Type"].to_s,
+				Seats: car["Seats"].to_s,
+
+			})
+		end
+        return @cars
+
+	else
+		redirect '/error'
+    end
+end
+
+#-------------------------------------------------------------------------------

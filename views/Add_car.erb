@@ -1,0 +1,55 @@
+
+<article>
+	<h1>Add car</h1>
+	<form method="post" action="/Add_car">
+		<input type="integer" name="Status" placeholder="Status will be automatically set" required>
+		<input type="integer" name="Seats" placeholder="Eneter number of seats (not including driver's)" required>
+		<input type="integer" name="Type" placeholder="Type should be text" required>
+		<input type="submit" class="blue" value="Submit">
+	</form>
+</article>    
+    <article>
+    
+        <table>
+            <tr>
+                 <th>Car types</th>
+                </tr>
+             <tr>
+                    <th>Suv: 0</th>
+                    <th>Sport: 1</th>
+                    <th>Limo: 2</th>
+                    <th>Compact: 3</th>
+               </tr>
+             <tr>
+                    <th>Convertible: 4</th>
+                    <th>Mini-bus: 5</th>
+                    <th>Sedan: 6</th>
+                    <th>Other: 7</th>
+            </tr>
+    </table>
+        <br />
+    <table>
+		<tr>
+			<th>CarID</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Seats</th>
+			
+		</tr>      
+
+          <% unless $all.nil? %>
+
+       <% $all.each do |car| %>
+		<tr>
+            <td> <%= car["CarID"] %></td>
+            <td> <% car["Status"] %></td>
+            <td> <%  car["Type"] %></td>
+            <td> <%= car["Seats"] %></td>
+			
+		</tr>
+        
+
+        <% end %>
+	</table> 
+ <% end %>
+</article>
