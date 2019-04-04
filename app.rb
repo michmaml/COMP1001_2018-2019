@@ -196,6 +196,11 @@ post '/users' do
 	redirect '/users'
 end
 
+get '/user_settings' do 
+    @view = :user_settings
+    erb :template
+end
+
 #-------------------------------------------------------------------------------
 
 # Tweets
