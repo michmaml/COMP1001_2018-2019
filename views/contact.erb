@@ -5,13 +5,13 @@
     
     <form method="post" action="/contact">
         Name:<input type="text" name="firstName" required/>
-        Email:<input type="email" name="email"/>
+        Email:<input type="email" name="email" required/>
         Subject:<input type="text" name="subject" required/>
         Message:<input type="text" name="message" required/>
-        <input type="submit" type="submit" name="submit" value="Submit">
+        <input type="submit" class="blue" name="submit" value="Submit">
          <% if @submitted && @all_ok %>
         <p>Email sent 🎉🥰</p>     
-        <% end %>        
+        <% end %>
     </form>
 </article>
 

@@ -209,6 +209,11 @@ post '/tweets/*' do
 			
 				# Create taxi order (which also creates tweet)
 				create_order
+			
+			when "reply"
+			
+				# Reply to tweet
+				create_tweet
 				
 		end
 	end
