@@ -1,6 +1,6 @@
 
 <article>
-	<h1>Add car</h1>
+	<h1>Add cars</h1>
 	<form method="post" action="/Add_car">
 		<input type="integer" name="Status" placeholder="Status will be automatically set" required>
 		<input type="integer" name="Seats" placeholder="Eneter number of seats (not including driver's)" required>
@@ -9,6 +9,9 @@
 	</form>
 </article>    
     <article>
+        <button class="float-right red"
+			onclick="alert('This delete one car.')">
+			Delete</button>
     
         <table>
             <tr>
@@ -28,6 +31,17 @@
             </tr>
     </table>
         <br />
+        <table>
+            <tr>
+                 <th>Car Status</th>
+                </tr>
+             <tr>
+                    <th>Available: 0</th>
+                    <th>Unavailable: 1</th>
+                    <th>Busy: 2</th>
+                   
+    </table>
+        <br />
     <table>
 		<tr>
 			<th>CarID</th>
@@ -42,8 +56,31 @@
        <% $all.each do |car| %>
 		<tr>
             <td> <%= car["CarID"] %></td>
-            <td> <% car["Status"] %></td>
-            <td> <%  car["Type"] %></td>
+           	 <% if car["Status"].eql?(0) %>
+                <td> Available</td>
+            <% elsif car["Status"].eql?(1) %>
+                <td> Unavailable</td>
+            <% elsif car["Status"].eql?(2)%>
+                <td> Busy</td>
+            <% end %>
+             <% if car["Type"].eql?(0) %>
+                <td> Suv</td>
+            <% elsif car["Type"].eql?(1) %>
+                <td> Sport</td>
+            <% elsif car["Type"].eql?(2) %>
+                <td> Limo</td>
+            <% elsif car["Type"].eql?(3) %>
+                <td> Compact</td>
+            <% elsif car["Type"].eql?(4) %>
+                <td> Convertible</td>
+            <% elsif car["Type"].eql?(5) %>
+                <td> Mini-bus</td>
+            <% elsif car["Type"].eql?(6) %>
+                <td> Sedan</td>
+            <% elsif car["Type"].eql?(7) %>
+                <td> Other</td>
+            
+            <% end %>
             <td> <%= car["Seats"] %></td>
 			
 		</tr>
