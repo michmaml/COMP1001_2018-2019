@@ -41,3 +41,50 @@ def update_user
 end
 
 #-------------------------------------------------------------------------------
+
+        #responsible for switching contact webpage after sending the email - contact.erb
+def contact_submitted #Michal
+    
+    @submitted = !!params[:email]
+    
+    @name = params[:firstName].strip
+    @email = params[:email].strip
+    @subject = params[:subject].strip
+    @message = params[:message].strip
+    
+    name_to_send_to = h params[:firstName]
+    address_to_send_to = h params[:email]
+    subject_to_send_to = h params[:subject]
+    message_to_send_to = h params[:message]
+    
+    @name_ok = 
+        !@name.nil? && @name != ""
+    @user_email_ok =
+        !@email.nil? && @email =~ VALID_EMAIL_REGEX
+    @subject_ok = 
+        !@subject.nil? && @subject != ""
+    @message_ok = 
+        !@message.nil? && @message != ""
+    @all_ok = @name_ok && @user_email_ok && @subject_ok && @message_ok
+  
+    options = { :address              => "smtp.gmail.com",
+                :port                 => 465,
+                :domain               => 'atlas-fiction.codio.io',
+                :user_name            => 'ise19team28@gmail.com',
+                :password             => 'Taxiteam28',
+                :authentication       => 'plain',
+                :enable_starttls_auto => true,
+                :ssl => true
+    }
+    Mail.defaults do
+      delivery_method :smtp, options
+    end
+
+    Mail.deliver do
+      to 'ise19team28@gmail.com'
+      from address_to_send_to
+      subject "🔥 Message from: " + name_to_send_to + "("+address_to_send_to+")" + " Subject: " + subject_to_send_to
+      body  "Feedback: " + message_to_send_to 
+    end
+    erb :contact
+end
