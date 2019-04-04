@@ -1,16 +1,15 @@
-
 <article>
 
 <form method ="post">
       How type of cars do you want:
       <input type ="text" name="Type" placeholder="Input the number of type please"
              value="<%=h params[:search] %>"/>
-      <input type = "submit" value="Search">
+      <input type="submit" value="Search">
     </form>
     </article>
 
 <article>
-    
+	
         <table>
             <tr>
                  <th>Car types</th>
@@ -79,3 +78,43 @@
     </article>  
  <% end %>
 
+
+<article>
+    <h1> The type of cars</h1>
+<form method="post"  bgcolor="white">
+
+		
+
+		<img src="images/car S.jpg" img border="0"  width="500" height="265">	
+		
+		 <button id="button1" class="huge blue">Reguler</button>
+        </form>
+		<form method="post"  bgcolor="white">
+			
+			<img src="images/car L.jpg" img border="0"   width="500" height="265">	
+			
+		<button id="button1" class="huge blue" >Large</button>
+   
+		</form>
+    <form method="post"  bgcolor="white">
+			<img src="images/car M.jpg" img border="0"   width="500" height="265">	
+			
+    <button id="button1" class="huge blue" >Exec</button>
+    </form>
+        <form action="/Added_car">
+    <button id="button1" class="huge blue" >xxx</button>
+    </form>
+
+    <p>Regular</p>
+    <% @regularcars.each do |car| %>
+        <p><%=car%></p>
+    <% end %>
+    <p>Large</p>
+    <% @largecars.each do |car| %>
+        <p><%=car%></p>
+    <% end %>
+    <p>Exec</p>
+    <% @execcars.each do |car| %>
+        <p><%=car%></p>
+    <% end %>
+</article>

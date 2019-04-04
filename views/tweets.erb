@@ -1,18 +1,12 @@
 <% @tweets.each do |tweet| %>
-<article>		
+<article class="order">		
 	<button class="float-right"
 			onclick="Twaxis.expand('.tweets', this.parentNode, this.parentNode.querySelector('.reply'))">
 			Expand</button>
-	<form method="get" action="/tweets">
-		<% # This should do something!! %>
+	<form method="post" action="javascript:alert('This option is not yet available.')">
 		<input type="submit" class="float-right red" value="Reject">
 	</form>
-	<form method="post" action="/tweets">
-		<input type="hidden" name="orderID" value="<%= tweet.id %>">
-		<input type="hidden" name="userName" value="<%= tweet.user.name %>">
-		<input type="hidden" name="userScreenName" value="<%= tweet.user.screen_name %>">
-		<input type="hidden" name="createdAt" value="<%= tweet.created_at %>">
-		<input type="hidden" name="text" value="<%= tweet.text %>">
+	<form method="post" action="/tweets/accept">
 		
 		<span class="tweet-user-name"><%= tweet.user.name %></span>
 		<span class="tweet-user-screen_name">@<%= tweet.user.screen_name %></span>
@@ -22,10 +16,14 @@
 		<section class="hidden tweets">
 			<input type="text" name="date" placeholder="Date">
 			<input type="text" name="time" placeholder="Time">
+			<input type="text" name="car_id" placeholder="Car ID">
 			<input type="text" name="pickup_location" placeholder="Pickup location">
-			<input type="text" name="carID" placeholder="Car ID">
 			<hr>
 			<input type="submit" class="float-right blue" value="Submit">
+			<input type="hidden" name="order_id" value="<%= tweet.id %>">
+			<input type="hidden" name="status" value="1">
+			<input type="hidden" name="name" value="<%= tweet.user.name %>">
+			<input type="hidden" name="screen_name" value="<%= tweet.user.screen_name %>">
 			<input type="text" name="reply" value="@<%= tweet.user.screen_name %> "
 				pattern=".*@<%= tweet.user.screen_name %>.*"
 				minlength="1" maxlength="140"

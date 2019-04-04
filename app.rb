@@ -10,17 +10,13 @@ require 'erb'
 include ERB::Util
 
 require 'sinatra'
-
 #require 'sinatra/reloader'	# FOR DEVELOPMENT USE ONLY
-
-# require 'sinatra/reloader'	# Development use only
-
-#require 'sinatra/reloader'	# FOR DEVELOPMENT USE ONLY
-
 
 require 'twitter'
 
 require 'sqlite3'
+
+require 'mail'
 
 require_relative 'controllers/constants_INCLUDE_FIRST.rb'
 require_relative 'controllers/login_functions.rb'
@@ -92,6 +88,20 @@ post '/join' do
 end
 
 #-------------------------------------------------------------------------------
+
+# Contact
+get '/contact' do
+    @view = :contact
+    erb :template
+end
+
+post '/contact' do
+    contact_submitted
+    @view = :contact
+    erb :template
+end
+
+#-------------------------------------------------------------------------------
 # LOGIN views
 #-------------------------------------------------------------------------------
 
@@ -104,7 +114,6 @@ post '/login' do
 	
 	# Log in
 	log_in
-
 	
 	redirect '/'
 end
@@ -114,22 +123,9 @@ get '/logout' do
 	
 	# Log out
 	log_out
-
 	
 	redirect '/'
 end
-
-
-# Log out
-get '/logout' do
-	
-	# Log out
-	log_out
-	
-	redirect '/'
-end
-
-
 
 #-------------------------------------------------------------------------------
 # USER views
@@ -200,6 +196,11 @@ post '/users' do
 	redirect '/users'
 end
 
+get '/user_settings' do 
+    @view = :user_settings
+    erb :template
+end
+
 #-------------------------------------------------------------------------------
 
 # Tweets
@@ -215,12 +216,25 @@ get '/tweets' do
 	end
 	erb :template
 end
-post '/tweets' do
+post '/tweets/*' do
 	if session[:admin_login]
-		
-		# Create order from tweet
-		create_order
-		
+		case params[:splat][0]
+			when "reject"
+
+				# Create tweet with status rejected
+				# TODO: create_tweet
+
+			when "accept"
+			
+				# Create taxi order (which also creates tweet)
+				create_order
+			
+			when "reply"
+			
+				# Reply to tweet
+				create_tweet
+				
+		end
 	end
 	redirect '/tweets'
 end
@@ -232,18 +246,22 @@ get '/orders' do
 	if session[:admin_login]
 
 		# Fetch current active orders
-		fetch_orders
+		fetch_tweets
 
-		@view = :orders
+		@view = :tweets
 	else
 		redirect '/not_authorised'
 	end
 	erb :template
 end
-
 post '/orders/*' do
 	if session[:admin_login]
 		case params[:splat][0]
+			when "reply"
+			
+				# Reply to tweets
+				create_tweet
+			
 			when "update"
 			
 				# Update taxi order
@@ -257,23 +275,15 @@ post '/orders/*' do
 			when "archive"
 			
 				# Archive taxi order
-				#archive_order
+				archive_order
 				
 		end
-    end
-end
-post '/orders' do
-	if session[:admin_login]
-
-		# Update taxi order
-		#update_order
-		
-
 	end
-	redirect '/orders'
+	erb :template
 end
 
 #-------------------------------------------------------------------------------
+
 # Cars
 get '/cars' do
     
@@ -287,7 +297,10 @@ post '/cars' do
      @view = :cars
  	erb :template
 end
+
 #-------------------------------------------------------------------------------
+
+# Add cars
 get '/Add_car' do
     if session[:admin_login]
   @submitted = false
@@ -309,6 +322,7 @@ post '/Add_car' do
         end
 	redirect '/Add_car'
 end
+
 #-------------------------------------------------------------------------------
 # ERROR views
 #-------------------------------------------------------------------------------
@@ -316,7 +330,6 @@ end
 # Form error
 get '/form_error' do
 	@view = :form_error
-
 	erb :template
 end
 

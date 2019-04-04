@@ -4,19 +4,16 @@
 
 def create_order # Toby
 
-	orderID = params[:orderID].strip.to_i
-	userName = params[:userName].strip
-	twitterHandle = params[:userScreenName].strip
-	createdAt = params[:createdAt].strip
-	text = params[:text].strip
-	
+	orderID = params[:order_id].strip.to_i
+	twitterHandle = params[:screen_name].strip
+
 	date = params[:date].strip.to_i
 	time = params[:time].strip.to_i
-	pickup_location = params[:pickup_location].strip.upcase
-	carID = params[:carID].strip.to_i
+	pickupLocation = params[:pickup_location].strip.upcase
+	carID = params[:car_id].strip.to_i
 	
 	valid = true
-	[orderID,userName,twitterHandle,createdAt,text,date,time,pickup_location,carID].each do |field|
+	[orderID,twitterHandle,date,time,pickupLocation,carID].each do |field|
 		if field.nil? or field.to_s == "" then valid = false end
 	end
 	
@@ -25,6 +22,7 @@ def create_order # Toby
 		# Not needed if we just use the tweet ID! Saves a call to db.
 		#OrderID = @db.get_first_value('SELECT MAX(OrderID)+1 FROM Orders').to_i;
 
+		# This can safely return zero for an unregistered customer...
 		userID = @db.get_first_value(
 			'SELECT UserID FROM User_details WHERE Twitter_handle = (?)',
 			[twitterHandle]).to_i
@@ -33,11 +31,11 @@ def create_order # Toby
 			'INSERT INTO Orders
 			(OrderID, CarID, UserID, Twitter_handle, Pickup_location, Date, Time, Status)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-			[orderID, carID, userID, twitterHandle, pickup_location, date, time, ORDER_STATUS_ACTIVE])
-
-		# puts UserID,Date,Time,Pickup_location
+			[orderID, carID, userID, twitterHandle, pickupLocation, date, time, ORDER_STATUS_ACTIVE])
 		
 		if not success then redirect '/error' end
+			
+		create_tweet
 		
 	else
 		redirect '/form_error'
@@ -47,57 +45,23 @@ end
 
 #-------------------------------------------------------------------------------
 
-def create_tweet # Kacper
+def create_tweet # Jamie
 	
-	tweet_id = params[:in_reply_to_status_id].strip
-    tweet_text = params[:reply].strip
-	@twitter.update("#{tweet_text}", :in_reply_to_status_id => tweet_id)
+	tweet_id = @db.get_first_value 'SELECT MAX(TweetID)+1 FROM Tweets;'
+	order_id = params[:order_id].strip.to_i
+    reply = params[:reply].strip
+	status = params[:status].strip.to_i
+
+	@db.execute(
+		"INSERT INTO Tweets (TweetID, OrderID, Status, Reply)
+		VALUES (?, ?, ?, ?);",
+		[tweet_id, order_id, status, reply])
+	
+	@twitter.update("#{reply}", :in_reply_to_status_id => order_id)
 
 end
 
 #-------------------------------------------------------------------------------
-def create_car # Ziting
-    
-     
-  @Status = params[:Status].strip
-  @Type = params[:Type].strip
-  @Seats = params[:Seats].strip
-
-    carID = @db.execute ('SELECT MAX(CarID)+1 FROM Cars');
- 
-     @db.execute('INSERT INTO Cars VALUES (?, ?, ?, ?)', [CarID, @Status, @Type, @Seats])
-    
-end
-def create_cartable # Ziting
-    @Car = []
- 
-      query = "SELECT * FROM Cars;"
-        
-       @all = @db.execute query
-#                 puts @cars.length
-#                 puts params[:search].to_i
-    if @all
-        @all.each do |car|
-			@Car.push({
-
-				CarID: car["CarID"].to_s,
-				Status: car["Status"].to_s,
-				Type: car["Type"].to_s,
-				Seats: car["Seats"].to_s,
-
-			})
-		end
-        return @all
-
-	else
-		redirect error
-    end
-end
-    
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
 
 def create_user # Kacper
 	
@@ -121,12 +85,12 @@ def create_user # Kacper
 	all_ok = display_name_ok && first_name_ok && surname_ok && email_ok
 
 	if all_ok
-		id = @db.get_first_value 'SELECT MAX(UserID)+1 FROM User_details;';
+		id = @db.get_first_value 'SELECT MAX(UserID)+1 FROM User_details;'
 		success = @db.execute(
 			'INSERT INTO User_details
-			(UserID, Twitter_handle, Firstname, Surname, Email, Password)
-			VALUES (?,?,?,?,?,?);',
-			[id, display_name, first_name, surname, email, coded_password])
+			(UserID, Twitter_handle, Firstname, Surname, Email, Password, Status)
+			VALUES (?,?,?,?,?,?,?);',
+			[id, display_name, first_name, surname, email, coded_password, USER_STATUS_ACTIVE])
 	end
 
 	if success
@@ -139,6 +103,47 @@ def create_user # Kacper
         redirect '/error'
 	end
 	
+end
+		
+#-------------------------------------------------------------------------------
+
+def create_car # Ziting
+
+  status = params[:Status].strip
+  type = params[:Type].strip
+  seats = params[:Seats].strip
+
+    carID = @db.get_first_value('SELECT MAX(CarID)+1 FROM Cars')
+ 
+     @db.execute('INSERT INTO Cars VALUES (?, ?, ?, ?)', [carID, status, type, seats])
+    
+end
+		
+def create_cartable # Ziting
+	
+    @Car = []
+ 
+      query = "SELECT * FROM Cars;"
+        
+       @all = @db.execute query
+#                 puts @cars.length
+#                 puts params[:search].to_i
+    if @all
+        @all.each do |car|
+			@Car.push({
+
+				CarID: car["CarID"].to_s,
+				Status: car["Status"].to_s,
+				Type: car["Type"].to_s,
+				Seats: car["Seats"].to_s,
+
+			})
+		end
+        return @all
+
+	else
+		redirect '/error'
+    end
 end
 
 #-------------------------------------------------------------------------------
