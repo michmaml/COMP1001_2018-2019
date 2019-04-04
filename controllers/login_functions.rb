@@ -14,7 +14,9 @@ def log_in # Kacper
     coded_password = Digest::SHA256.hexdigest password
 
 	#perform validation
-    status = @db.get_first_value('SELECT Status FROM User_details WHERE Email = ? AND Password = ?;',[email, coded_password])
+    status = @db.get_first_value(
+		'SELECT Status FROM User_details WHERE Email = ? AND Password = ?;',[email, coded_password]
+	).to_i
 	
 	if status >= USER_STATUS_ADMIN
 		session[:admin_login] = true
