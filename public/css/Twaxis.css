@@ -184,6 +184,12 @@ footer {
 .hideItemSeats, .hideItemType {
     display: none;
 }
+
+.carHeader{
+    font-size:1.5em;
+    padding: 0px 10px;
+}
+
 /*** Twitter data classes ***/
 
 .tweet-user-name {

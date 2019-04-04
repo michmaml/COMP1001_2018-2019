@@ -265,11 +265,6 @@ get '/cars' do
     erb :template
 end
 
-get '/AddCar' do #TEMPORARY
-    @view = :Add_cars
-    erb :template
-end
-
 post '/Added_car' do
    add_cars(params[:Type][0].to_i,params[:Seats][0].to_i)
    redirect '/cars'

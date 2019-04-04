@@ -92,7 +92,19 @@
         <% end %>
 	</table>
     </article>  
- <% end %>
+<% end %>
+
+<% if session[:admin_login] %>
+<article>
+	<h1>Add car</h1>
+	<form method="post" action="/Added_car">
+		<input type="integer" name="Status" placeholder="Status will be automatically set" required>
+        <input type="integer" name="Type" placeholder="Type should be text" required>
+		<input type="integer" name="Seats" placeholder="Eneter number of seats (not including driver's)" required>
+		<input type="submit" class="blue" value="Submit">
+	</form>
+</article>
+<% end %>
 
 <script>
 var itemsToFilter = document.querySelectorAll(".carTable tr")
