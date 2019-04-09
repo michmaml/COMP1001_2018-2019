@@ -190,6 +190,10 @@ footer {
     padding: 0px 10px;
 }
 
+.Table table{
+    width: 80%;
+}
+
 /*** Twitter data classes ***/
 
 .tweet-user-name {

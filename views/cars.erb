@@ -48,6 +48,9 @@
             <th>Status</th>
             <th>Type</th>
             <th>Seats</th>
+            <% if session[:admin_login] %>
+            <th></th>
+            <% end %>
 			
 		</tr> 
     </table>      
@@ -85,7 +88,13 @@
             
             <% end %>
             <td> <%= car[:Seats] %></td>
-			
+            <% if session[:admin_login] %>
+			<td><form method="post" action="/deletecar">
+                <input type="submit" class="float-right red" value="Delete">
+                <input type="hidden" name="car_id" value="<%= car[:CarID] %>">
+            </form>
+            </td>
+            <% end %>
 		</tr>
         
 

@@ -260,7 +260,7 @@ end
 #Cars
 get '/cars' do
     @Carlist = fetch_cars
-    puts @Carlist
+    #puts @Carlist
     @view = :cars
     erb :template
 end
@@ -269,6 +269,11 @@ post '/Added_car' do
    add_cars(params[:Type][0].to_i,params[:Seats][0].to_i)
    redirect '/cars'
 end  
+
+post "/deletecar" do
+    delete_car
+    redirect "/cars"
+end
 #-------------------------------------------------------------------------------
 # ERROR views
 #-------------------------------------------------------------------------------
