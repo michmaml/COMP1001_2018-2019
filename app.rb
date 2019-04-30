@@ -246,9 +246,9 @@ get '/orders' do
 	if session[:admin_login]
 
 		# Fetch current active orders
-		fetch_tweets
+		fetch_orders
 
-		@view = :tweets
+		@view = :orders
 	else
 		redirect '/not_authorised'
 	end
