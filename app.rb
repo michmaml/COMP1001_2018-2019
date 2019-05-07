@@ -284,51 +284,16 @@ end
 
 #-------------------------------------------------------------------------------
 
-# Cars
-get '/cars' do
-    
-    @view = :cars
- 	erb :template
-    
-end
-post '/cars' do
-    
-    $cars = fetch_cars
-     @view = :cars
- 	erb :template
-end
-
-#-------------------------------------------------------------------------------
-
-# Add cars
-get '/Add_car' do
-    if session[:admin_login]
-  @submitted = false
-   @view = :Add_car
-  erb :template
-        else
-		redirect '/not_authorised'
-	end
-end
-
-post '/Add_car' do
-    if session[:admin_login]
-     @submitted = true
-        
-        create_car
-        $all = create_cartable
-  @view = :Add_car
-  erb :template
-        end
-	redirect '/Add_car'
-end
-#-------------------------------------------------------------------------------
-
 #Cars
 get '/cars' do
     @Carlist = fetch_cars
     #puts @Carlist
     @view = :cars
+    erb :template
+end
+
+get '/Add_car' do
+    @view = :Add_cars
     erb :template
 end
 

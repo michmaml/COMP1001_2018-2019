@@ -73,7 +73,7 @@ def fetch_users # Huiqiang
 end
 
 #-------------------------------------------------------------------------------
-<<<<<<< HEAD
+
 def fetch_cars 
 	@Car = []
  
@@ -82,18 +82,6 @@ def fetch_cars
     @cars = @db.execute query
     #puts @cars.length
 
-=======
-
-def fetch_cars # Ziting
-# 	(%{SELECT * FROM Cars WHERE Seats = ?})
-	@Car = []
- 
-      query = "SELECT * FROM Cars WHERE Type = ?;"
-        
-       @cars = @db.execute query,params[:Type].to_i
-#                 puts @cars.length
-#                 puts params[:search].to_i
->>>>>>> dcc930536536f26db632e9689aed53d709849460
     if @cars
         @cars.each do |car|
 			@Car.push({
@@ -105,22 +93,13 @@ def fetch_cars # Ziting
 
 			})
 		end
-<<<<<<< HEAD
+
         return @Car
-
-	else
-		redirect error
-    end
-end
-
-
-=======
-        return @cars
 
 	else
 		redirect '/error'
     end
 end
 
->>>>>>> dcc930536536f26db632e9689aed53d709849460
+
 #-------------------------------------------------------------------------------

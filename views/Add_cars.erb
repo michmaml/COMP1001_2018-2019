@@ -1,9 +1,28 @@
 <article>
+    <table>
+            <tr>
+                 <th>Car types:</th>
+                </tr>
+             <tr>
+                    <th>Suv: 0</th>
+                    <th>Sport: 1</th>
+                    <th>Limo: 2</th>
+                    <th>Compact: 3</th>
+               </tr>
+             <tr>
+                    <th>Convertible: 4</th>
+                    <th>Mini-bus: 5</th>
+                    <th>Sedan: 6</th>
+                    <th>Other: 7</th>
+            </tr>
+    </table>
+</article>
+<article>
 	<h1>Add car</h1>
 	<form method="post" action="/Added_car">
 		<input type="integer" name="Status" placeholder="Status will be automatically set" required>
-        <input type="integer" name="Type" placeholder="Type should be text" required>
-		<input type="integer" name="Seats" placeholder="Eneter number of seats (not including driver's)" required>
+        <input type="integer" name="Type" placeholder="See above table" required>
+		<input type="integer" name="Seats" placeholder="Enter number of seats (not including driver's)" required>
 		<input type="submit" class="blue" value="Submit">
 	</form>
 </article>
