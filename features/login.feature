@@ -13,3 +13,17 @@ Feature: log in
     When I fill in "password" with "NOTCORRECT"
     When I press "Submit" within "form"
     Then I should see "Not authorised"
+    
+  Scenario: Incorrect login entered
+    Given I am on the loginpage
+    When I fill in "email" with "NOTCORRECT"
+    When I fill in "password" with "test"
+    When I press "Submit" within "form"
+    Then I should see "Not authorised"
+
+  Scenario: Incorrect credentials entered
+    Given I am on the loginpage
+    When I fill in "email" with "NOTCORRECT"
+    When I fill in "password" with "NOTCORRECT"
+    When I press "Submit" within "form"
+    Then I should see "Not authorised"
