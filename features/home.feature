@@ -17,6 +17,5 @@ Feature: home page
    
    Scenario: Show the contact page
     Given I am on the home page
-    When I press "Contact us" 
-    Then I should see "We are here to help. 😁"
-    
+    When I press "Contact us!" 
+    Then I should not see "We cannot help you 😡"    
