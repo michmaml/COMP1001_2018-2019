@@ -13,6 +13,49 @@ module NavigationHelpers
     
     when /the login\s?page/
       '/login' 
+        
+    when /the welcome\s?page/
+      '/welcome'
+    
+    when /the usersettings\s?page/
+      '/user_settings'
+        
+    when /the tweets\s?page/
+      '/tweets'
+        
+    when /the orders\s?page/
+      '/orders' 
+       
+    when /the notfound\s?page/
+      '/not_found'
+        
+    when /the notauthorised\s?page/
+      '/not_authorised'
+        
+    when /the join\s?page/
+      '/join'
+        
+    when /the formerror\s?page/
+      '/form_error'
+        
+    when /the error\s?page/
+      '/error'
+    
+    when /the contact\s?page/
+      '/contact'
+        
+    when /the cars\s?page/
+      '/cars'
+        
+    when /the admin\s?page/
+      '/admin'
+        
+    when /the addcar\s?page/
+      '/Add_car'
+        
+    when /the account\s?page/
+      '/account'
+        
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

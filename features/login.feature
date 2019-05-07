@@ -7,4 +7,6 @@ Feature: log in
     When I press "Submit" within "form"
     Then I should see "Welcome"
     Then I should see "You logged into the member's area"
+    
+  Scenario
 
