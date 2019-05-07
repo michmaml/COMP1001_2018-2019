@@ -12,6 +12,9 @@ require 'sinatra'
 
 require_relative '../../app'
 
+set :root, File.join(File.dirname(__FILE__),'../../')
+set :views, Proc.new{ File.join(root,"views")}
+
 ENV['RACK_ENV'] = 'test'
 
 Capybara.app = Sinatra::Application
