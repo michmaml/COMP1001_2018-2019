@@ -104,6 +104,47 @@ def create_user # Kacper
 	end
 	
 end
+		
+#-------------------------------------------------------------------------------
+
+def create_car # Ziting
+
+  status = params[:Status].strip
+  type = params[:Type].strip
+  seats = params[:Seats].strip
+
+    carID = @db.get_first_value('SELECT MAX(CarID)+1 FROM Cars')
+ 
+     @db.execute('INSERT INTO Cars VALUES (?, ?, ?, ?)', [carID, status, type, seats])
+    
+end
+		
+def create_cartable # Ziting
+	
+    @Car = []
+ 
+      query = "SELECT * FROM Cars;"
+        
+       @all = @db.execute query
+#                 puts @cars.length
+#                 puts params[:search].to_i
+    if @all
+        @all.each do |car|
+			@Car.push({
+
+				CarID: car["CarID"].to_s,
+				Status: car["Status"].to_s,
+				Type: car["Type"].to_s,
+				Seats: car["Seats"].to_s,
+
+			})
+		end
+        return @all
+
+	else
+		redirect '/error'
+    end
+end
 
 #-------------------------------------------------------------------------------
 

@@ -16,6 +16,8 @@ require 'twitter'
 
 require 'sqlite3'
 
+require 'mail'
+
 require_relative 'controllers/constants_INCLUDE_FIRST.rb'
 require_relative 'controllers/login_functions.rb'
 require_relative 'controllers/create_functions.rb'
@@ -83,6 +85,20 @@ post '/join' do
 	create_user
 	
 	redirect '/'
+end
+
+#-------------------------------------------------------------------------------
+
+# Contact
+get '/contact' do
+    @view = :contact
+    erb :template
+end
+
+post '/contact' do
+    contact_submitted
+    @view = :contact
+    erb :template
 end
 
 #-------------------------------------------------------------------------------
@@ -180,6 +196,11 @@ post '/users' do
 	redirect '/users'
 end
 
+get '/user_settings' do 
+    @view = :user_settings
+    erb :template
+end
+
 #-------------------------------------------------------------------------------
 
 # Tweets
@@ -207,6 +228,11 @@ post '/tweets/*' do
 			
 				# Create taxi order (which also creates tweet)
 				create_order
+			
+			when "reply"
+			
+				# Reply to tweet
+				create_tweet
 				
 		end
 	end
@@ -253,7 +279,48 @@ post '/orders/*' do
 				
 		end
 	end
-	redirect '/orders'
+	erb :template
+end
+
+#-------------------------------------------------------------------------------
+
+# Cars
+get '/cars' do
+    
+    @view = :cars
+ 	erb :template
+    
+end
+post '/cars' do
+    
+    $cars = fetch_cars
+     @view = :cars
+ 	erb :template
+end
+
+#-------------------------------------------------------------------------------
+
+# Add cars
+get '/Add_car' do
+    if session[:admin_login]
+  @submitted = false
+   @view = :Add_car
+  erb :template
+        else
+		redirect '/not_authorised'
+	end
+end
+
+post '/Add_car' do
+    if session[:admin_login]
+     @submitted = true
+        
+        create_car
+        $all = create_cartable
+  @view = :Add_car
+  erb :template
+        end
+	redirect '/Add_car'
 end
 #-------------------------------------------------------------------------------
 

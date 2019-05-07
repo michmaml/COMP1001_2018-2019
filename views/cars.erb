@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <article class="filter">
     <h2>Seats</h2>
     <ul class="seatsFilter">
@@ -22,6 +23,20 @@
 
 <article class="Table">
     <% if params[:admin_login] %>
+=======
+<article>
+<h1>Cars</h1>
+<form method ="post">
+      Which type of cars do you want:
+      <input type ="text" name="Type" placeholder="Input the number of type please"
+             value="<%=h params[:search] %>"/>
+      <input type="submit" value="Search">
+    </form>
+    </article>
+
+<article>
+	
+>>>>>>> dcc930536536f26db632e9689aed53d709849460
         <table>
             <tr>
                  <th>Car types</th>
@@ -39,6 +54,7 @@
                     <th>Other: 7</th>
             </tr>
     </table>
+<<<<<<< HEAD
     <% end %>
     <h1>Active Cars</h1>
         <br />
@@ -95,12 +111,58 @@
             </form>
             </td>
             <% end %>
+=======
+        <br />
+    <table>
+		<tr>
+			<th>CarID</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Seats</th>
+			
+		</tr>      
+
+          <% unless $cars.nil? %>
+
+       <% $cars.each do |car| %>
+		<tr>
+		<td> <%= car["CarID"] %></td>
+           	 <% if car["Status"].eql?(0) %>
+                <td> Available</td>
+            <% elsif car["Status"].eql?(1) %>
+                <td> Unavailable</td>
+            <% elsif car["Status"].eql?(2)%>
+                <td> Busy</td>
+            <% end %>
+             <% if car["Type"].eql?(0) %>
+                <td> Suv</td>
+            <% elsif car["Type"].eql?(1) %>
+                <td> Sport</td>
+            <% elsif car["Type"].eql?(2) %>
+                <td> Limo</td>
+            <% elsif car["Type"].eql?(3) %>
+                <td> Compact</td>
+            <% elsif car["Type"].eql?(4) %>
+                <td> Convertible</td>
+            <% elsif car["Type"].eql?(5) %>
+                <td> Mini-bus</td>
+            <% elsif car["Type"].eql?(6) %>
+                <td> Sedan</td>
+            <% elsif car["Type"].eql?(7) %>
+                <td> Other</td>
+            
+            <% end %>
+            <td> <%= car["Seats"] %></td>
+<!--             <td> xxxxxx</td> -->
+			
+>>>>>>> dcc930536536f26db632e9689aed53d709849460
 		</tr>
         
 
         <% end %>
 	</table>
     </article>  
+<<<<<<< HEAD
 <% end %>
 
 <% if session[:admin_login] %>
@@ -112,6 +174,11 @@
 		<input type="integer" name="Seats" placeholder="Eneter number of seats (not including driver's)" required>
 		<input type="submit" class="blue" value="Submit">
 	</form>
+=======
+ <% end %>
+
+	
+>>>>>>> dcc930536536f26db632e9689aed53d709849460
 </article>
 <% end %>
 

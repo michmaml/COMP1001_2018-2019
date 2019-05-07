@@ -26,7 +26,7 @@ def fetch_orders # Jamie
 			end
 =end
 			@orders.push({
-
+				
 				date: order["Date"],
 				time: order["Time"],
 				from: order["Pickup_location"],
@@ -36,7 +36,7 @@ def fetch_orders # Jamie
 				id: order["OrderID"],
 				user_id: order["UserID"],
 				screen_name: order["Twitter_handle"],
-
+				
 				tweets: @twitter.search("from:#{order["Twitter_handle"]} @#{TEAM_NAME}")
 				
 				# Obsolete...
@@ -73,6 +73,7 @@ def fetch_users # Huiqiang
 end
 
 #-------------------------------------------------------------------------------
+<<<<<<< HEAD
 def fetch_cars 
 	@Car = []
  
@@ -81,6 +82,18 @@ def fetch_cars
     @cars = @db.execute query
     #puts @cars.length
 
+=======
+
+def fetch_cars # Ziting
+# 	(%{SELECT * FROM Cars WHERE Seats = ?})
+	@Car = []
+ 
+      query = "SELECT * FROM Cars WHERE Type = ?;"
+        
+       @cars = @db.execute query,params[:Type].to_i
+#                 puts @cars.length
+#                 puts params[:search].to_i
+>>>>>>> dcc930536536f26db632e9689aed53d709849460
     if @cars
         @cars.each do |car|
 			@Car.push({
@@ -92,6 +105,7 @@ def fetch_cars
 
 			})
 		end
+<<<<<<< HEAD
         return @Car
 
 	else
@@ -100,4 +114,13 @@ def fetch_cars
 end
 
 
+=======
+        return @cars
+
+	else
+		redirect '/error'
+    end
+end
+
+>>>>>>> dcc930536536f26db632e9689aed53d709849460
 #-------------------------------------------------------------------------------

@@ -129,6 +129,15 @@ footer {
 	color: white;
 }
 
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: none;
+}
+
 
 /*** View-specific styles ***/
 
@@ -146,8 +155,12 @@ footer {
 
 .welcome main h1, .home main h1 {
 	margin: 1em 0;
-	text-shadow: 0 0 0.1em rgba(0, 0, 0, 0.5);
+	text-shadow: 0 0 0.25em rgba(0, 0, 0, 0.5);
 	font-size: 10vmin;
+}
+
+.welcome footer, .home footer {
+	text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
 }
 
 .order input[type="text"] {
@@ -251,4 +264,8 @@ footer {
 
 .red {
 	color: crimson;
+}
+
+.white {
+	color: white;
 }
