@@ -5,26 +5,15 @@
 def fetch_orders # Jamie
 	
 	@orders = []
-
-	query = "SELECT * FROM Orders WHERE Status = #{ORDER_STATUS_ACTIVE} LIMIT 20;"
-	results = @db.execute query
+	
+	results = @db.execute (
+		"SELECT * FROM Orders WHERE Status = #{ORDER_STATUS_ACTIVE} ORDER BY OrderID DESC LIMIT 20;"
+		)
 
 	if results
 
 		results.each do |order|
 			
-=begin
-			# Ideally we would fetch all the tweets that have replied to the original...
-			
-			tweet_list = @db.execute(
-					"SELECT TweetID, Reply FROM Tweets
-					WHERE OrderID = ? AND Status = ?;",
-					[order["OrderID"], TWEET_STATUS_ACCEPTED])
-			tweets = []
-			tweet_list.each do |tweet|
-				tweets.push(@twitter.status(tweet["OrderID"]))
-			end
-=end
 			@orders.push({
 				
 				date: order["Date"],
@@ -37,10 +26,10 @@ def fetch_orders # Jamie
 				user_id: order["UserID"],
 				screen_name: order["Twitter_handle"],
 				
-				tweets: @twitter.search("from:#{order["Twitter_handle"]} @#{TEAM_NAME}")
-				
-				# Obsolete...
-				#@twitter.search("from:#{order["Twitter_handle"]} @#{TEAM_NAME}")
+				tweets: @twitter.search(
+					"from:#{order["Twitter_handle"]} @#{TEAM_NAME}",
+					{:result_type => "recent", :since_id => order["OrderID"]}
+				)
 			})
 			
 		end
@@ -53,12 +42,36 @@ end
 
 #-------------------------------------------------------------------------------
 
-def fetch_tweets # Michal
+def fetch_tweets # Jamie
 
-# TODO: filter the following Twittter API search by the status of tweet IDs stored in the database!
-	results = @twitter.mentions_timeline()
-	@tweets = results.take(20)
-
+	# Update list of tweets in database from Twitter API	
+	new_tweets = @twitter.mentions_timeline()
+	new_tweets.each do |tweet|
+		tweet_id = tweet.id.to_i
+		order_id = tweet.in_reply_to_status_id.to_i    # usefully returns 0 if not set...
+		reply = tweet.text
+		status = TWEET_STATUS_NEW
+		# Try (or begin, in this case!) to add to database; allow failure if already exists
+		begin
+			@db.execute(
+				"INSERT INTO Tweets (TweetID, OrderID, Status, Reply) VALUES (?, ?, ?, ?);",
+				[tweet_id, order_id, status, reply])
+		rescue
+		end
+	end
+	
+	# Filter the following Twitter API search by the status of tweet IDs stored in the database!
+	# If OrderID = 0, then the tweet is an original post (start of a thread),
+	# else OrderID = the ID of the original post it is in reply to
+	tweet_list = @db.execute(
+		"SELECT TweetID FROM Tweets WHERE OrderID=0 AND Status=#{TWEET_STATUS_NEW}
+		ORDER BY TweetID DESC LIMIT 20;")
+	tweets = []
+	tweet_list.each do |tweet|
+		tweets.push(tweet[0])
+	end
+	@tweets = @twitter.statuses(tweets)
+	
 end
 
 #-------------------------------------------------------------------------------

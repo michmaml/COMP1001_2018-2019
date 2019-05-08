@@ -221,8 +221,8 @@ post '/tweets/*' do
 		case params[:splat][0]
 			when "reject"
 
-				# Create tweet with status rejected
-				# TODO: create_tweet
+				# Change tweet status to rejected
+				reject_tweet
 
 			when "accept"
 			

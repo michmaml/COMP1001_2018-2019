@@ -3,8 +3,10 @@
 	<button class="float-right"
 			onclick="Twaxis.expand('.tweets', this.parentNode, this.parentNode.querySelector('.reply'))">
 			Expand</button>
-	<form method="post" action="javascript:alert('This option is not yet available.')">
+	<form method="post" action="/tweets/reject">
 		<input type="submit" class="float-right red" value="Reject">
+		<input type="hidden" name="order_id" value="<%= tweet.id %>">
+		<input type="hidden" name="status" value="<%= TWEET_STATUS_REJECTED %>">
 	</form>
 	<form method="post" action="/tweets/accept">
 		
@@ -21,7 +23,7 @@
 			<hr>
 			<input type="submit" class="float-right blue" value="Submit">
 			<input type="hidden" name="order_id" value="<%= tweet.id %>">
-			<input type="hidden" name="status" value="1">
+			<input type="hidden" name="status" value="<%= TWEET_STATUS_ACCEPTED %>">
 			<input type="hidden" name="name" value="<%= tweet.user.name %>">
 			<input type="hidden" name="screen_name" value="<%= tweet.user.screen_name %>">
 			<input type="text" name="reply" value="@<%= tweet.user.screen_name %> "
@@ -30,6 +32,7 @@
 				placeholder="Write a reply..."
 				onfocus="this.selectionStart = -1">
 		</section>
+		
 	</form>
 </article>
 <% end %>

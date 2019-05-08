@@ -9,9 +9,9 @@
 7 = Other
 
 # Car status
-0 = Available
-1 = Busy
-2 = Unavailable
+0 = Inactive
+1 = Ready
+2 = Busy
 
 # User status
 0 = Inactive

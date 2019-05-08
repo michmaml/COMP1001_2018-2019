@@ -42,6 +42,17 @@ end
 
 #-------------------------------------------------------------------------------
 
+def accept_tweet # Jamie
+	
+	tweetID = params[:order_id].strip.to_i
+	@db.execute(
+		"UPDATE Tweets SET Status = #{TWEET_STATUS_ACCEPTED} WHERE TweetID = ?;",
+		[tweetID])
+	
+end
+
+#-------------------------------------------------------------------------------
+
         #responsible for switching contact webpage after sending the email - contact.erb
 def contact_submitted #Michal
     

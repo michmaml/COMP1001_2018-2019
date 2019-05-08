@@ -199,6 +199,12 @@ footer a:hover {
 	float: right;
 }
 
+.narrow {
+	max-width: 100vmin;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .center {
 	text-align: center;
 }

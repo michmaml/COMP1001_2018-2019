@@ -24,6 +24,17 @@ end
 
 #-------------------------------------------------------------------------------
 
+def reject_tweet # Jamie
+	
+	tweetID = params[:order_id].strip.to_i
+	@db.execute(
+		"UPDATE Tweets SET Status = #{TWEET_STATUS_REJECTED} WHERE TweetID = ?;",
+		[tweetID])
+	
+end
+
+#-------------------------------------------------------------------------------
+
 def delete_user # Jamie
 	
 	userID = params[:user_id].strip.to_i
