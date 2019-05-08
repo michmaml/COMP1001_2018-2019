@@ -298,7 +298,7 @@ get '/Add_car' do
 end
 
 post '/Added_car' do
-   add_cars(params[:Type][0].to_i,params[:Seats][0].to_i)
+   add_cars(params[:Type][0].to_i,params[:Seats][0].to_i,params[:Location].to_s)
    redirect '/cars'
 end  
 

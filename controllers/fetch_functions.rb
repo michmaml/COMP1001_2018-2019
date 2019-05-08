@@ -90,6 +90,7 @@ def fetch_cars
 				Status: car["Status"].to_s,
 				Type: car["Type"].to_s,
 				Seats: car["Seats"].to_s,
+                Location: car["Location"].to_s,
 
 			})
 		end
