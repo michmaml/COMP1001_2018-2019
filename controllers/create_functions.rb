@@ -18,22 +18,20 @@ def create_order # Toby
 	end
 	
 	if valid
-	
-		# Not needed if we just use the tweet ID! Saves a call to db.
-		#OrderID = @db.get_first_value('SELECT MAX(OrderID)+1 FROM Orders').to_i;
+		begin
+			# This can safely return zero for an unregistered customer...
+			userID = @db.get_first_value(
+				'SELECT UserID FROM User_details WHERE Twitter_handle = (?)',
+				[twitterHandle]).to_i
 
-		# This can safely return zero for an unregistered customer...
-		userID = @db.get_first_value(
-			'SELECT UserID FROM User_details WHERE Twitter_handle = (?)',
-			[twitterHandle]).to_i
-
-		success = @db.execute(
-			'INSERT INTO Orders
-			(OrderID, CarID, UserID, Twitter_handle, Pickup_location, Date, Time, Status)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-			[orderID, carID, userID, twitterHandle, pickupLocation, date, time, ORDER_STATUS_ACTIVE])		
-		
-		if not success then redirect '/error' end
+			success = @db.execute(
+				'INSERT INTO Orders
+				(OrderID, CarID, UserID, Twitter_handle, Pickup_location, Date, Time, Status)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+				[orderID, carID, userID, twitterHandle, pickupLocation, date, time, ORDER_STATUS_ACTIVE])		
+		rescue
+			redirect '/error'
+		end
 		
 		accept_tweet
 		create_tweet
