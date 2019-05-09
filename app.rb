@@ -303,11 +303,10 @@ end
 get '/orders' do
 	if session[:admin_login]
 
-
 		# Fetch current active orders from all cities
 		fetch_orders
 
-		@view = :tweets
+		@view = :orders
 	else
 		redirect '/not_authorised'
 	end
@@ -341,12 +340,15 @@ post '/orders/*' do
 	erb :template
 end
 
+#-------------------------------------------------------------------------------
+
 #Locations
 get '/locations' do
     @LocationList = update_map
     @view = :locations
     erb :template
 end
+
 #-------------------------------------------------------------------------------
 
 # Cars
