@@ -36,6 +36,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
     eventmachine (1.2.7)
+    excon (0.64.0)
     gherkin (5.1.0)
     http (3.3.0)
       addressable (~> 2.3)
@@ -60,6 +61,8 @@ GEM
     naught (1.1.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    postcodes_io (0.3.0)
+      excon (~> 0.39)
     public_suffix (3.0.3)
     rack (2.0.7)
     rack-protection (2.0.5)
@@ -129,6 +132,7 @@ DEPENDENCIES
   cucumber!
   mail!
   nokogiri (= 1.6.7.2)!
+  postcodes_io!
   rspec!
   simplecov!
   sinatra!
