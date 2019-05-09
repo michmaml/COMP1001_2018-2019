@@ -72,11 +72,6 @@ article {
 	background-color: white;
 }
 
-article table {
-	table-layout: fixed;
-	width: 25em;
-}
-
 article th {
 	text-align: left;
 	font-weight: normal;

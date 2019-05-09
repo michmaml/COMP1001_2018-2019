@@ -6,8 +6,8 @@ def update_order # Jamie
 
 	orderID = params[:order_id].strip.to_i
 
-	date = params[:date].strip.to_i
-	time = params[:time].strip.to_i
+	date = params[:date].strip
+	time = params[:time].strip
 	pickupLocation = params[:pickup_location].strip.upcase
 	carID = params[:car_id].strip.to_i
 	

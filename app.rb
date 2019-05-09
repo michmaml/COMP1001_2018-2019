@@ -247,7 +247,7 @@ end
 get '/orders' do
 	if session[:admin_login]
 
-		# Fetch current active orders
+		# Fetch current active orders from all cities
 		fetch_orders
 
 		@view = :orders
@@ -330,6 +330,12 @@ get '/not_authorised' do
 	erb :template
 end
 
+# SignUp Error
+get '/signup_error' do
+    @view = :signup_error
+    erb :template
+end
+
 # Not found
 not_found do
 	@view = :not_found
@@ -341,3 +347,4 @@ error do
 	@view = :error
 	erb :template
 end
+
