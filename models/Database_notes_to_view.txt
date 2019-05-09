@@ -20,7 +20,8 @@
 
 # Tweet status
 0 = Rejected
-1 = Accepted
+1 = New
+2 = Accepted
 
 # Order status
 0 = Cancelled
