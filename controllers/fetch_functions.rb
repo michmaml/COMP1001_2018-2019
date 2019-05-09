@@ -4,6 +4,8 @@
 
 def fetch_orders # Jamie
 	
+	tweets = @twitter.mentions_timeline
+	
 	@orders = []
 	
 	results = @db.execute (
@@ -26,12 +28,11 @@ def fetch_orders # Jamie
 				user_id: order["UserID"],
 				screen_name: order["Twitter_handle"],
 				
-				tweets: @twitter.search(
-					"from:#{order["Twitter_handle"]} @#{TEAM_NAME}",
-					{:result_type => "recent", :since_id => order["OrderID"]}
-				)
+				tweets:	tweets.select do |tweet|
+							tweet.id == order["OrderID"] or
+							tweet.in_reply_to_status_id == order["OrderID"]
+						end
 			})
-			
 		end
 
 	else
@@ -45,7 +46,7 @@ end
 def fetch_tweets # Jamie
 
 	# Update list of tweets in database from Twitter API	
-	new_tweets = @twitter.mentions_timeline()
+	new_tweets = @twitter.mentions_timeline
 	new_tweets.each do |tweet|
 		tweet_id = tweet.id.to_i
 		order_id = tweet.in_reply_to_status_id.to_i    # usefully returns 0 if not set...

@@ -39,15 +39,15 @@
 			<div class="tweet-text"><%= tweet.text %></div>
 			<% end %>
 			<hr>
-				<input type="submit" class="float-right blue" value="Reply">
-				<input type="hidden" name="order_id" value="<%= order[:id] %>">
-				<input type="hidden" name="status" value="1">
-				<input type="hidden" name="screen_name" value="<%= order[:screen_name] %>">
-				<input type="text" name="reply" value="@<%= order[:screen_name] %> "
-					pattern=".*@<%= order[:screen_name] %>.*"
-					minlength="1" maxlength="140"
-					placeholder="Write a reply..."
-					onfocus="this.selectionStart = -1">
+			<input type="submit" class="float-right blue" value="Reply">
+			<input type="hidden" name="order_id" value="<%= order[:id] %>">
+			<input type="hidden" name="status" value="1">
+			<input type="hidden" name="screen_name" value="<%= order[:screen_name] %>">
+			<input type="text" name="reply" value="@<%= order[:screen_name] %> "
+				pattern=".*@<%= order[:screen_name] %>.*"
+				minlength="1" maxlength="140"
+				placeholder="Write a reply..."
+				onfocus="this.selectionStart = -1">
 		</section>
 	</form>
 </article>
