@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        L.mapquest.key = 'VFSg0lsA3Cfi0HQBorNGaWs5lSvS7Hvf';
+        
+        var map = L.mapquest.map('map', {
+          center: [53.380822,-1.472860],
+          layers: L.mapquest.tileLayer('map'),
+          zoom: 15
+        });
+
+        <% @Locations.each do |location| %> 
+        
+        var marker1 = L.marker([<%= location[:lat]%>,<%= location[:long]%>]).addTo(map);
+        var circle = L.circle([53.381157, -1.488395], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 1,
+            radius: 10
+        }).addTo(map);
+        <% end %>  
+        marker1.bindPopup("<b>PickupPoint</b><br>pickupPoint").openPopup();
+        circle.bindPopup("<b>Destination</b><br>Destination").openPopup();   
+          
+      }
+    </script>
+  </head>
+
+  <body style="border: 0; margin: 0;">
+    <div id="map" style="width: 100%; height: 530px;"></div>
+  </body>
+</html>
+

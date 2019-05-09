@@ -14,6 +14,8 @@ require 'sinatra'
 
 require 'twitter'
 
+require 'postcodes_io'
+
 require 'sqlite3'
 
 require 'mail'
@@ -282,6 +284,12 @@ post '/orders/*' do
 	redirect '/orders'
 end
 
+#Locations
+get '/locations' do
+    @LocationList = update_map
+    @view = :locations
+    erb :template
+end
 #-------------------------------------------------------------------------------
 
 #Cars

@@ -69,8 +69,18 @@ Feature: Sign up
     When I fill in "password" with "test"
 	Then I should not see "Sorry but it seems that email or Twitter name is incorrect...🤔"
 
+<<<<<<< HEAD
   Scenario: Logging out from the website
     Given I want to create an account
     Given I login as user
     When I press "Log out" 
     Then I should see "Order your taxi with a tweet."
+=======
+
+# Scenario: Logging out from the website
+#   Given I want to create an account
+#   Given I login as user
+#   Given I am on the homepage
+#   When I press "logout button"
+#   Then I should see "Order your taxi with a tweet."
+>>>>>>> b4b11b5dbceaf1994ae930ef037502a394b2733a
