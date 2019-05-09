@@ -3,14 +3,11 @@ Feature: Add Cars
 	
   	Scenario: Add standard car in Sheffield
   		
-	    Given I am on the adminpage
-	    When I select "Add cars"
+	    Given I am on the addcarpage
 	    Then I should see "Car types:"
-
-	
+        
   	Scenario: Add standard car in Manchester
-        Given I am on the adminpage
-	     When I follow "Add cars"
+        Given I am on the addcarpage
 	    Then I should see "Car types:"
 
 	Scenario: Add car and print the values
@@ -23,5 +20,8 @@ Feature: Add Cars
 		When I press "Submit"
 		Then I should see "Seats"
 
+
+	
+ 
 	
 	
