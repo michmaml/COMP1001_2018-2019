@@ -1,4 +1,10 @@
-<% @tweets.each do |tweet| %>
+<% @tweets.each do |tweet|
+	
+	timestamp = tweet.created_at.to_s.split(" ")
+	date = timestamp[0]
+	time = timestamp[1]
+	zone = timestamp[2]
+%>
 <article class="order">		
 	<button class="float-right"
 			onclick="Twaxis.expand('.tweets', this.parentNode, this.parentNode.querySelector('.reply'))">
@@ -16,12 +22,15 @@
 		<div class="tweet-text"><%= tweet.text %></div>
 		
 		<section class="hidden tweets">
-			<input type="text" name="date" placeholder="Date">
-			<input type="text" name="time" placeholder="Time">
+			<hr>
+			<b class="blue">Enter pickup details:</b>
+			<input type="text" name="date" placeholder="Date" value="<%= date %>">
+			<input type="text" name="time" placeholder="Time" value="<%= time %>">
 			<input type="text" name="car_id" placeholder="Car ID">
 			<input type="text" name="pickup_location" placeholder="Pickup location">
 			<hr>
 			<input type="submit" class="float-right blue" value="Submit">
+			<b class="blue">Write a reply:</b>
 			<input type="hidden" name="order_id" value="<%= tweet.id %>">
 			<input type="hidden" name="status" value="<%= TWEET_STATUS_ACCEPTED %>">
 			<input type="hidden" name="name" value="<%= tweet.user.name %>">
@@ -29,7 +38,7 @@
 			<input type="text" name="reply" value="@<%= tweet.user.screen_name %> "
 				pattern=".*@<%= tweet.user.screen_name %>.*"
 				minlength="1" maxlength="140"
-				placeholder="Write a reply..."
+				placeholder="Must contain user's Twitter handle (@<%= tweet.user.screen_name %>)"
 				onfocus="this.selectionStart = -1">
 		</section>
 		
