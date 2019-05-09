@@ -14,6 +14,8 @@ require 'sinatra'
 
 require 'twitter'
 
+require 'postcodes_io'
+
 require 'sqlite3'
 
 require 'mail'
@@ -245,7 +247,7 @@ end
 get '/orders' do
 	if session[:admin_login]
 
-		# Fetch current active orders
+		# Fetch current active orders from all cities
 		fetch_orders
 
 		@view = :orders
@@ -282,6 +284,12 @@ post '/orders/*' do
 	redirect '/orders'
 end
 
+#Locations
+get '/locations' do
+    @LocationList = update_map
+    @view = :locations
+    erb :template
+end
 #-------------------------------------------------------------------------------
 
 #Cars

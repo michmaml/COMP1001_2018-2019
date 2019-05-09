@@ -86,7 +86,7 @@ def contact_submitted #Michal
                 :authentication       => 'plain',
                 :enable_starttls_auto => true,
                 :ssl => true
-    }
+      }
     Mail.defaults do
       delivery_method :smtp, options
     end
@@ -98,4 +98,27 @@ def contact_submitted #Michal
       body  "Feedback: " + message_to_send_to 
     end
     erb :contact
+end
+
+#-------------------------------------------------------------------------------
+
+def update_map #Huiqiang
+    @Locations = []
+     
+    query = "SELECT Pickup_location FROM Orders;"
+    results = @db.execute query
+
+
+		results.each do |location|
+      
+         p = Postcodes::IO.new
+         postcode = p.lookup(location["Pickup_location"])
+           
+      
+         @Locations.push({    
+           :lat => postcode.latitude,           
+           :long => postcode.longitude           
+          })  
+
+    end
 end
