@@ -50,6 +50,20 @@ When ("I login as user") do
     }
 end
 
+After('@addtestaccount') do
+  $db.execute "DELETE from User_details WHERE email = 'delete@sheffield.ac.uk"
+end
+
+After('@addcarsheff') do
+  $db.execute "DELETE from cars WHERE id = ''"
+end
+
+
+After('@removeuser') do
+  $db.execute "DELETE from User_details WHERE twitter_handle = 'test'"
+end
+
+
 When /^(?:|I )press "([^\"]*)"(?: within "([^\"]*)")?$/ do |button, selector|
   with_scope(selector) do
     click_button(button)
