@@ -55,3 +55,44 @@ Feature: Sign up
     
     Then I should see "Sorry"
     
+    Feature: Signing up
+	
+	Scenario: User already exists (email)
+	
+		When I press "Sign Up"
+		Then I should see "This user already exists in the system"
+
+	Scenario: User already exists (twitter_handle)
+	
+		When I press "Sign Up"
+		Then I should see "This user already exists in the system"
+
+	Scenario: No email
+		
+		When I press "Sign Up"
+		Then I should see "This is not a valid email"
+
+	Scenario: Invalid email
+	
+		When I press "Sign Up"
+		Then I should see "This is not a valid email"
+
+	Scenario: Invalid password
+	
+		When I press "Sign Up"
+		Then I should see "Password is too short"
+
+	Scenario: Valid Passwords that Don't match
+	
+		When I press "Sign Up"
+		Then I should see "Passwords do not match"
+
+	Scenario: Signed up successfully
+	
+		When I press "Sign Up"
+		Then I should see "You have successfully signed up. Please login with your credentials."
+
+
+
+
+    
