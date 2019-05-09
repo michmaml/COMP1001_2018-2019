@@ -10,6 +10,10 @@
         null,
         null,
         null,
+<<<<<<< HEAD
+=======
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         1,
         1,
         null,
@@ -46,14 +50,23 @@
         null,
         null,
         null,
+<<<<<<< HEAD
         48,
+=======
+        49,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         null,
         null,
         null,
+<<<<<<< HEAD
         48,
         48,
+=======
+        49,
+        49,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         null,
@@ -159,6 +172,98 @@
         null,
         0,
         null,
+<<<<<<< HEAD
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        0,
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+=======
+        1,
+        0,
+        null,
+        null,
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+        0,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+<<<<<<< HEAD
+=======
+        null,
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+<<<<<<< HEAD
+        0,
+        null,
+        1,
+        0,
+        null,
+        null,
+=======
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
         null,
         null,
         null,
@@ -181,11 +286,17 @@
         null,
         null,
         1,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         0,
         null,
         null,
         0,
         null,
+<<<<<<< HEAD
+        null,
+        1,
+        0,
+=======
         0,
         null,
         0,
@@ -199,55 +310,17 @@
         0,
         null,
         null,
-        0,
-        null,
-        null,
-        1,
-        0,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         0,
         null,
         null,
         null,
         null,
         null,
-        1,
-        0,
+<<<<<<< HEAD
+=======
         null,
-        null,
-        0,
-        null,
-        0,
-        null,
-        0,
-        null,
-        0,
-        null,
-        1,
-        0,
-        0,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         1,
         0,
         null,
@@ -266,6 +339,48 @@
         null,
         null,
         null,
+<<<<<<< HEAD
+        0,
+=======
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
         0,
         null,
         null,
@@ -289,6 +404,11 @@
         null,
         null,
         null,
+<<<<<<< HEAD
+=======
+        null,
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         1,
         0,
         0,
@@ -297,6 +417,7 @@
         null,
         null,
         null,
+<<<<<<< HEAD
         1,
         1,
         null,
@@ -312,6 +433,53 @@
         1,
         1,
         1,
+=======
+        null,
+        1,
+        null,
+        0,
+        0,
+        null,
+        null,
+        1,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        3,
+        0,
+        0,
+        0,
+        null,
+        3,
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+<<<<<<< HEAD
+=======
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
+        null,
+        null,
+        null,
         null,
         null,
         1,
@@ -320,18 +488,14 @@
         null,
         null,
         null,
-        null,
-        null,
-        null,
         1,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
+<<<<<<< HEAD
         4,
         4,
+=======
+        7,
+        7,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         null,
@@ -408,6 +572,10 @@
         null,
         4,
         1,
+<<<<<<< HEAD
+=======
+        1,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         3,
         3,
@@ -536,17 +704,43 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         1,
         1,
         null,
         null,
         1,
+=======
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         1,
         null,
         0,
         null,
+<<<<<<< HEAD
+=======
+        0,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        0,
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null
       ],
       "/home/codio/workspace/project/controllers/fetch_functions.rb": [
@@ -617,6 +811,10 @@
         null,
         null,
         null,
+<<<<<<< HEAD
+=======
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         0,
         null,
         null,
@@ -642,6 +840,7 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         1,
         null,
         1,
@@ -652,6 +851,17 @@
         1,
         1,
         8,
+=======
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+        0,
+        0,
+        0,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         null,
@@ -662,7 +872,11 @@
         null,
         null,
         null,
+<<<<<<< HEAD
         1,
+=======
+        0,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         0,
@@ -694,8 +908,50 @@
         0,
         null,
         0,
+<<<<<<< HEAD
+=======
+        0,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+<<<<<<< HEAD
+=======
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+<<<<<<< HEAD
+=======
+        1,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
         null,
         null,
         null,
@@ -708,14 +964,7 @@
         null,
         null,
         null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         1,
         null,
@@ -778,24 +1027,39 @@
         null,
         null,
         1,
+<<<<<<< HEAD
+=======
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         0,
         null,
         0,
         0,
         null,
+<<<<<<< HEAD
         null,
+=======
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         0,
         null,
         0,
         0,
         null,
+<<<<<<< HEAD
         null,
+=======
+        0,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         0,
         null,
         null,
         null,
         null,
         null,
+<<<<<<< HEAD
+=======
+        null,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null
       ],
       "/home/codio/workspace/project/controllers/delete_functions.rb": [
@@ -851,7 +1115,10 @@
         null,
         0,
         0,
+<<<<<<< HEAD
         0,
+=======
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         null,
@@ -942,7 +1209,11 @@
         null,
         1,
         1,
+<<<<<<< HEAD
         111,
+=======
+        105,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         1,
@@ -1002,8 +1273,13 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         20,
         20,
+=======
+        19,
+        19,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         null,
@@ -1014,8 +1290,13 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         56,
         56,
+=======
+        53,
+        53,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         null,
         null,
@@ -1082,9 +1363,15 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         20,
         20,
         20,
+=======
+        18,
+        18,
+        18,
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
         null,
         0,
         null,
@@ -1196,6 +1483,10 @@
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1557443240
+=======
+    "timestamp": 1557444172
+>>>>>>> ab10d3f861a729945eece2c366d962cc5467d7fe
   }
 }

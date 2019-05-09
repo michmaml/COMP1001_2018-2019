@@ -53,12 +53,13 @@ def fetch_tweets # Jamie
 		tweet_id = tweet.id.to_i
 		order_id = tweet.in_reply_to_status_id.to_i    # usefully returns 0 if not set...
 		status = TWEET_STATUS_NEW
-		# Try (or begin, in this case!) to add to database; allow failure if already exists
+		# Try (or begin, in this case!) to add to database...
 		begin
 			@db.execute(
 				"INSERT INTO Tweets (TweetID, OrderID, Status) VALUES (?, ?, ?);",
 				[tweet_id, order_id, status])
 		rescue
+		# ...allow silent failure if record already exists
 		end
 	end
 	
@@ -84,7 +85,7 @@ def fetch_users # Huiqiang
     results = @db.execute(
 		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
 		[user_id])
-
+    
 end
 
 #-------------------------------------------------------------------------------
@@ -95,7 +96,6 @@ def fetch_cars
     query = "SELECT * FROM Cars;"
         
     @cars = @db.execute query
-    #puts @cars.length
 
     if @cars
         @cars.each do |car|

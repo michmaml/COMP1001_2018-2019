@@ -1,3 +1,4 @@
+
 # app.rb
 # Main controller for Twaxis web application
 # COM1001 Spring Semester Assignment 2019
@@ -155,6 +156,65 @@ post '/account' do
 	end
 	redirect '/account'
 end
+get '/user_favourites' do
+	if session[:user_login]
+	
+		# Fetch details of current user
+		fetch_users
+	
+		@view = :user_favourites
+	else
+		redirect '/login'
+	end
+	erb :template
+end
+
+post '/user_favourites' do
+        if session[:user_login]
+            add_favourite
+        else
+            redirect '/login'
+        end
+    redirect '/user_favourites'
+end
+
+get '/user_orders' do
+	if session[:user_login]
+	
+		# Fetch details of current user
+		fetch_users
+	
+		@view = :user_orders
+	else
+		redirect '/login'
+	end
+	erb :template
+end
+
+get '/user_settings' do
+	if session[:user_login]
+	
+		# Fetch details of current user
+	
+	
+		@view = :user_settings
+	else
+		redirect '/login'
+	end
+	erb :template
+end
+
+post '/user_settings' do
+	if session[:user_login]
+	
+		# Fetch details of current 
+	
+        update_user_settings
+	else
+		redirect '/error'
+	end
+end
+
 
 #-------------------------------------------------------------------------------
 # ADMIN views
@@ -198,10 +258,6 @@ post '/users' do
 	redirect '/users'
 end
 
-get '/user_settings' do 
-    @view = :user_settings
-    erb :template
-end
 
 #-------------------------------------------------------------------------------
 
@@ -223,8 +279,8 @@ post '/tweets/*' do
 		case params[:splat][0]
 			when "reject"
 
-				# Change tweet status to rejected
-				reject_tweet
+				# Create tweet with status rejected
+				# TODO: create_tweet
 
 			when "accept"
 			
@@ -281,8 +337,10 @@ post '/orders/*' do
 				
 		end
 	end
-	redirect '/orders'
+	erb :template
 end
+
+#-------------------------------------------------------------------------------
 
 #Locations
 get '/locations' do
@@ -290,30 +348,48 @@ get '/locations' do
     @view = :locations
     erb :template
 end
+
 #-------------------------------------------------------------------------------
 
-#Cars
+# Cars
 get '/cars' do
-    @Carlist = fetch_cars
-    #puts @Carlist
+    
     @view = :cars
-    erb :template
+ 	erb :template
+    
+end
+post '/cars' do
+    
+    $cars = fetch_cars
+     @view = :cars
+ 	erb :template
 end
 
+#-------------------------------------------------------------------------------
+
+# Add cars
 get '/Add_car' do
-    @view = :Add_cars
-    erb :template
+    if session[:admin_login]
+  @submitted = false
+   @view = :Add_car
+  erb :template
+        else
+		redirect '/not_authorised'
+	end
 end
 
-post '/Added_car' do
-   add_cars(params[:Type][0].to_i,params[:Seats][0].to_i,params[:Location].to_s)
-   redirect '/cars'
-end  
-
-post "/deletecar" do
-    delete_car
-    redirect "/cars"
+post '/Add_car' do
+    if session[:admin_login]
+     @submitted = true
+        
+        create_car
+        $all = create_cartable
+  @view = :Add_car
+  erb :template
+        end
+	redirect '/Add_car'
 end
+
 #-------------------------------------------------------------------------------
 # ERROR views
 #-------------------------------------------------------------------------------
