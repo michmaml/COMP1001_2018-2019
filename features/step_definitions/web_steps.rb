@@ -29,6 +29,27 @@ When ("I login as admin") do
     }
 end
 
+When ("I want to create an account") do 
+    steps %{
+        Given I am on the homepage
+        When I press "Create an account" 
+        Then I should see "Sign up"
+    }
+end
+
+When ("I login as user") do
+    steps %{
+        Given I am on the join page
+        When I fill in "display_name" with "twitter"
+        When I fill in "first_name" with "twitter"
+        When I fill in "Surname" with "test"
+        When I fill in "email" with "test@test.com"
+        When I fill in "password" with "test" 
+        When I press "Join" within "form"
+        Then I should see "Order your taxi with a tweet."
+    }
+end
+
 When /^(?:|I )press "([^\"]*)"(?: within "([^\"]*)")?$/ do |button, selector|
   with_scope(selector) do
     click_button(button)

@@ -70,6 +70,8 @@ Feature: Sign up
 	Then I should not see "Sorry but it seems that email or Twitter name is incorrect...🤔"
 
   Scenario: Logging out from the website
+    Given I want to create an account
+    Given I login as user
     Given I am on the homepage
     When I press "logout button"
     Then I should see "Order your taxi with a tweet."
