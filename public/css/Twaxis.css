@@ -17,6 +17,7 @@ html {
 }
 
 body {
+	height: 100%;
 	margin: 0;
 	background-size: cover;
 	background-position: center;
@@ -134,10 +135,8 @@ button.red, input[type="submit"].red {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    position: sticky;
+	top: 100%;
 	padding: 1em;
 	text-align: center;
 	color: white;
@@ -266,7 +265,7 @@ footer a:hover {
 }
 
 .narrow {
-	max-width: 100vmin;
+	max-width: 90vmin;
 	margin-left: auto;
 	margin-right: auto;
 }
