@@ -7,29 +7,26 @@
       window.onload = function() {
         L.mapquest.key = 'VFSg0lsA3Cfi0HQBorNGaWs5lSvS7Hvf';
         
-        
         var map = L.mapquest.map('map', {
           center: [53.380822,-1.472860],
           layers: L.mapquest.tileLayer('map'),
           zoom: 15
         });
+
+        <% @Locations.each do |location| %> 
         
-          
-        <% @LocationList.each do |location| %> 
-          
-        var marker1 = L.marker([<%= @lat %>,<%= @long %>]).addTo(map);
+        var marker1 = L.marker([<%= location[:lat]%>,<%= location[:long]%>]).addTo(map);
         var circle = L.circle([53.381157, -1.488395], {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 1,
             radius: 10
         }).addTo(map);
-          
+        <% end %>  
         marker1.bindPopup("<b>PickupPoint</b><br>pickupPoint").openPopup();
         circle.bindPopup("<b>Destination</b><br>Destination").openPopup();   
           
       }
-      
     </script>
   </head>
 

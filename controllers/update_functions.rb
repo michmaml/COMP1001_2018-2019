@@ -86,7 +86,7 @@ def contact_submitted #Michal
                 :authentication       => 'plain',
                 :enable_starttls_auto => true,
                 :ssl => true
-    }
+      }
     Mail.defaults do
       delivery_method :smtp, options
     end
@@ -103,27 +103,22 @@ end
 #-------------------------------------------------------------------------------
 
 def update_map #Huiqiang
-    @Location = []
- 
-    query = "SELECT * FROM Orders;"
-        
-    @Location = @db.execute query
+    @Locations = []
+     
+    query = "SELECT Pickup_location FROM Orders;"
+    results = @db.execute query
 
-    if @Location
-        @Location.each do |Location|
-			@Location.push({
 
-				Pickup_location: Location["Pickup_location"].to_s
-			})
-		end
+		results.each do |location|
+      
+         p = Postcodes::IO.new
+         postcode = p.lookup(location["Pickup_location"])
+           
+      
+         @Locations.push({    
+           :lat => postcode.latitude,           
+           :long => postcode.longitude           
+          })  
 
-        return @Location
-        p = Postcodes::IO.new
-        postcode = p.lookup(@location)
-        @long =postcode.longitude 
-        @lat =postcode.latitude
-
-	else
-		redirect '/error'
     end
 end
