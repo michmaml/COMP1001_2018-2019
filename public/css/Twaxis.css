@@ -99,6 +99,16 @@ input[type="text"], input[type="email"], input[type="password"] {
 	color: inherit;
 }
 
+input[type="text"].region{
+    display: inline-block;
+    width: auto;
+    margin: 0 0;
+    border: 2px inset initial;
+    border-radius: 0;
+    padding: 1px 0px;
+    font-size: 13.3333px; 
+}
+
 button, input[type="submit"] {
 	display: inline-block;
 	margin: 0.25em 0;
@@ -182,13 +192,13 @@ footer a:hover {
     display:inline-table
 }
 
-.seatsFilter, .typeFilter{
+.seatsFilter, .typeFilter, .locationFilter{
     list-style-type:none;
     font-size:15px;
     padding: 0px;
 }
 
-.seatsFilter li, .typeFilter li{
+.seatsFilter li, .typeFilter li, .locationFilter li{
     padding:0px 5px;
 }
 
@@ -198,7 +208,7 @@ footer a:hover {
     overflow:auto;
 }
 
-.hideItemSeats, .hideItemType {
+.hideItemSeats, .hideItemType, .hideItemLocation {
     display: none;
 }
 
@@ -214,7 +224,7 @@ footer a:hover {
 }
 
 .carTable td{
-    padding-right: 110px;
+    padding-right: 100px;
 }
 
 .Table table{

@@ -18,24 +18,28 @@
     <li><input type="checkbox" name="Sedan" value="Sedan"> Sedan</li><br> 
     <li><input type="checkbox" name="Other" value="Other"> Other</li><br> 
     </ul>
+    <h2>Location</h2>
+    <ul class="locationFilter">
+    <li><input type="checkbox" name="Manchester" value="Manchester"> Manchester</li><br>
+    <li><input type="checkbox" name="Sheffield" value="Sheffield"> Sheffield</li><br>
+    </ul>
 </article>
 
 <article class="Table">
     <h1>Active Cars</h1>
         <br />
-    <table>
-		<tr>
+    
+    <table class="carTable">
+        <tr>
 			<th>Car ID</th>
             <th>Status</th>
             <th>Type</th>
             <th>Seats</th>
-            <% if session[:admin_login] %>
+            <th>Location</th>
             <th></th>
-            <% end %>
+            <th></th>
 			
 		</tr> 
-    </table>      
-    <table class="carTable">
           <% unless @Carlist.nil? %>
         
 
@@ -66,9 +70,9 @@
                 <td> Sedan</td>
             <% elsif car[:Type] == "7" %>
                 <td> Other</td>
-            
             <% end %>
             <td> <%= car[:Seats] %></td>
+            <td> <%= car[:Location] %></td>
             <% if session[:admin_login] %>
 			<td><form method="post" action="/deletecar">
                 <input type="submit" class="float-right red" value="Delete">
@@ -88,36 +92,51 @@
 var itemsToFilter = document.querySelectorAll(".carTable tr")
 var checkBoxes1 = document.querySelectorAll(".seatsFilter li input")
 var checkBoxes2 = document.querySelectorAll(".typeFilter li input")
+var checkBoxes3 = document.querySelectorAll(".locationFilter li input")
 
 var allCar = [3,4,5,6,7]
+var allType = ["Suv","Sport","Limo","Compact","Convertible","Mini-bus","Sedan","Other"]
 var optionsCar = [3,4,5,6,7];
 var optionsType = ["Suv","Sport","Limo","Compact","Convertible","Mini-bus","Sedan","Other"]
-var fulllist = [optionsCar.length,optionsType.length];    
+var optionsLocation = ["Manchester", "Sheffield"]
+var fulllist = [optionsCar.length,optionsType.length,optionsLocation.length];    
     
 for (var i =0; i < checkBoxes1.length; i++)
     checkBoxes1[i].addEventListener("click", filterItems, false);
 
 for (var i =0; i < checkBoxes2.length; i++)
     checkBoxes2[i].addEventListener("click", filterItems, false);
+
+for (var i =0; i < checkBoxes3.length; i++)
+    checkBoxes3[i].addEventListener("click", filterItems, false);
     
 function filterItems(e){
     var clickedItem = e.target;
     if (clickedItem.checked == true){
+        console.log(clickedItem.value)
         if (optionsCar.includes(parseInt(clickedItem.value))){
             optionsCar = optionsCar.filter(item => item !== parseInt(clickedItem.value));
             hideOrShowItemsSeats();}
-        else{
+        else if (optionsType.includes(clickedItem.value)){
             optionsType = optionsType.filter(item => item !== clickedItem.value.toString());
             hideOrShowItemsType();
+        }
+        else{
+            optionsLocation = optionsLocation.filter(item => item !== clickedItem.value.toString());
+            hideOrShowItemsLocation();
         }
     
     }else if (clickedItem.checked == false){
         if (allCar.includes(parseInt(clickedItem.value))){
             optionsCar.push(parseInt(clickedItem.value))
             hideOrShowItemsSeats();}
-        else{
+        else if (allType.includes(clickedItem.value)){
             optionsType.push(clickedItem.value.toString());
             hideOrShowItemsType();
+        }
+        else{
+            optionsLocation.push(clickedItem.value.toString());
+            hideOrShowItemsLocation(); 
         }
 
     }
@@ -127,11 +146,11 @@ function hideOrShowItemsSeats(){
     for (var i = 0; i < itemsToFilter.length; i++){
         var currentItem = itemsToFilter[i];
             var value = currentItem.cells[3].firstChild.nodeValue;
-            if (!optionsCar.includes((parseInt(value))) && !(currentItem.className.toString()).includes("hideItemType")){
+            if (!optionsCar.includes((parseInt(value))) && !(currentItem.className.toString()).includes("hideItemType") && !(currentItem.className.toString()).includes("hideItemLocation")){
                 currentItem.className = "";}
             else if (optionsCar.length == fulllist[0]){
                 currentItem.className = (currentItem.className).toString().replace("hideItemSeats" , "");
-            }else if (!(currentItem.className.toString()).includes("hideItemSeats")){            
+            }else if (!(currentItem.className.toString()).includes("hideItemSeats") && optionsCar.includes((parseInt(value)))){            
                 currentItem.className = (currentItem.className).toString() + " " + "hideItemSeats";
             }
     }  
@@ -141,13 +160,27 @@ function hideOrShowItemsType(){
     for (var i = 0; i < itemsToFilter.length; i++){
         var currentItem = itemsToFilter[i];
             var value = String(currentItem.cells[2].firstChild.nodeValue).replace(" ", "");
-            if (!optionsType.includes((value.toString())) && !(currentItem.className.toString()).includes("hideItemSeats")){
+            if (!optionsType.includes((value.toString())) && !(currentItem.className.toString()).includes("hideItemSeats") && !(currentItem.className.toString()).includes("hideItemLocation")){
                 currentItem.className = "";}
             else if (optionsType.length == fulllist[1] ){
                 currentItem.className = (currentItem.className).toString().replace("hideItemType", "");
-            }else if (!(currentItem.className.toString()).includes("hideItemType")){            
+            }else if (!(currentItem.className.toString()).includes("hideItemType") && optionsType.includes((value.toString()))){            
                 currentItem.className = (currentItem.className).toString() + " " + "hideItemType";
         }
+    }  
+}
+    
+function hideOrShowItemsLocation(){
+    for (var i = 0; i < itemsToFilter.length; i++){
+        var currentItem = itemsToFilter[i];
+            var value = String(currentItem.cells[4].firstChild.nodeValue).replace(" ", "");
+            if (!optionsLocation.includes((value.toString())) && !(currentItem.className.toString()).includes("hideItemSeats") && !(currentItem.className.toString()).includes("hideItemType")){
+                currentItem.className = "";}
+            else if (optionsLocation.length == fulllist[2]){
+                currentItem.className = (currentItem.className).toString().replace("hideItemLocation" , "");
+            }else if (!(currentItem.className.toString()).includes("hideItemLocation") && optionsLocation.includes((value.toString()))){            
+                currentItem.className = (currentItem.className).toString() + " " + "hideItemLocation";
+            }
     }  
 }
 </script>
