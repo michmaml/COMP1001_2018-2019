@@ -118,3 +118,10 @@ def add_cars(type,seats,location)  #Adds a new car to system status is automatic
       puts "invalid data types"
   end
 end
+        
+#-------------------------------------------------------------------------------
+def add_favourite
+    favourite_place = params[:place]
+    @db.execute('INSERT INTO Favourites VALUES (?,?)',
+      [id, session[:email], favourite_place])
+end

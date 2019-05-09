@@ -84,6 +84,7 @@ def fetch_users # Huiqiang
     results = @db.execute(
 		"SELECT pickup_location, date, time FROM Orders WHERE UserID = ?;",
 		[user_id])
+    
 
 end
 

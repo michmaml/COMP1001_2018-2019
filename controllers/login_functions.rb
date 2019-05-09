@@ -24,6 +24,7 @@ def log_in # Kacper
 	
 	if status >= USER_STATUS_ACTIVE
 		session[:user_login] = true
+        session[:email] = email
     else
 		session[:admin_login] = false
 		session[:user_login] = false
