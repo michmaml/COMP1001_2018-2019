@@ -45,6 +45,43 @@ end
 
 #-------------------------------------------------------------------------------
 
+def fetch_history # Jamie
+	
+	userID = @db.get_first_value(
+		'SELECT UserID FROM User_details WHERE Email = ?',
+		[session[:email]])
+	
+	results = @db.execute(
+		"SELECT * FROM Orders WHERE Status != #{ORDER_STATUS_CANCELLED} AND UserID = ?
+		ORDER BY OrderID DESC LIMIT 20;",
+		[userID])
+
+	if results
+
+		@orders = []
+		results.each do |order|
+			
+			@orders.push({
+				
+				id: order["OrderID"],
+				user_id: order["UserID"],
+				date: order["Date"],
+				time: order["Time"],
+				from: order["Pickup_location"],
+				to: nil,
+				car_id: order["CarID"]
+				
+			})
+		end
+
+	else
+		redirect '/error'
+	end
+
+end
+
+#-------------------------------------------------------------------------------
+
 def fetch_tweets # Jamie
 
 	# Update list of tweets in database from Twitter API	

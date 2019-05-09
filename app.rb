@@ -182,7 +182,7 @@ get '/user_orders' do
 	if session[:user_login]
 	
 		# Fetch details of current user
-		fetch_users
+		fetch_history
 	
 		@view = :user_orders
 	else
