@@ -6,8 +6,8 @@ def update_order # Jamie
 
 	orderID = params[:order_id].strip.to_i
 
-	date = params[:date].strip.to_i
-	time = params[:time].strip.to_i
+	date = params[:date].strip
+	time = params[:time].strip
 	pickupLocation = params[:pickup_location].strip.upcase
 	carID = params[:car_id].strip.to_i
 	
@@ -110,7 +110,7 @@ def contact_submitted #Michal
                 :authentication       => 'plain',
                 :enable_starttls_auto => true,
                 :ssl => true
-    }
+      }
     Mail.defaults do
       delivery_method :smtp, options
     end
@@ -122,4 +122,27 @@ def contact_submitted #Michal
       body  "Feedback: " + message_to_send_to 
     end
     erb :contact
+end
+
+#-------------------------------------------------------------------------------
+
+def update_map #Huiqiang
+    @Locations = []
+     
+    query = "SELECT Pickup_location FROM Orders;"
+    results = @db.execute query
+
+
+		results.each do |location|
+      
+         p = Postcodes::IO.new
+         postcode = p.lookup(location["Pickup_location"])
+           
+      
+         @Locations.push({    
+           :lat => postcode.latitude,           
+           :long => postcode.longitude           
+          })  
+
+    end
 end

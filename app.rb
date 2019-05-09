@@ -15,6 +15,8 @@ require 'sinatra'
 
 require 'twitter'
 
+require 'postcodes_io'
+
 require 'sqlite3'
 
 require 'mail'
@@ -301,8 +303,9 @@ end
 get '/orders' do
 	if session[:admin_login]
 
-		# Fetch current active orders
-		fetch_tweets
+
+		# Fetch current active orders from all cities
+		fetch_orders
 
 		@view = :tweets
 	else
@@ -338,6 +341,12 @@ post '/orders/*' do
 	erb :template
 end
 
+#Locations
+get '/locations' do
+    @LocationList = update_map
+    @view = :locations
+    erb :template
+end
 #-------------------------------------------------------------------------------
 
 # Cars
@@ -395,6 +404,12 @@ get '/not_authorised' do
 	erb :template
 end
 
+# SignUp Error
+get '/signup_error' do
+    @view = :signup_error
+    erb :template
+end
+
 # Not found
 not_found do
 	@view = :not_found
@@ -406,3 +421,4 @@ error do
 	@view = :error
 	erb :template
 end
+
