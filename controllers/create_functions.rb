@@ -95,10 +95,7 @@ def create_user # Kacper
 			session[:email] = email
 			session[:user_login] = true
 		rescue
-			
-			# Change this to a better error page...
-			redirect '/error'
-			
+			redirect '/signup_error'
 		end
 	end
 	
