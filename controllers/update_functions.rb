@@ -99,3 +99,31 @@ def contact_submitted #Michal
     end
     erb :contact
 end
+
+#-------------------------------------------------------------------------------
+
+def update_map #Huiqiang
+    @Location = []
+ 
+    query = "SELECT * FROM Orders;"
+        
+    @Location = @db.execute query
+
+    if @Location
+        @Location.each do |Location|
+			@Location.push({
+
+				Pickup_location: Location["Pickup_location"].to_s
+			})
+		end
+
+        return @Location
+        p = Postcodes::IO.new
+        postcode = p.lookup(@location)
+        @long =postcode.longitude 
+        @lat =postcode.latitude
+
+	else
+		redirect '/error'
+    end
+end

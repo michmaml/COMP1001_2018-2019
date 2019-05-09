@@ -282,6 +282,12 @@ post '/orders/*' do
 	redirect '/orders'
 end
 
+#Locations
+get 'locations' do
+    @LocationList = update_map
+    @view = :locations
+    erb :template
+end
 #-------------------------------------------------------------------------------
 
 #Cars
