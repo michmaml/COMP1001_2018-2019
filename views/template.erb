@@ -8,7 +8,6 @@
 	</head>
 	<body>
 		<header>
-
 			<% if session[:user_login] || session[:admin_login] %>
 			<a href="/logout"><button class="float-right red" id="logout button">Log out</button></a>
 			<a href="/account"><button class="float-right blue">My account</button></a>
@@ -21,9 +20,8 @@
 				<% if session[:admin_login] %>
 				<h2>&nbsp;Admin system</h2>
 				<% end %>
-			</a> 
-            <% puts session[:user_login] %>
-            <% if (session[:user_login] || !session[:user_login]) && !session[:admin_login] %>
+			</a>
+            <% if !session[:admin_login] %>
             <a href="/cars" class="carHeader">Cars</a>
             <% end %>
 		</header>
@@ -34,9 +32,9 @@
 		</main>
 		<footer>
 			<p>&copy; 2019<%= (year = Time.now.year) > 2019 ? -year : "" %> Twaxis</p>
-            <p><button>
-                <a href="/contact">Contact us!</a>
-                </button></p>
+            <p>
+                <a href="/contact"><button>Contact us!</button></a>
+            </p>
 		</footer>
 	</body>
 </html>
