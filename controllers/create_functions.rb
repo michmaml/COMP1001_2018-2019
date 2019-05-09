@@ -83,22 +83,22 @@ def create_user # Kacper
 	all_ok = display_name_ok && first_name_ok && surname_ok && email_ok
 
 	if all_ok
-		id = @db.get_first_value 'SELECT MAX(UserID)+1 FROM User_details;'
-		success = @db.execute(
-			'INSERT INTO User_details
-			(UserID, Twitter_handle, Firstname, Surname, Email, Password, Status)
-			VALUES (?,?,?,?,?,?,?);',
-			[id, display_name, first_name, surname, email, coded_password, USER_STATUS_ACTIVE])
-	end
+		begin
+			id = @db.get_first_value 'SELECT MAX(UserID)+1 FROM User_details;'
+			@db.execute(
+				'INSERT INTO User_details
+				(UserID, Twitter_handle, Firstname, Surname, Email, Password, Status)
+				VALUES (?,?,?,?,?,?,?);',
+				[id, display_name, first_name, surname, email, coded_password, USER_STATUS_ACTIVE])
 
-	if success
-		session[:display_name] = display_name
-		session[:first_name] = first_name
-		session[:surname] = surname
-		session[:email] = email
-		session[:user_login] = true
-	else 
-        redirect '/error'
+			session[:display_name] = display_name
+			session[:first_name] = first_name
+			session[:surname] = surname
+			session[:email] = email
+			session[:user_login] = true
+		rescue
+			redirect '/signup_error'
+		end
 	end
 	
 end

@@ -322,6 +322,12 @@ get '/not_authorised' do
 	erb :template
 end
 
+# SignUp Error
+get '/signup_error' do
+    @view = :signup_error
+    erb :template
+end
+
 # Not found
 not_found do
 	@view = :not_found
@@ -333,3 +339,4 @@ error do
 	@view = :error
 	erb :template
 end
+
