@@ -48,18 +48,13 @@ end
 
 def create_tweet # Jamie
 
-	#tweet_id = @db.get_first_value 'SELECT MAX(TweetID)+1 FROM Tweets;'
 	order_id = params[:order_id].strip.to_i
     reply = params[:reply].strip
-	#status = params[:status].strip.to_i
-
-# Don't need to store the reply straight away, we'll pick it up again when we fetch
-=begin
+	
 	@db.execute(
-		"INSERT INTO Tweets (TweetID, OrderID, Status, Reply)
-		VALUES (?, ?, ?, ?);",
-		[tweet_id, order_id, status, reply])
-=end
+		"UPDATE Tweets SET Reply = ? WHERE TweetID = ?;",
+		[reply, order_id])
+	
 	@twitter.update("#{reply}", :in_reply_to_status_id => order_id)
 
 end

@@ -4,8 +4,6 @@
 
 def fetch_orders # Jamie
 	
-	tweets = @twitter.mentions_timeline
-	
 	@orders = []
 	
 	results = @db.execute (
@@ -15,6 +13,14 @@ def fetch_orders # Jamie
 	if results
 
 		results.each do |order|
+			
+			tweet_list = @db.execute(
+				"SELECT * FROM Tweets WHERE TweetID = ? OR OrderID = ? ORDER BY TweetID ASC",
+				[order["OrderID"], order["OrderID"]])
+			tweets = []
+			tweet_list.each do |tweet|
+				tweets.push(tweet[0])
+			end
 			
 			@orders.push({
 				
@@ -28,10 +34,7 @@ def fetch_orders # Jamie
 				user_id: order["UserID"],
 				screen_name: order["Twitter_handle"],
 				
-				tweets:	tweets.select do |tweet|
-							tweet.id == order["OrderID"] or
-							tweet.in_reply_to_status_id == order["OrderID"]
-						end
+				tweets:	@twitter.statuses(tweets)
 			})
 		end
 
@@ -50,13 +53,12 @@ def fetch_tweets # Jamie
 	new_tweets.each do |tweet|
 		tweet_id = tweet.id.to_i
 		order_id = tweet.in_reply_to_status_id.to_i    # usefully returns 0 if not set...
-		reply = tweet.text
 		status = TWEET_STATUS_NEW
 		# Try (or begin, in this case!) to add to database; allow failure if already exists
 		begin
 			@db.execute(
-				"INSERT INTO Tweets (TweetID, OrderID, Status, Reply) VALUES (?, ?, ?, ?);",
-				[tweet_id, order_id, status, reply])
+				"INSERT INTO Tweets (TweetID, OrderID, Status) VALUES (?, ?, ?);",
+				[tweet_id, order_id, status])
 		rescue
 		end
 	end

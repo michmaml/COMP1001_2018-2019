@@ -8,11 +8,11 @@
 		<input type="hidden" name="order_id" value="<%= order[:id] %>">
 	</form>
 	<form method="post" action="/orders/archive">
-		<input type="submit" class="float-right" value="Archive">
+		<input type="submit" class="float-right blue" value="Dispatch">
 		<input type="hidden" name="order_id" value="<%= order[:id] %>">
 	</form>
 	<form method="post" action="/orders/update">
-		<input type="submit" class="float-right blue" value="Update">
+		<input type="submit" class="float-left blue" style="margin-right: 1em;" value="Update">
 		<input type="hidden" name="order_id" value="<%= order[:id] %>">
 		<table>
 			<tr>

@@ -253,8 +253,16 @@ footer a:hover {
 	display: none;
 }
 
+.float-left {
+	float: left;
+}
+
 .float-right {
 	float: right;
+}
+
+.inline-block {
+	display: inline-block;
 }
 
 .narrow {
