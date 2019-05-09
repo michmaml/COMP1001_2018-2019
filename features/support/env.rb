@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'capybara'
 require 'rspec'
 require 'capybara/cucumber'
@@ -19,7 +21,13 @@ set :root, File.join(File.dirname(__FILE__),'../../')
 set :views, Proc.new{ File.join(root, "views")}
 
 
-ENV['RACK_ENV'] = 'test'
+#ENV['RACK_ENV'] = 'test'
+
+if ENV['RAILS_ENV'] == 'test'
+  require 'simplecov'
+  SimpleCov.start 'rails'
+  puts "required simplecov"
+end
 
 Capybara.app = Sinatra::Application
 

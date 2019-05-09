@@ -10,5 +10,6 @@ gem "sinatra-contrib"
 gem "twitter"
 gem "sqlite3"
 gem "mail"
+gem "simplecov" , require: false, group: :test
 
 end

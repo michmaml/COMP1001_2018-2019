@@ -1,14 +1,24 @@
 Feature: Sign up
 
-  Scenario: check the join feature
+  Scenario: check the join feature no 1
     Given I am on the join page
     When I fill in "display_name" with "twitter"
     When I fill in "first_name" with "twitter"
     When I fill in "Surname" with "test"
-    When I fill in "email" with "test@sheffield.ac.uk"
+    When I fill in "email" with "test@test.com"
     When I fill in "password" with "test" 
     When I press "Join" within "form"
-    Then I should see "Sorry"
+    Then I should see "Order your taxi with a tweet."
+  
+  Scenario: check the join feature no 2
+    Given I am on the join page
+    When I fill in "display_name" with "twitter"
+    When I fill in "first_name" with "twitter"
+    When I fill in "Surname" with "test"
+    When I fill in "email" with "test@test.com"
+    When I fill in "password" with "test" 
+    When I press "Join" within "form"
+    Then I should not see "Sorry but it seems that email or Twitter name is incorrect...🤔"
     
   Scenario: check the Twitter handle
     Given I am on the join page
@@ -18,7 +28,7 @@ Feature: Sign up
     When I fill in "email" with "test@sheffield.ac.uk"
     When I fill in "password" with "test" 
     When I press "Join" within "form"  
-    Then I should see "Sorry"
+    Then I should see "Order your taxi with a tweet."
     
   Scenario: check the First name & Twitter handle
     Given I am on the join page
@@ -28,7 +38,7 @@ Feature: Sign up
     When I fill in "email" with "test@sheffield.ac.uk"
     When I fill in "password" with "test" 
     When I press "Join" within "form"  
-    Then I should see "Sorry"
+    Then I should see "Order your taxi with a tweet."
     
   Scenario: check the Surname
     Given I am on the join page
@@ -38,7 +48,7 @@ Feature: Sign up
     When I fill in "email" with "test@sheffield.ac.uk"
     When I fill in "password" with "test" 
     When I press "Join" within "form"  
-    Then I should see "Sorry"
+    Then I should see "Order your taxi with a tweet."
     
   Scenario: check the email
     Given I am on the join page
@@ -48,38 +58,18 @@ Feature: Sign up
     When I fill in "email" with ""
     When I fill in "password" with "test" 
     When I press "Join" within "form"
-    Then I should see "Sorry"
+    Then I should see "Order your taxi with a tweet."
 
   Scenario: User already exists (email)
-	When I press "Sign Up"
-    When I fill in "display_name" with ""
-    When I fill in "first_name" with "twitter"
+	Given I am on the join page
+    When I fill in "display_name" with "test"
+    When I fill in "first_name" with "test"
     When I fill in "Surname" with "test"
     When I fill in "email" with "test@sheffield.ac.uk"
     When I fill in "password" with "test"
-	Then I should see "error"
+	Then I should not see "Sorry but it seems that email or Twitter name is incorrect...🤔"
 
-  Scenario: User already exists (twitter_handle)
-	When I press "Sign Up"
-	Then I should see "This user already exists in the system"
-
-  Scenario: No email
-	When I press "Sign Up"
-	Then I should see "This is not a valid email"
-
-  Scenario: Invalid email
-	When I press "Sign Up"
-	Then I should see "This is not a valid email"
-
-  Scenario: Invalid password
-	When I press "Sign Up"
-	Then I should see "Password is too short"
-
-  Scenario: Valid Passwords that Don't match
-	When I press "Sign Up"
-	Then I should see "Passwords do not match"
-
-  Scenario: Signed up successfully
-	When I press "Sign Up"
-	Then I should see "You have successfully signed up. Please login with your credentials."
-
+  Scenario: Logging out from the website
+    Given I am on the homepage
+    When I press "logout button"
+    Then I should see "Order your taxi with a tweet."
