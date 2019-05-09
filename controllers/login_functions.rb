@@ -28,7 +28,7 @@ def log_in # Kacper
     else
 		session[:admin_login] = false
 		session[:user_login] = false
-		session[:email] = email
+		session[:email] = false
 		redirect '/not_authorised'
     end
 	

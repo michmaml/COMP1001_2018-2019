@@ -18,13 +18,15 @@ def update_order # Jamie
 	
 	if valid
 	
-		success = @db.execute(
+		begin
+			@db.execute(
 			'UPDATE Orders
 			SET CarID=?, Pickup_location=?, Date=?, Time=?
 			WHERE OrderID=?',
 			[carID, pickupLocation, date, time, orderID])
-		
-		if not success then redirect '/error' end
+		rescue
+			redirect '/error'
+		end
 		
 	else
 		redirect '/form_error'
@@ -127,22 +129,23 @@ end
 #-------------------------------------------------------------------------------
 
 def update_map #Huiqiang
+	
     @Locations = []
      
     query = "SELECT Pickup_location FROM Orders;"
     results = @db.execute query
 
-
 		results.each do |location|
       
          p = Postcodes::IO.new
          postcode = p.lookup(location["Pickup_location"])
-           
-      
-         @Locations.push({    
-           :lat => postcode.latitude,           
-           :long => postcode.longitude           
-          })  
+         
+		if postcode
+			 @Locations.push({    
+			   :lat => postcode.latitude,           
+			   :long => postcode.longitude           
+			  })
+		end
 
     end
 end

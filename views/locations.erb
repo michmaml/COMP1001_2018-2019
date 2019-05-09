@@ -15,7 +15,7 @@
 
         <% @Locations.each do |location| %> 
         
-        var marker1 = L.marker([<%= location[:lat]%>,<%= location[:long]%>]).addTo(map);
+        var marker1 = L.marker([<%= location[:lat] %>,<%= location[:long] %>]).addTo(map);
         var circle = L.circle([53.381157, -1.488395], {
             color: 'red',
             fillColor: '#f03',
