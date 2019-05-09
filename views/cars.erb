@@ -1,129 +1,186 @@
-<article>
-<h1>Cars</h1>
-<form method ="post">
-      How type of cars do you want:
-      <input type ="text" name="Type" placeholder="Input the number of type please"
-             value="<%=h params[:search] %>"/>
-      <input type="submit" value="Search">
-    </form>
-    </article>
+<article class="filter">
+    <h2>Seats</h2>
+    <ul class="seatsFilter">
+    <li><input type="checkbox" name="3" value="3"> 3</li><br>
+    <li><input type="checkbox" name="4" value="4"> 4</li><br>
+    <li><input type="checkbox" name="5" value="5"> 5</li><br>
+    <li><input type="checkbox" name="6" value="6"> 6</li><br>
+    <li><input type="checkbox" name="7" value="7"> 7</li><br>       
+    </ul>
+    <h2>Type</h2>
+    <ul class="typeFilter">
+    <li><input type="checkbox" name="Suv" value="Suv"> Suv</li><br>
+    <li><input type="checkbox" name="Sport" value="Sport"> Sport</li><br>
+    <li><input type="checkbox" name="Limo" value="Limo"> Limo</li><br>
+    <li><input type="checkbox" name="Compact" value="Compact"> Compact</li><br>
+    <li><input type="checkbox" name="Convertible" value="Convertible"> Convertible</li><br> 
+    <li><input type="checkbox" name="Mini-bus" value="Mini-bus"> Mini-bus</li><br>
+    <li><input type="checkbox" name="Sedan" value="Sedan"> Sedan</li><br> 
+    <li><input type="checkbox" name="Other" value="Other"> Other</li><br> 
+    </ul>
+    <h2>Location</h2>
+    <ul class="locationFilter">
+    <li><input type="checkbox" name="Manchester" value="Manchester"> Manchester</li><br>
+    <li><input type="checkbox" name="Sheffield" value="Sheffield"> Sheffield</li><br>
+    </ul>
+</article>
 
-<article>
-	
-        <table>
-            <tr>
-                 <th>Car types</th>
-                </tr>
-             <tr>
-                    <th>Suv: 0</th>
-                    <th>Sport: 1</th>
-                    <th>Limo: 2</th>
-                    <th>Compact: 3</th>
-               </tr>
-             <tr>
-                    <th>Convertible: 4</th>
-                    <th>Mini-bus: 5</th>
-                    <th>Sedan: 6</th>
-                    <th>Other: 7</th>
-            </tr>
-    </table>
+<article class="Table">
+    <h1>Active Cars</h1>
         <br />
-    <table>
-		<tr>
-			<th>CarID</th>
+    
+    <table class="carTable">
+        <tr>
+			<th>Car ID</th>
             <th>Status</th>
             <th>Type</th>
             <th>Seats</th>
+            <th>Location</th>
+            <th></th>
+            <th></th>
 			
-		</tr>      
+		</tr> 
+          <% unless @Carlist.nil? %>
+        
 
-          <% unless $cars.nil? %>
-
-       <% $cars.each do |car| %>
+       <% @Carlist.each do |car| %>
+        <% puts car %>
 		<tr>
-		<td> <%= car["CarID"] %></td>
-           	 <% if car["Status"].eql?(0) %>
+		<td> <%= car[:CarID] %></td>
+           	 <% if car[:Status] == "0" %>
                 <td> Available</td>
-            <% elsif car["Status"].eql?(1) %>
+            <% elsif car[:Status] == "1" %>
                 <td> Unavailable</td>
-            <% elsif car["Status"].eql?(2)%>
+            <% elsif car[:Status] == "2"%>
                 <td> Busy</td>
             <% end %>
-             <% if car["Type"].eql?(0) %>
+             <% if car[:Type] == "0" %>
                 <td> Suv</td>
-            <% elsif car["Type"].eql?(1) %>
+            <% elsif car[:Type] == "1" %>
                 <td> Sport</td>
-            <% elsif car["Type"].eql?(2) %>
-                <td> Limo</td>
-            <% elsif car["Type"].eql?(3) %>
+            <% elsif car[:Type] == "2" %>
+                <td>Limo</td>
+            <% elsif car[:Type] == "3" %>
                 <td> Compact</td>
-            <% elsif car["Type"].eql?(4) %>
+            <% elsif car[:Type] == "4" %>
                 <td> Convertible</td>
-            <% elsif car["Type"].eql?(5) %>
+            <% elsif car[:Type] == "5" %>
                 <td> Mini-bus</td>
-            <% elsif car["Type"].eql?(6) %>
+            <% elsif car[:Type] == "6" %>
                 <td> Sedan</td>
-            <% elsif car["Type"].eql?(7) %>
+            <% elsif car[:Type] == "7" %>
                 <td> Other</td>
-            
             <% end %>
-            <td> <%= car["Seats"] %></td>
-<!--             <td> xxxxxx</td> -->
-			
+            <td> <%= car[:Seats] %></td>
+            <td> <%= car[:Location] %></td>
+            <% if session[:admin_login] %>
+			<td><form method="post" action="/deletecar">
+                <input type="submit" class="float-right red" value="Delete">
+                <input type="hidden" name="car_id" value="<%= car[:CarID] %>">
+            </form>
+            </td>
+            <% end %>
 		</tr>
         
 
         <% end %>
 	</table>
     </article>  
- <% end %>
-
-
-<article>
-    <h1> The type of cars</h1>
-<form method="post"  bgcolor="white">
-
-		
-
-		<img src="images/car S.jpg" img border="0"  width="500" height="265">	
-		
-		 <button id="button1" class="huge blue">Reguler</button>
-        </form>
-		<form method="post"  bgcolor="white">
-			
-			<img src="images/car L.jpg" img border="0"   width="500" height="265">	
-			
-		<button id="button1" class="huge blue" >Large</button>
-   
-		</form>
-    <form method="post"  bgcolor="white">
-			<img src="images/car M.jpg" img border="0"   width="500" height="265">	
-			
-    <button id="button1" class="huge blue" >Exec</button>
-    </form>
-        <form action="/Added_car">
-    <button id="button1" class="huge blue" >xxx</button>
-    </form>
-	
-<% if @regularcars %>
-    <p>Regular</p>
-    <% @regularcars.each do |car| %>
-        <p><%=car%></p>
-    <% end %>
 <% end %>
 
-<% if @largecars %>
-    <p>Large</p>
-    <% @largecars.each do |car| %>
-        <p><%=car%></p>
-    <% end %>
-<% end %>
-	
-<% if @execcars %>
-    <p>Exec</p>
-    <% @execcars.each do |car| %>
-        <p><%=car%></p>
-    <% end %>
-<% end %>
-	
-</article>
+<script>
+var itemsToFilter = document.querySelectorAll(".carTable tr")
+var checkBoxes1 = document.querySelectorAll(".seatsFilter li input")
+var checkBoxes2 = document.querySelectorAll(".typeFilter li input")
+var checkBoxes3 = document.querySelectorAll(".locationFilter li input")
+
+var allCar = [3,4,5,6,7]
+var allType = ["Suv","Sport","Limo","Compact","Convertible","Mini-bus","Sedan","Other"]
+var optionsCar = [3,4,5,6,7];
+var optionsType = ["Suv","Sport","Limo","Compact","Convertible","Mini-bus","Sedan","Other"]
+var optionsLocation = ["Manchester", "Sheffield"]
+var fulllist = [optionsCar.length,optionsType.length,optionsLocation.length];    
+    
+for (var i =0; i < checkBoxes1.length; i++)
+    checkBoxes1[i].addEventListener("click", filterItems, false);
+
+for (var i =0; i < checkBoxes2.length; i++)
+    checkBoxes2[i].addEventListener("click", filterItems, false);
+
+for (var i =0; i < checkBoxes3.length; i++)
+    checkBoxes3[i].addEventListener("click", filterItems, false);
+    
+function filterItems(e){
+    var clickedItem = e.target;
+    if (clickedItem.checked == true){
+        console.log(clickedItem.value)
+        if (optionsCar.includes(parseInt(clickedItem.value))){
+            optionsCar = optionsCar.filter(item => item !== parseInt(clickedItem.value));
+            hideOrShowItemsSeats();}
+        else if (optionsType.includes(clickedItem.value)){
+            optionsType = optionsType.filter(item => item !== clickedItem.value.toString());
+            hideOrShowItemsType();
+        }
+        else{
+            optionsLocation = optionsLocation.filter(item => item !== clickedItem.value.toString());
+            hideOrShowItemsLocation();
+        }
+    
+    }else if (clickedItem.checked == false){
+        if (allCar.includes(parseInt(clickedItem.value))){
+            optionsCar.push(parseInt(clickedItem.value))
+            hideOrShowItemsSeats();}
+        else if (allType.includes(clickedItem.value)){
+            optionsType.push(clickedItem.value.toString());
+            hideOrShowItemsType();
+        }
+        else{
+            optionsLocation.push(clickedItem.value.toString());
+            hideOrShowItemsLocation(); 
+        }
+
+    }
+}
+    
+function hideOrShowItemsSeats(){
+    for (var i = 0; i < itemsToFilter.length; i++){
+        var currentItem = itemsToFilter[i];
+            var value = currentItem.cells[3].firstChild.nodeValue;
+            if (!optionsCar.includes((parseInt(value))) && !(currentItem.className.toString()).includes("hideItemType") && !(currentItem.className.toString()).includes("hideItemLocation")){
+                currentItem.className = "";}
+            else if (optionsCar.length == fulllist[0]){
+                currentItem.className = (currentItem.className).toString().replace("hideItemSeats" , "");
+            }else if (!(currentItem.className.toString()).includes("hideItemSeats") && optionsCar.includes((parseInt(value)))){            
+                currentItem.className = (currentItem.className).toString() + " " + "hideItemSeats";
+            }
+    }  
+}
+
+function hideOrShowItemsType(){
+    for (var i = 0; i < itemsToFilter.length; i++){
+        var currentItem = itemsToFilter[i];
+            var value = String(currentItem.cells[2].firstChild.nodeValue).replace(" ", "");
+            if (!optionsType.includes((value.toString())) && !(currentItem.className.toString()).includes("hideItemSeats") && !(currentItem.className.toString()).includes("hideItemLocation")){
+                currentItem.className = "";}
+            else if (optionsType.length == fulllist[1] ){
+                currentItem.className = (currentItem.className).toString().replace("hideItemType", "");
+            }else if (!(currentItem.className.toString()).includes("hideItemType") && optionsType.includes((value.toString()))){            
+                currentItem.className = (currentItem.className).toString() + " " + "hideItemType";
+        }
+    }  
+}
+    
+function hideOrShowItemsLocation(){
+    for (var i = 0; i < itemsToFilter.length; i++){
+        var currentItem = itemsToFilter[i];
+            var value = String(currentItem.cells[4].firstChild.nodeValue).replace(" ", "");
+            if (!optionsLocation.includes((value.toString())) && !(currentItem.className.toString()).includes("hideItemSeats") && !(currentItem.className.toString()).includes("hideItemType")){
+                currentItem.className = "";}
+            else if (optionsLocation.length == fulllist[2]){
+                currentItem.className = (currentItem.className).toString().replace("hideItemLocation" , "");
+            }else if (!(currentItem.className.toString()).includes("hideItemLocation") && optionsLocation.includes((value.toString()))){            
+                currentItem.className = (currentItem.className).toString() + " " + "hideItemLocation";
+            }
+    }  
+}
+</script>

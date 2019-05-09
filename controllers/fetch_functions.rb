@@ -88,15 +88,14 @@ end
 
 #-------------------------------------------------------------------------------
 
-def fetch_cars # Ziting
-# 	(%{SELECT * FROM Cars WHERE Seats = ?})
+def fetch_cars 
 	@Car = []
  
-      query = "SELECT * FROM Cars WHERE Type = ?;"
+    query = "SELECT * FROM Cars;"
         
-       @cars = @db.execute query,params[:Type].to_i
-#                 puts @cars.length
-#                 puts params[:search].to_i
+    @cars = @db.execute query
+    #puts @cars.length
+
     if @cars
         @cars.each do |car|
 			@Car.push({
@@ -105,14 +104,17 @@ def fetch_cars # Ziting
 				Status: car["Status"].to_s,
 				Type: car["Type"].to_s,
 				Seats: car["Seats"].to_s,
+                Location: car["Location"].to_s,
 
 			})
 		end
-        return @cars
+
+        return @Car
 
 	else
 		redirect '/error'
     end
 end
+
 
 #-------------------------------------------------------------------------------

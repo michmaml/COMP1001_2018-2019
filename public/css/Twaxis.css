@@ -99,6 +99,16 @@ input[type="text"], input[type="email"], input[type="password"] {
 	color: inherit;
 }
 
+input[type="text"].region{
+    display: inline-block;
+    width: auto;
+    margin: 0 0;
+    border: 2px inset initial;
+    border-radius: 0;
+    padding: 1px 0px;
+    font-size: 13.3333px; 
+}
+
 button, input[type="submit"] {
 	display: inline-block;
 	margin: 0.25em 0;
@@ -124,6 +134,10 @@ button.red, input[type="submit"].red {
 }
 
 footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 	padding: 1em;
 	text-align: center;
 	color: white;
@@ -172,6 +186,50 @@ footer a:hover {
 	width: calc(100% - 5em);
 }
 
+.filter{
+    float: left;
+    width: 12%;
+    display:inline-table
+}
+
+.seatsFilter, .typeFilter, .locationFilter{
+    list-style-type:none;
+    font-size:15px;
+    padding: 0px;
+}
+
+.seatsFilter li, .typeFilter li, .locationFilter li{
+    padding:0px 5px;
+}
+
+.Table{
+    display:inline-table;
+    width:74%;
+    overflow:auto;
+}
+
+.hideItemSeats, .hideItemType, .hideItemLocation {
+    display: none;
+}
+
+.carHeader{
+    font-size:1.5em;
+    padding: 0px 10px;
+}
+
+.carTable{
+    height:500px;
+    display:block;
+    overflow-y: scroll;
+}
+
+.carTable td{
+    padding-right: 100px;
+}
+
+.Table table{
+    width: 80%;
+}
 
 /*** Twitter data classes ***/
 

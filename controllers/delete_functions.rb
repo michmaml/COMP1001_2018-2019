@@ -45,3 +45,13 @@ def delete_user # Jamie
 end
 
 #-------------------------------------------------------------------------------
+
+def delete_car #Toby
+	
+	carID = params[:car_id].strip.to_i
+    puts carID
+    @db.execute(
+			"DELETE FROM cars WHERE CarID = ?;",
+			[carID])
+
+end
