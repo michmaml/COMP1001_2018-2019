@@ -18,6 +18,17 @@ When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
+When ("I login as user") do
+    steps %{
+      Given I am on the home page
+      When I press "Log in"
+      When I fill in "username" with ""
+      When I fill in "password" with ""
+      When I press "Login" within "main"
+      Then I should see "Logged in as user "
+    }
+end
+
 When /^(?:|I )press "([^\"]*)"(?: within "([^\"]*)")?$/ do |button, selector|
   with_scope(selector) do
     click_button(button)
