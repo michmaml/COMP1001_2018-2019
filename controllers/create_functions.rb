@@ -19,6 +19,9 @@ def create_order # Toby
 	
 	if valid
 		begin
+			create_tweet
+			accept_tweet
+			
 			# This can safely return zero for an unregistered customer...
 			userID = @db.get_first_value(
 				'SELECT UserID FROM User_details WHERE Twitter_handle = (?)',
@@ -33,9 +36,6 @@ def create_order # Toby
 			redirect '/error'
 		end
 		
-		accept_tweet
-		create_tweet
-		
 	else
 		redirect '/form_error'
 	end
@@ -48,13 +48,15 @@ def create_tweet # Jamie
 
 	order_id = params[:order_id].strip.to_i
     reply = params[:reply].strip
+	begin
+		@twitter.update("#{reply}", :in_reply_to_status_id => order_id)
+		@db.execute(
+			"UPDATE Tweets SET Reply = ? WHERE TweetID = ?;",
+			[reply, order_id])
+	rescue
+		redirect '/form_error'
+	end
 	
-	@db.execute(
-		"UPDATE Tweets SET Reply = ? WHERE TweetID = ?;",
-		[reply, order_id])
-	
-	@twitter.update("#{reply}", :in_reply_to_status_id => order_id)
-
 end
 
 #-------------------------------------------------------------------------------

@@ -245,7 +245,7 @@ end
 get '/orders' do
 	if session[:admin_login]
 
-		# Fetch current active orders
+		# Fetch current active orders from all cities
 		fetch_orders
 
 		@view = :orders

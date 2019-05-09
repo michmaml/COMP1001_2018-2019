@@ -4,14 +4,13 @@
 
 def fetch_orders # Jamie
 	
-	@orders = []
-	
 	results = @db.execute (
 		"SELECT * FROM Orders WHERE Status = #{ORDER_STATUS_ACTIVE} ORDER BY OrderID DESC LIMIT 20;"
 		)
 
 	if results
 
+		@orders = []
 		results.each do |order|
 			
 			tweet_list = @db.execute(
