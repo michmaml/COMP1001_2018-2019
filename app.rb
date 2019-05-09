@@ -154,6 +154,8 @@ post '/account' do
 	redirect '/account'
 end
 
+
+
 #-------------------------------------------------------------------------------
 # ADMIN views
 #-------------------------------------------------------------------------------
@@ -201,6 +203,42 @@ get '/user_settings' do
     erb :template
 end
 
+post '/user_settings' do
+	if session[:user_login]
+	
+		# Update user
+		update_user_settings
+	
+	end
+	redirect '/error'
+end
+
+get '/user_favourites' do
+	if session[:user_login]
+	
+		# Fetch details of current user
+		fetch_users
+	
+		@view = :user_favourites
+	else
+		redirect '/login'
+	end
+	erb :template
+end
+
+get '/user_orders' do
+	if session[:user_login]
+	
+		# Fetch details of current user
+		fetch_users
+	
+		@view = :user_orders
+	else
+		redirect '/login'
+	end
+	erb :template
+end
+
 #-------------------------------------------------------------------------------
 
 # Tweets
@@ -221,8 +259,8 @@ post '/tweets/*' do
 		case params[:splat][0]
 			when "reject"
 
-				# Change tweet status to rejected
-				reject_tweet
+				# Create tweet with status rejected
+				# TODO: create_tweet
 
 			when "accept"
 			
@@ -246,9 +284,9 @@ get '/orders' do
 	if session[:admin_login]
 
 		# Fetch current active orders
-		fetch_orders
+		fetch_tweets
 
-		@view = :orders
+		@view = :tweets
 	else
 		redirect '/not_authorised'
 	end
@@ -279,33 +317,50 @@ post '/orders/*' do
 				
 		end
 	end
-	redirect '/orders'
+	erb :template
 end
 
 #-------------------------------------------------------------------------------
 
-#Cars
+# Cars
 get '/cars' do
-    @Carlist = fetch_cars
-    #puts @Carlist
+    
     @view = :cars
-    erb :template
+ 	erb :template
+    
+end
+post '/cars' do
+    
+    $cars = fetch_cars
+     @view = :cars
+ 	erb :template
 end
 
+#-------------------------------------------------------------------------------
+
+# Add cars
 get '/Add_car' do
-    @view = :Add_cars
-    erb :template
+    if session[:admin_login]
+  @submitted = false
+   @view = :Add_car
+  erb :template
+        else
+		redirect '/not_authorised'
+	end
 end
 
-post '/Added_car' do
-   add_cars(params[:Type][0].to_i,params[:Seats][0].to_i,params[:Location].to_s)
-   redirect '/cars'
-end  
-
-post "/deletecar" do
-    delete_car
-    redirect "/cars"
+post '/Add_car' do
+    if session[:admin_login]
+     @submitted = true
+        
+        create_car
+        $all = create_cartable
+  @view = :Add_car
+  erb :template
+        end
+	redirect '/Add_car'
 end
+
 #-------------------------------------------------------------------------------
 # ERROR views
 #-------------------------------------------------------------------------------

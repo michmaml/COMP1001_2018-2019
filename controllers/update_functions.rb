@@ -35,11 +35,38 @@ end
 #-------------------------------------------------------------------------------
 
 def update_user
-	
-	# To be continued...
+	# To be continued... I have implemented it as the settings for users 
 	
 end
-
+   
+#-------------------------------------------------------------------------------
+      
+def update_user_settings
+       
+	submitted = params[:submitted]
+	pass1 = params[:pass1].strip
+    pass2 = params[:pass2].strip
+    pass1sha256 = Digest::SHA256.hexdigest pass1
+    pass2sha256 = Digest::SHA256.hexdigest pass2
+    
+    if(pass1sha256 == pass2sha256) 
+        success = @db.execute(
+			'UPDATE User_details
+			SET Password=?',
+			[pass1sha256])
+        if success 
+            redirect '/account'
+            
+        else
+            redirect '/error'
+        end
+            
+    else
+        redirect '/form_error'
+    end
+	
+end    
+ 
 #-------------------------------------------------------------------------------
 
 def accept_tweet # Jamie
