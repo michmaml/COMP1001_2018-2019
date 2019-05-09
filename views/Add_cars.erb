@@ -20,9 +20,13 @@
 <article>
 	<h1>Add car</h1>
 	<form method="post" action="/Added_car">
-		<input type="integer" name="Status" placeholder="Status will be automatically set" required>
+        <p>Status</p>
+		<input type="integer" name="Status" placeholder="Status will be automatically set" required> 
+        <p>Type</p>
         <input type="integer" name="Type" placeholder="See above table" required>
+        <p>Seats</p>
 		<input type="integer" name="Seats" placeholder="Enter number of seats" required>
+        <p>Region</p>
         <input class = "region" type="text" name="Location" placeholder="Enter region" required>
 		<input type="submit" class="blue" value="Submit">
 	</form>
