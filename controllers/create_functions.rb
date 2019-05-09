@@ -108,13 +108,28 @@ end
 def add_cars(type,seats,location)  #Adds a new car to system status is automatically set to 0   #works 
   if type.is_a?(Integer) && seats.is_a?(Integer)
     carID = @db.get_first_value('SELECT MAX(CarID)+1 FROM Cars');
-      #puts carID[0]
-    #puts carID, type ,seats
     query = @db.execute(
       'INSERT INTO Cars VALUES (?, ?, ?, ?,?)',
       [carID, 0, type, seats, location.capitalize])
     return query
   else
-      puts "invalid data types"
+      redirect '/form_error'
   end
+end
+        
+#-------------------------------------------------------------------------------
+
+def add_favourite     # Kacper
+	
+    favourite_place = params[:place].strip
+	
+	userID = @db.get_first_value(
+		'SELECT UserID FROM User_details WHERE Email = (?)',
+		[session[:email]])
+	
+    favouritesID = @db.get_first_value(
+		'SELECT MAX(FavouritesID)+1 FROM Favourites')
+	
+    @db.execute('INSERT INTO Favourites VALUES (?,?,?)',
+		[favouritesID, userID, favourite_place])
 end
