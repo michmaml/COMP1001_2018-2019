@@ -1,3 +1,4 @@
+
 # app.rb
 # Main controller for Twaxis web application
 # COM1001 Spring Semester Assignment 2019
@@ -153,7 +154,64 @@ post '/account' do
 	end
 	redirect '/account'
 end
+get '/user_favourites' do
+	if session[:user_login]
+	
+		# Fetch details of current user
+		fetch_users
+	
+		@view = :user_favourites
+	else
+		redirect '/login'
+	end
+	erb :template
+end
 
+post '/user_favourites' do
+        if session[:user_login]
+            add_favourite
+        else
+            redirect '/login'
+        end
+    redirect '/user_favourites'
+end
+
+get '/user_orders' do
+	if session[:user_login]
+	
+		# Fetch details of current user
+		fetch_users
+	
+		@view = :user_orders
+	else
+		redirect '/login'
+	end
+	erb :template
+end
+
+get '/user_settings' do
+	if session[:user_login]
+	
+		# Fetch details of current user
+	
+	
+		@view = :user_settings
+	else
+		redirect '/login'
+	end
+	erb :template
+end
+
+post '/user_settings' do
+	if session[:user_login]
+	
+		# Fetch details of current 
+	
+        update_user_settings
+	else
+		redirect '/error'
+	end
+end
 
 
 #-------------------------------------------------------------------------------
@@ -198,46 +256,6 @@ post '/users' do
 	redirect '/users'
 end
 
-get '/user_settings' do 
-    @view = :user_settings
-    erb :template
-end
-
-post '/user_settings' do
-	if session[:user_login]
-	
-		# Update user
-		update_user_settings
-	
-	end
-	redirect '/error'
-end
-
-get '/user_favourites' do
-	if session[:user_login]
-	
-		# Fetch details of current user
-		fetch_users
-	
-		@view = :user_favourites
-	else
-		redirect '/login'
-	end
-	erb :template
-end
-
-get '/user_orders' do
-	if session[:user_login]
-	
-		# Fetch details of current user
-		fetch_users
-	
-		@view = :user_orders
-	else
-		redirect '/login'
-	end
-	erb :template
-end
 
 #-------------------------------------------------------------------------------
 

@@ -43,6 +43,8 @@ end
       
 def update_user_settings
        
+     require 'digest'
+    sha256 = Digest::SHA256.new 
 	submitted = params[:submitted]
 	pass1 = params[:pass1].strip
     pass2 = params[:pass2].strip
@@ -50,16 +52,11 @@ def update_user_settings
     pass2sha256 = Digest::SHA256.hexdigest pass2
     
     if(pass1sha256 == pass2sha256) 
-        success = @db.execute(
+        @db.execute(
 			'UPDATE User_details
-			SET Password=?',
-			[pass1sha256])
-        if success 
-            redirect '/account'
-            
-        else
-            redirect '/error'
-        end
+			SET Password=? WHERE Email=?',
+			[pass1sha256, session[:email]])
+        redirect '/user_settings'
             
     else
         redirect '/form_error'
