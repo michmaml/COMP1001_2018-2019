@@ -10,10 +10,10 @@
 		<header>
 
 			<% if session[:user_login] || session[:admin_login] %>
-			<a href="/logout"><button class="float-right red">Log out</button></a>
+			<a href="/logout"><button class="float-right red" id="logout button">Log out</button></a>
 			<a href="/account"><button class="float-right blue">My account</button></a>
 			<% else %>
-			<a href="/login"><button class="float-right red">Log in</button></a>
+			<a href="/login"><button class="float-right red" id="login button">Log in</button></a>
 			<a href="/join"><button class="float-right blue">Sign up</button></a>
 			<% end %>
 			<a href="/">

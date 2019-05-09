@@ -4,6 +4,13 @@
 	date = timestamp[0]
 	time = timestamp[1]
 	zone = timestamp[2]
+
+	# Just because Jamie loves regexes...
+	if (postcode_match = /(?<! to |[@\w])([A-Za-z]{1,2}\d\w?)\s?(\d[A-Za-z]{2})(?!\w)/.match(tweet.text))
+		postcode_guess = postcode_match[1] +" "+ postcode_match[2]
+	else
+		postcode_guess = ""
+	end
 %>
 <article class="order">		
 	<button class="float-right"
@@ -23,11 +30,11 @@
 		
 		<section class="hidden tweets">
 			<hr>
-			<b class="blue">Enter pickup details:</b>
+			<b class="blue">Edit pickup details:</b>
 			<input type="text" name="date" placeholder="Date" value="<%= date %>">
 			<input type="text" name="time" placeholder="Time" value="<%= time %>">
+			<input type="text" name="pickup_location" placeholder="Pickup location" value="<%= postcode_guess %>">
 			<input type="text" name="car_id" placeholder="Car ID">
-			<input type="text" name="pickup_location" placeholder="Pickup location">
 			<hr>
 			<input type="submit" class="float-right blue" value="Submit">
 			<b class="blue">Write a reply:</b>

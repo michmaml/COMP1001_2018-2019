@@ -18,14 +18,14 @@ When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
-When ("I login as user") do
+When ("I login as admin") do
     steps %{
-      Given I am on the home page
-      When I press "Log in"
-      When I fill in "username" with ""
-      When I fill in "password" with ""
-      When I press "Login" within "main"
-      Then I should see "Logged in as user "
+        Given I am on the home page
+        When I press "Log in"
+        When I fill in "Email" with "test@sheffiled.ac.uk"
+        When I fill in "password" with "test"
+      When I press "Submit" within "main"
+      Then I should see "Admin system"
     }
 end
 

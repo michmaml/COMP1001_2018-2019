@@ -73,7 +73,7 @@ article {
 }
 
 article table {
-	table-layout: fixed;
+	/* table-layout: fixed; */
 	width: 25em;
 }
 
