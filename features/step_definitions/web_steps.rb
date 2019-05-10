@@ -1,6 +1,8 @@
 require 'sqlite3'
 require 'uri'
 require 'cgi'
+require 'sqlite3'
+
 require_relative '../support/paths'
 require_relative '../../app'
 
@@ -41,13 +43,34 @@ end
 When ("I sign as user") do
     steps %{
         Given I am on the join page
+<<<<<<< HEAD
         When I fill in "display_name" with "sing1y1"
         When I fill in "first_name" with "sign1y1"
         When I fill in "Surname" with "sign1y1"
         When I fill in "email" with "sign11@sheffyield.ac.uk"
         When I fill in "password" with "sigyn11" 
+=======
+        When I fill in "display_name" with "sign"
+        When I fill in "first_name" with "sign"
+        When I fill in "Surname" with "sign"
+        When I fill in "email" with "sign@sheffield.ac.uk"
+        When I fill in "password" with "sign" 
+>>>>>>> 805e3040424a7c93b9e699de4439637b47ab1db4
         When I press "Join" within "form"
-        Then I should see "Order your taxi with a tweet."
+        Then I should not see "Order your taxi with a tweet."
+    }
+end
+
+When ("I login as user") do
+    steps %{
+     
+        Given I am on the loginpage
+       
+        When I fill in "email" with "user@sheffield.ac.uk"
+        When I fill in "password" with "user"
+        When I press "Submit" 
+        Then I should see "Welcome!"
+
     }
 end
 
@@ -62,7 +85,11 @@ When ("I login as user") do
 end
 
 After('@addtestaccount') do
+<<<<<<< HEAD
   @db.execute "DELETE from User_details WHERE email = 'sign@sheffield.ac.uk"
+=======
+  $db.execute "DELETE from User_details WHERE email = 'delete@sheffield.ac.uk"
+>>>>>>> 805e3040424a7c93b9e699de4439637b47ab1db4
 end
 
 After('@addcarsheff') do
