@@ -8,11 +8,11 @@ Feature: Sign up
     When I fill in "email" with "test@test.com"
     When I fill in "password" with "test" 
     When I press "Join" within "form"
-    Then I should see "Order your taxi with a tweet."
+    Then I should see "Sorry but it seems that email or Twitter name is incorrect...🤔"
   
   Scenario: check the join feature no 2
     Given I am on the join page
-    When I fill in "display_name" with "twitter"
+    When I fill in "display_name" with ""
     When I fill in "first_name" with "twitter"
     When I fill in "Surname" with "test"
     When I fill in "email" with "test@test.com"
@@ -28,7 +28,7 @@ Feature: Sign up
     When I fill in "email" with "test@sheffield.ac.uk"
     When I fill in "password" with "test" 
     When I press "Join" within "form"  
-    Then I should see "Order your taxi with a tweet."
+    Then I should not see "Order your taxi with a tweet."
     
   Scenario: check the First name & Twitter handle
     Given I am on the join page
