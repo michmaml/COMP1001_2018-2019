@@ -20,10 +20,10 @@ def update_order # Jamie
 	
 		begin
 			@db.execute(
-			'UPDATE Orders
-			SET CarID=?, Pickup_location=?, Date=?, Time=?
-			WHERE OrderID=?',
-			[carID, pickupLocation, date, time, orderID])
+				'UPDATE Orders
+				SET CarID=?, Pickup_location=?, Date=?, Time=?
+				WHERE OrderID=?',
+				[carID, pickupLocation, date, time, orderID])
 		rescue
 			redirect '/error'
 		end

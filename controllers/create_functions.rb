@@ -99,6 +99,8 @@ def create_user # Kacper
 		rescue
 			redirect '/signup_error'
 		end
+	else
+		redirect '/form_error'
 	end
 	
 end

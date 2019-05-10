@@ -15,8 +15,8 @@ def log_in # Kacper
 
 	#perform validation
     status = @db.get_first_value(
-		'SELECT Status FROM User_details WHERE Email = ? AND Password = ?;',[email, coded_password]
-	).to_i
+		'SELECT Status FROM User_details WHERE Email = ? AND Password = ?;',
+		[email, coded_password]).to_i
 	
 	if status >= USER_STATUS_ADMIN
 		session[:admin_login] = true
