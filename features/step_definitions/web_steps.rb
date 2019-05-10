@@ -41,11 +41,11 @@ end
 When ("I login as user") do
     steps %{
         Given I am on the join page
-        When I fill in "display_name" with "twitter"
-        When I fill in "first_name" with "twitter"
-        When I fill in "Surname" with "test"
-        When I fill in "email" with "user@sheffield.ac.uk"
-        When I fill in "password" with "user" 
+        When I fill in "display_name" with "sing"
+        When I fill in "first_name" with "sign"
+        When I fill in "Surname" with "sign"
+        When I fill in "email" with "sign@sheffield.ac.uk"
+        When I fill in "password" with "sign" 
         When I press "Join" within "form"
         Then I should see "Order your taxi with a tweet."
     }
