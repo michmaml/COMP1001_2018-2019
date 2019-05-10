@@ -137,8 +137,8 @@ def update_map #Huiqiang
 
 		results.each do |location|
       
-         p = Postcodes::IO.new
-         postcode = p.lookup(location["Pickup_location"])
+         pio = Postcodes::IO.new
+         postcode = pio.lookup(location["Pickup_location"])
          
 		if postcode
 			 @Locations.push({    
