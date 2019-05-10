@@ -40,13 +40,13 @@
 			<% end %>
 			<hr>
 			<input type="submit" class="float-right blue" value="Reply">
+			<b class="blue">Write a reply:</b>
 			<input type="hidden" name="order_id" value="<%= order[:id] %>">
-			<input type="hidden" name="status" value="1">
 			<input type="hidden" name="screen_name" value="<%= order[:screen_name] %>">
 			<input type="text" name="reply" value="@<%= order[:screen_name] %> "
 				pattern=".*@<%= order[:screen_name] %>.*"
 				minlength="1" maxlength="140"
-				placeholder="Write a reply..."
+				placeholder="Must contain user's Twitter handle (@<%= order[:screen_name] %>)"
 				onfocus="this.selectionStart = -1">
 		</section>
 	</form>

@@ -6,7 +6,7 @@
 	zone = timestamp[2]
 
 	# Just because Jamie loves regexes...
-	if (postcode_match = /(?<! to |[@\w])([A-Za-z]{1,2}\d\w?)\s?(\d[A-Za-z]{2})(?!\w)/.match(tweet.text))
+	if (postcode_match = VALID_POSTCODE.match(tweet.text))
 		postcode_guess = postcode_match[1] +" "+ postcode_match[2]
 	else
 		postcode_guess = ""

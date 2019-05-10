@@ -20,7 +20,8 @@ ORDER_STATUS_CANCELLED = 0
 ORDER_STATUS_ACTIVE = 1
 ORDER_STATUS_ARCHIVED = 2
 
-VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 VALID_TWITTER_HANDLE = /\A@\w{1,15}\z/
+VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+VALID_POSTCODE = /(?<! to |[@\w])([A-Za-z]{1,2}\d\w?)\s?(\d[A-Za-z]{2})(?!\w)/
 
 #-------------------------------------------------------------------------------
