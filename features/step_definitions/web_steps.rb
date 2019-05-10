@@ -68,13 +68,6 @@ When ("I login as user") do
     }
 end
 
-
-After('@addtestaccount') do
-
-  $db.execute "DELETE from User_details WHERE email = 'delete@sheffield.ac.uk"
-
-end
-
 After('@addcarsheff') do
   $db.execute "DELETE from cars WHERE id = ''"
 end

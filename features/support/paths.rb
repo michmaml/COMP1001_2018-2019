@@ -14,6 +14,9 @@ module NavigationHelpers
     when /the login\s?page/
       '/login' 
         
+    when /the signup\s?page/
+      '/signup'
+        
     when /the welcome\s?page/
       '/welcome'
     
