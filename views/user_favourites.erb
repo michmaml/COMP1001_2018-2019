@@ -1,5 +1,14 @@
 <article>
-    
+	<% @favourites.each do |favourite| %>
+	<table>
+		<tr>
+			<th>Favourite Place</th>
+		</tr>
+		<tr>
+            <td><p></p><%= favourite[:place] %></td>
+		</tr>
+	</table>
+	<% end %>
     <form method="post" action="/user_favourites">
         <input type="text" name="place" placeholder="add your place">
         <button>Add</button>

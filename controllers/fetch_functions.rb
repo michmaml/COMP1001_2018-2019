@@ -156,3 +156,31 @@ end
 
 
 #-------------------------------------------------------------------------------
+
+def fetch_favourites # Jamie
+	
+	userID = @db.get_first_value(
+		'SELECT UserID FROM User_details WHERE Email = ?',
+		[session[:email]])
+	
+	results = @db.execute(
+		"SELECT Place FROM Favourites WHERE UserID = ?;",
+		[userID])
+
+	if results
+
+		@favourites = []
+		results.each do |favourite|
+			
+			@favourites.push({
+				
+				place: favourite["Place"],
+				
+			})
+		end
+
+	else
+		redirect '/error'
+	end
+
+end
