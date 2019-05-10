@@ -28,3 +28,4 @@ Feature: log in
     When I fill in "password" with "NOTCORRECT"
     When I press "Submit" within "form"
     Then I should see "Not authorised"
+    
