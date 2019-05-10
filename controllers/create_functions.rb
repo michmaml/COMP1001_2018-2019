@@ -5,7 +5,7 @@
 def create_order # Toby
 	
 	orderID = params[:order_id].strip.to_i
-	twitterHandle = params[:screen_name].strip
+	twitterHandle = params[:screen_name].sub('@','').strip
 
 	date = params[:date].strip
 	time = params[:time].strip
@@ -67,7 +67,7 @@ def create_user # Kacper
     sha256 = Digest::SHA256.new
 
 	#sanitize values
-	display_name = params[:display_name].strip
+	display_name = params[:display_name].sub('@','').strip
 	first_name = params[:first_name].strip
 	surname = params[:surname].strip
 	email = params[:email].strip

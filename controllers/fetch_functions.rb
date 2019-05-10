@@ -4,13 +4,14 @@
 
 def fetch_orders # Jamie
 	
+	@orders = []
+	
 	results = @db.execute (
 		"SELECT * FROM Orders WHERE Status = #{ORDER_STATUS_ACTIVE} ORDER BY OrderID DESC LIMIT 20;"
 		)
 
 	if results
 
-		@orders = []
 		results.each do |order|
 			
 			tweet_list = @db.execute(
@@ -47,20 +48,20 @@ end
 
 def fetch_history # Jamie
 	
-	userID = @db.get_first_value(
-		'SELECT UserID FROM User_details WHERE Email = ?',
+	@orders = []
+	
+	twitter_handle = @db.get_first_value(
+		'SELECT Twitter_handle FROM User_details WHERE Email = ?',
 		[session[:email]])
 	
 	results = @db.execute(
-		"SELECT * FROM Orders WHERE Status != #{ORDER_STATUS_CANCELLED} AND UserID = ?
+		"SELECT * FROM Orders WHERE Status != #{ORDER_STATUS_CANCELLED} AND Twitter_handle = ?
 		ORDER BY OrderID DESC LIMIT 20;",
-		[userID])
+		[twitter_handle])
 
 	if results
-
-		@orders = []
+	p twitter_handle
 		results.each do |order|
-			
 			@orders.push({
 				
 				id: order["OrderID"],
