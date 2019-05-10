@@ -5,7 +5,7 @@ Feature: Orders
     
         Given I am on the orderspage
         
-	    Then I should be on the orderspage
+	    Then I should not see "Expand"
         
   	
 
