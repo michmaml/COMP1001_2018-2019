@@ -1,3 +1,19 @@
 <article>
-   
+	<h1>Order history</h1>
+	<% @orders.each do |order| %>
+	<table>
+		<tr>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Pickup location</th>
+			<th>Car ID</th>
+		</tr>
+		<tr>
+			<td><input type="text" name="date" value="<%= order[:date] %>"></td>
+			<td><input type="text" name="time" value="<%= order[:time] %>"></td>
+			<td><input type="text" name="pickup_location" value="<%= order[:from] %>"></td>
+			<td><input type="text" name="car_id" value="<%= order[:car_id] %>"></td>
+		</tr>
+	</table>
+	<% end %>
 </article>
