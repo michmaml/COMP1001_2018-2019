@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-05-10T02:31:36+00:00">2019-05-10T02:31:36+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-05-10T03:09:52+00:00">2019-05-10T03:09:52+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.07
+         2.11
        </span>
     </span> hits/line)
   </h2>
@@ -97,7 +97,7 @@
         <td>52</td>
         <td>13</td>
         <td>39</td>
-        <td>1.8</td>
+        <td>2.0</td>
       </tr>
       
       <tr>
@@ -127,7 +127,7 @@
         <td>123</td>
         <td>52</td>
         <td>71</td>
-        <td>3.2</td>
+        <td>3.3</td>
       </tr>
       
       <tr>
@@ -4866,8 +4866,8 @@
           <code class="ruby">        @cars.each do |car|</code>
         </li>
       
-        <li class="covered" data-hits="60" data-linenumber="140">
-          <span class="hits">60</span>
+        <li class="covered" data-hits="70" data-linenumber="140">
+          <span class="hits">70</span>
           
           <code class="ruby">			@Car.push({</code>
         </li>
@@ -6435,8 +6435,8 @@
           <code class="ruby">  def with_scope(locator)</code>
         </li>
       
-        <li class="covered" data-hits="110" data-linenumber="9">
-          <span class="hits">110</span>
+        <li class="covered" data-hits="112" data-linenumber="9">
+          <span class="hits">112</span>
           
           <code class="ruby">    locator ? within(locator) { yield } : yield</code>
         </li>
@@ -6648,31 +6648,31 @@
         <li class="never" data-hits="" data-linenumber="44">
           
           
-          <code class="ruby">        When I fill in &quot;display_name&quot; with &quot;twitter&quot;</code>
+          <code class="ruby">        When I fill in &quot;display_name&quot; with &quot;sign&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="45">
           
           
-          <code class="ruby">        When I fill in &quot;first_name&quot; with &quot;twitter&quot;</code>
+          <code class="ruby">        When I fill in &quot;first_name&quot; with &quot;sign&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="46">
           
           
-          <code class="ruby">        When I fill in &quot;Surname&quot; with &quot;test&quot;</code>
+          <code class="ruby">        When I fill in &quot;Surname&quot; with &quot;sign&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="47">
           
           
-          <code class="ruby">        When I fill in &quot;email&quot; with &quot;user@sheffield.ac.uk&quot;</code>
+          <code class="ruby">        When I fill in &quot;email&quot; with &quot;sign@sheffield.ac.uk&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="48">
           
           
-          <code class="ruby">        When I fill in &quot;password&quot; with &quot;user&quot; </code>
+          <code class="ruby">        When I fill in &quot;password&quot; with &quot;sign&quot; </code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="49">
@@ -6684,7 +6684,7 @@
         <li class="never" data-hits="" data-linenumber="50">
           
           
-          <code class="ruby">        Then I should see &quot;Order your taxi with a tweet.&quot;</code>
+          <code class="ruby">        Then I should not see &quot;Order your taxi with a tweet.&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="51">
@@ -6795,14 +6795,14 @@
           <code class="ruby">When /^(?:|I )press &quot;([^\&quot;]*)&quot;(?: within &quot;([^\&quot;]*)&quot;)?$/ do |button, selector|</code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="69">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="20" data-linenumber="69">
+          <span class="hits">20</span>
           
           <code class="ruby">  with_scope(selector) do</code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="70">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="20" data-linenumber="70">
+          <span class="hits">20</span>
           
           <code class="ruby">    click_button(button)</code>
         </li>
@@ -7275,20 +7275,20 @@
           <code class="ruby">Then /^(?:|I )should see &quot;([^\&quot;]*)&quot;(?: within &quot;([^\&quot;]*)&quot;)?$/ do |text, selector|</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="149">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="15" data-linenumber="149">
+          <span class="hits">15</span>
           
           <code class="ruby">  with_scope(selector) do</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="150">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="15" data-linenumber="150">
+          <span class="hits">15</span>
           
           <code class="ruby">    if page.respond_to? :should</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="151">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="15" data-linenumber="151">
+          <span class="hits">15</span>
           
           <code class="ruby">      page.should have_content(text)</code>
         </li>
@@ -7401,20 +7401,20 @@
           <code class="ruby">Then /^(?:|I )should not see &quot;([^\&quot;]*)&quot;(?: within &quot;([^\&quot;]*)&quot;)?$/ do |text, selector|</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="170">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="9" data-linenumber="170">
+          <span class="hits">9</span>
           
           <code class="ruby">  with_scope(selector) do</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="171">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="9" data-linenumber="171">
+          <span class="hits">9</span>
           
           <code class="ruby">    if page.respond_to? :should</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="172">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="9" data-linenumber="172">
+          <span class="hits">9</span>
           
           <code class="ruby">      page.should have_no_content(text)</code>
         </li>

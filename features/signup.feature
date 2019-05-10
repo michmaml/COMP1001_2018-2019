@@ -74,5 +74,5 @@ Feature: Sign up
     Given I want to create an account
     Given I login as user
     When I press "Log in" 
-    Then I should see "Order your taxi with a tweet."
+    Then I should not see "Order your taxi with a tweet."
 
