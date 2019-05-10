@@ -1,4 +1,4 @@
-
+require 'sqlite3'
 require 'uri'
 require 'cgi'
 require_relative '../support/paths'
@@ -38,21 +38,31 @@ When ("I want to create an account") do
     }
 end
 
-When ("I login as user") do
+When ("I sign as user") do
     steps %{
         Given I am on the join page
-        When I fill in "display_name" with "sing"
-        When I fill in "first_name" with "sign"
-        When I fill in "Surname" with "sign"
-        When I fill in "email" with "sign@sheffield.ac.uk"
-        When I fill in "password" with "sign" 
+        When I fill in "display_name" with "sing1y1"
+        When I fill in "first_name" with "sign1y1"
+        When I fill in "Surname" with "sign1y1"
+        When I fill in "email" with "sign11@sheffyield.ac.uk"
+        When I fill in "password" with "sigyn11" 
         When I press "Join" within "form"
         Then I should see "Order your taxi with a tweet."
     }
 end
 
+When ("I login as user") do
+    steps %{
+        Given I am on the loginpage
+        When I fill in "Email" with "user@sheffiled.ac.uk"
+        When I fill in "password" with "user"
+        When I press "Submit"
+        Then I should see "Welcome!"
+    }
+end
+
 After('@addtestaccount') do
-  @db.execute "DELETE from User_details WHERE email = 'delete@sheffield.ac.uk"
+  @db.execute "DELETE from User_details WHERE email = 'sign@sheffield.ac.uk"
 end
 
 After('@addcarsheff') do
