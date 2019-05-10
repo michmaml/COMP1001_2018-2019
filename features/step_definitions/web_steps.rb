@@ -1,6 +1,8 @@
 
 require 'uri'
 require 'cgi'
+require 'sqlite3'
+
 require_relative '../support/paths'
 require_relative '../../app'
 
@@ -38,7 +40,7 @@ When ("I want to create an account") do
     }
 end
 
-When ("I login as user") do
+When ("I sign as user") do
     steps %{
         Given I am on the join page
         When I fill in "display_name" with "sign"
@@ -51,8 +53,21 @@ When ("I login as user") do
     }
 end
 
+When ("I login as user") do
+    steps %{
+     
+        Given I am on the loginpage
+       
+        When I fill in "email" with "user@sheffield.ac.uk"
+        When I fill in "password" with "user"
+        When I press "Submit" 
+        Then I should see "Welcome!"
+
+    }
+end
+
 After('@addtestaccount') do
-  @db.execute "DELETE from User_details WHERE email = 'delete@sheffield.ac.uk"
+  $db.execute "DELETE from User_details WHERE email = 'delete@sheffield.ac.uk"
 end
 
 After('@addcarsheff') do
