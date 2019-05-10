@@ -60,7 +60,7 @@ def fetch_history # Jamie
 		[twitter_handle])
 
 	if results
-	p twitter_handle
+		
 		results.each do |order|
 			@orders.push({
 				
