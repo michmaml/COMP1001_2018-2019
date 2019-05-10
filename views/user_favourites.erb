@@ -1,7 +1,7 @@
 <article>
-     <% @favourites.each do |favourite| %>
-    <p><%favourite %></p>
-    <% end %>
-    <input type="text" placeholder="add your place">
-    <button>Add</button>
+    
+    <form method="post" action="/user_favourites">
+        <input type="text" name="place" placeholder="add your place">
+        <button>Add</button>
+    </form>
 </article>

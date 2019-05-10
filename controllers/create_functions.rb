@@ -60,7 +60,7 @@ def create_tweet # Jamie
 end
 
 #-------------------------------------------------------------------------------
-	
+	 
 def create_user # Kacper
 	
     require 'digest'
@@ -129,7 +129,8 @@ def add_favourite     # Kacper
 	
     favouritesID = @db.get_first_value(
 		'SELECT MAX(FavouritesID)+1 FROM Favourites')
-	
+	puts session[:email]
     @db.execute('INSERT INTO Favourites VALUES (?,?,?)',
 		[favouritesID, userID, favourite_place])
+    redirect '/user_favourites'
 end

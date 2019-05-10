@@ -160,7 +160,6 @@ get '/user_favourites' do
 	if session[:user_login]
 	
 		# Fetch details of current user
-		fetch_users
 	
 		@view = :user_favourites
 	else
@@ -175,7 +174,7 @@ post '/user_favourites' do
         else
             redirect '/login'
         end
-    redirect '/user_favourites'
+   
 end
 
 get '/user_orders' do
