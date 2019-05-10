@@ -2,23 +2,23 @@ Feature: Sign up
 
   Scenario: check the join feature no 1
     Given I am on the join page
-    When I fill in "display_name" with "signupt11"
-    When I fill in "first_name" with "signupt11"
-    When I fill in "Surname" with "signupt11"
-    When I fill in "email" with "signupt11@signupt.com"
-    When I fill in "password" with "signupt11" 
+    When I fill in "display_name" with "signuptxx"
+    When I fill in "first_name" with "signuptxx"
+    When I fill in "Surname" with "signuptxx"
+    When I fill in "email" with "signuptxx@signupt.com"
+    When I fill in "password" with "signuptxx" 
     When I press "Join" within "form"
-    Then I should see "Welcome"
+    Then I should not see "Welcome!"
     
   Scenario: check the join feature no 2
     Given I am on the join page
-    When I fill in "display_name" with "signupt01"
-    When I fill in "first_name" with "signupt01"
-    When I fill in "Surname" with "signupt01"
-    When I fill in "email" with "signupt01@signupt.com"
-    When I fill in "password" with "signupt01" 
+    When I fill in "display_name" with "signuptyy"
+    When I fill in "first_name" with "signuptyy"
+    When I fill in "Surname" with "signuptyy"
+    When I fill in "email" with "signuptyy@signupt.com"
+    When I fill in "password" with "signuptyy" 
     When I press "Join" within "form"
-    Then I should see "Welcome" 
+    Then I should not see "Welcome!" 
 
   Scenario: check the join feature no 1 (existing account)
     Given I am on the join page
@@ -89,18 +89,12 @@ Feature: Sign up
     When I fill in "password" with "test"
 	Then I should not see "Sorry but it seems that email or Twitter name is incorrect...🤔"
 
-<<<<<<< HEAD
-=======
- 
->>>>>>> 805e3040424a7c93b9e699de4439637b47ab1db4
+
   Scenario: Logging out from the website
     Given I want to create an account
     Given I login as user
     When I press "Log out" 
-<<<<<<< HEAD
-    Then I should see "Order your taxi with a tweet."
-=======
+
     Then I should not see "Order your taxi with a tweet."
-  
->>>>>>> 805e3040424a7c93b9e699de4439637b47ab1db4
+
 
