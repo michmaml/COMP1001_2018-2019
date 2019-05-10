@@ -7,7 +7,7 @@ Feature: log in
     When I fill in "password" with "test"
     When I press "Submit" within "form"
     Then I should see "Admin system"
-@addtestaccount
+
   Scenario: Incorrect passoword entered
     Given I am on the loginpage
     When I fill in "email" with "delete@sheffield.ac.uk"

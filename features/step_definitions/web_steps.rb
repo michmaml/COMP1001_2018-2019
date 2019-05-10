@@ -109,6 +109,7 @@ When /^(?:|I )fill in "([^\"]*)" for "([^\"]*)"(?: within "([^\"]*)")?$/ do |val
   end
 end
 
+
 # Use this to fill in an entire form with data from a table. Example:
 #
 #   When I fill in the following:
@@ -158,11 +159,23 @@ When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)"(?: within "([^\"]*)")?$/ 
   end
 end
 
+When /^(?:|I )check "([^"]*)"$/ do |field|
+  check(field)
+end
+
 Then /^(?:|I )should see JSON:$/ do |expected_json|
   require 'json'
   expected = JSON.pretty_generate(JSON.parse(expected_json))
   actual   = JSON.pretty_generate(JSON.parse(response.body))
   expected.should == actual
+end
+
+Then /^checkbox "([^"]*)" should be unchecked$/ do |id|
+  expect(find("#{id}")).not_to be_checked
+end
+
+Then /^checkbox "([^"]*)" should be checked$/ do |id|
+  expect(find("#{id}")).to be_checked
 end
 
 Then /^(?:|I )should see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
