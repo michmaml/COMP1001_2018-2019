@@ -1,6 +1,6 @@
 source "https://rubygems.org" do
 
-gem "nokogiri", "1.6.7.2"
+gem "nokogiri", "1.11.4"
 gem "sinatra"
 gem "thin"
 gem "capybara"
