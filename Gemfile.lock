@@ -1,8 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.6.0)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     backports (3.14.0)
     buftok (0.2.0)
     builder (3.2.3)
@@ -64,7 +64,8 @@ GEM
       racc (~> 1.4)
     postcodes_io (0.3.0)
       excon (~> 0.39)
-    public_suffix (3.0.3)
+    public_suffix (4.0.6)
+    racc (1.5.2)
     rack (2.2.3)
     rack-protection (2.0.5)
       rack
